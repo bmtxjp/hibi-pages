@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>hibi — 読み返す日のための、日記。</title>
-<meta name="description" content="hibi は、毎日の出来事や気持ちを、ひとことから残せる日記アプリです。">
+<title>hibi — 読み返す日のための、日記。｜日記アプリ</title>
+<meta name="description" content="hibi は、BMTX が提供する日記アプリです。毎日の出来事や気持ちを、何でもひとことから残せます。最大140文字。写真や動画も添えて、投稿に合わせて見た目が変わります。データはすべて端末内に保存され、自分以外に公開されません。残した記録は、1 週間後や 1 年後の同じ日に届き、読み返せます。iOS / Android に対応しています。">
 <link rel="canonical" href="https://hibi.bmtx.jp/">
 
 <meta property="og:type" content="website">
@@ -29,37 +29,81 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "hibi",
-  "alternateName": "hibi 日記アプリ",
-  "applicationCategory": "LifestyleApplication",
-  "operatingSystem": "iOS, Android",
-  "inLanguage": "ja",
-  "description": "hibi は、毎日の出来事や気持ちを、ひとことから残せる日記アプリです。日記は端末内に保存され、バックアップはユーザー自身の Google Drive へ。広告 ID も第三者トラッキングもありません。",
-  "url": "https://hibi.bmtx.jp/",
-  "image": "https://hibi.bmtx.jp/assets/ogp.png",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "JPY"
-  },
-  "featureList": [
-    "端末内保存（運営者はアクセス不可）",
-    "Google Drive への自分管理バックアップ",
-    "ON THIS DAY（過去の同じ日付の振り返り）",
-    "過去の記録を引用して続きを書く",
-    "写真つきカード・ギャラリービュー",
-    "月次レポート",
-    "テーマ切り替え"
-  ],
-  "publisher": {
-    "@type": "Organization",
-    "name": "BMTX",
-    "url": "https://hibi.bmtx.jp/"
-  },
-  "downloadUrl": [
-    "https://apps.apple.com/jp/app/id6799611736",
-    "https://play.google.com/store/apps/details?id=jp.bmtx.hibi"
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://hibi.bmtx.jp/#organization",
+      "name": "BMTX",
+      "url": "https://hibi.bmtx.jp/",
+      "sameAs": ["https://x.com/bmtxjp"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://hibi.bmtx.jp/#website",
+      "name": "hibi",
+      "alternateName": "hibi 日記アプリ",
+      "url": "https://hibi.bmtx.jp/",
+      "inLanguage": "ja",
+      "publisher": { "@id": "https://hibi.bmtx.jp/#organization" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://hibi.bmtx.jp/#webpage",
+      "name": "hibi — 読み返す日のための、日記。｜日記アプリ",
+      "url": "https://hibi.bmtx.jp/",
+      "isPartOf": { "@id": "https://hibi.bmtx.jp/#website" },
+      "about": { "@id": "https://hibi.bmtx.jp/#app" },
+      "primaryImageOfPage": "https://hibi.bmtx.jp/assets/ogp.png",
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://hibi.bmtx.jp/#app",
+      "name": "hibi",
+      "alternateName": ["hibi 日記アプリ", "hibi - 読み返す日のための、日記。"],
+      "applicationCategory": "LifestyleApplication",
+      "applicationSubCategory": "日記アプリ",
+      "operatingSystem": "iOS, Android",
+      "inLanguage": "ja",
+      "description": "hibi は、最大 140 文字と写真・動画でその日のひとことを残せる、BMTX の日記アプリです。書いた記録は端末の中に保存され、バックアップはご自身の Google Drive へ。広告 ID も、第三者の追跡もありません。1 年前の同じ日の記録が届く「あの日の今日（ON THIS DAY）」や、マンスリーレポートで読み返せます。iOS / Android に対応し、現在、すべての機能を無料で利用できます。",
+      "url": "https://hibi.bmtx.jp/",
+      "image": "https://hibi.bmtx.jp/assets/ogp.png",
+      "sameAs": [
+        "https://apps.apple.com/jp/app/id6799611736",
+        "https://play.google.com/store/apps/details?id=jp.bmtx.hibi",
+        "https://x.com/hibi_journal"
+      ],
+      "identifier": [
+        { "@type": "PropertyValue", "propertyID": "Google Play package name", "value": "jp.bmtx.hibi" },
+        { "@type": "PropertyValue", "propertyID": "App Store ID", "value": "6799611736" }
+      ],
+      "downloadUrl": [
+        "https://apps.apple.com/jp/app/id6799611736",
+        "https://play.google.com/store/apps/details?id=jp.bmtx.hibi"
+      ],
+      "installUrl": [
+        "https://apps.apple.com/jp/app/id6799611736",
+        "https://play.google.com/store/apps/details?id=jp.bmtx.hibi"
+      ],
+      "datePublished": "2026-08-18",
+      "releaseNotes": "https://hibi.bmtx.jp/notices.html",
+      "featureList": [
+        "端末内保存（運営者はアクセス不可）",
+        "Google Drive への自分管理バックアップ",
+        "ON THIS DAY（過去の同じ日付の振り返り）",
+        "過去の記録を引用して続きを書く",
+        "写真つきカード・ギャラリービュー",
+        "月次レポート",
+        "テーマ切り替え"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      },
+      "publisher": { "@id": "https://hibi.bmtx.jp/#organization" },
+      "author": { "@id": "https://hibi.bmtx.jp/#organization" }
+    }
   ]
 }
 </script>
@@ -138,7 +182,7 @@ img{display:block;max-width:100%}
 .lede .hang{margin-right:-.5em}                    
 .lede .orn{width:48px;height:3px;background:var(--accent);margin:clamp(20px,3vw,30px) 0 clamp(18px,2.6vw,26px)}
 /* FV のワードマーク（ストア画像 #05 と同じ「hibi → 見出し」の構図。書体はヘッダーの brand-mark と同一） */
-.fv .fv-mark{font-family:var(--font-mark);font-weight:100;font-size:clamp(20px,2.2vw,26px);line-height:1;color:var(--text);letter-spacing:.02em;margin-bottom:clamp(16px,2.2vw,24px)}
+.fv .fv-mark{display:block;font-family:var(--font-mark);font-weight:100;font-size:clamp(20px,2.2vw,26px);line-height:1;color:var(--text);letter-spacing:.02em;margin-bottom:clamp(16px,2.2vw,24px)}
 .lede .sub{
   font-family:var(--font-serif);
   font-weight:500;font-size:clamp(15px,1.9vw,23px);
@@ -328,8 +372,7 @@ img{display:block;max-width:100%}
 
   <section class="fv wrap">
     <div class="lede">
-      <p class="fv-mark" aria-hidden="true">hibi</p>
-      <h1>読み返す日のための、<wbr>日記<span class="hang">。</span></h1>
+      <h1><span class="fv-mark">hibi</span>読み返す日のための、<wbr>日記<span class="hang">。</span></h1>
       <div class="orn" aria-hidden="true"></div>
       <p class="sub">気軽に続けられる、本心の置き場。</p>
       

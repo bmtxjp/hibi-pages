@@ -25,7 +25,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600&family=Outfit:wght@100&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@500;600&family=Outfit:wght@400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -107,441 +107,557 @@
   ]
 }
 </script>
-<style>
-
-:root{
-  --bg:#0A0A0A;
-  --surface:#161616;
-  --text:#FFFFFF;
-  --text-body:#D4D4D8;
-  --text-sub:#8A8A92;
-  --text-dim:#5C5C63;
-  --accent:#D4A373;
-  --border:rgba(255,255,255,0.07);
-  --border-strong:rgba(255,255,255,0.12);
-
-  --bloom:rgba(212,163,115,.26);   
-
-  --font-sans:'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',system-ui,sans-serif;
-  --font-serif:'Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif;
-  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
-  --font-mark:'Outfit','Helvetica Neue',system-ui,sans-serif;
-
-  --gutter:32px;
-  --measure:1080px;
-
-  --dev:300px;
-  --dev-cut:1.6;
-  
-  --dev-cut-fv:1.70;
-
-  --header-h:57px;
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;overflow-x:clip}
-body{
-  background:var(--bg);color:var(--text-body);
-  font-family:var(--font-sans);line-height:1.8;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-a{color:inherit}
-img{display:block;max-width:100%}
-
-.wrap{max-width:var(--measure);margin:0 auto;padding:0 var(--gutter)}
-
-.sr-only{
-  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
-}
-
-.site-header{
-  position:sticky;top:0;z-index:100;
-  background:var(--bg);border-bottom:1px solid var(--border);
-  padding:14px 32px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-}
-.site-header .brand{display:inline-flex;flex-direction:column;align-items:flex-start;text-decoration:none;line-height:1}
-.site-header .brand-mark{font-family:var(--font-mark);font-weight:100;font-size:22px;color:var(--text);line-height:1}
-/* [T149] ワードマーク = A″-F のアウトライン SVG。height を em で持つので font-size 指定がそのまま効く。
-   .703125em = 旧 Outfit Thin の "hibi" インク高さ ÷ font-size（実測 703.125/1000）。
-   上下 padding は line-height:1 の旧行箱（1em）の再現値。margin だと相殺で下の要素が動くため padding。 */
-.wm-svg{display:block;height:.703125em;width:auto;fill:currentColor;box-sizing:content-box;padding:.166875em 0 .13em}
-/* 文字は DOM に残して視覚的にだけ隠す（読み上げ + [T186] の h1 文言照合を壊さないため） */
-.wm-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.site-header .brand-underline{margin-top:5px;width:32px;height:1px;background:var(--accent);opacity:.8}
-.site-nav{display:flex;align-items:center;gap:18px;font-size:12px;letter-spacing:.05em;flex-wrap:wrap}
-.site-nav a{color:var(--text-sub);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent;transition:color .15s}
-.site-nav a:hover{color:var(--text)}
-.site-nav a:focus-visible,.badge:focus-visible,.footer a:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
-
-.lede h1,.lede h2{
-  font-family:var(--font-serif);
-  font-weight:600;font-size:clamp(24px,3.2vw,34px);
-  line-height:1.42;letter-spacing:.035em;
-  font-feature-settings:'palt' 1;
-  color:#F5F1EA;
-  
-  word-break:keep-all;overflow-wrap:break-word;
-}
-.lede .k{font-style:normal;color:var(--accent)}   
-.lede .hang{margin-right:-.5em}                    
-.lede .orn{width:48px;height:3px;background:var(--accent);margin:clamp(20px,3vw,30px) 0 clamp(18px,2.6vw,26px)}
-/* FV のワードマーク（ストア画像 #05 と同じ「hibi → 見出し」の構図。書体はヘッダーの brand-mark と同一） */
-.fv .fv-mark{display:block;font-family:var(--font-mark);font-weight:100;font-size:clamp(20px,2.2vw,26px);line-height:1;color:var(--text);letter-spacing:.02em;margin-bottom:clamp(16px,2.2vw,24px)}
-.lede .sub{
-  font-family:var(--font-serif);
-  font-weight:500;font-size:clamp(15px,1.9vw,23px);
-  letter-spacing:.09em;text-indent:.09em;color:var(--text-sub);
-}
-.lede .lead{
-  margin-top:22px;font-size:14px;line-height:1.9;color:var(--text-body);
-  
-  font-family:var(--font-sans);
-  
-  word-break:auto-phrase;
-}
-
-.device{
-  position:relative;flex:0 0 auto;
-  width:var(--dev,300px);
-  background:#191512;padding:calc(var(--dev,300px)*0.017) calc(var(--dev,300px)*0.017) 0;
-  border-radius:calc(var(--dev,300px)*0.148) calc(var(--dev,300px)*0.148) 0 0;
-  box-shadow:0 44px 92px rgba(0,0,0,.8),0 16px 34px rgba(0,0,0,.55);
-}
-.device__screen{
-  overflow:hidden;background:#0A0A0A;
-  border-radius:calc(var(--dev,300px)*0.126) calc(var(--dev,300px)*0.126) 0 0;
-  height:calc(var(--dev) * 2.098);   
-}
-.device__screen img{width:100%}
-
-.figure{position:relative;display:flex;justify-content:center}
-.figure::before{
-  content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:150%;aspect-ratio:1;border-radius:50%;pointer-events:none;
-  background:radial-gradient(closest-side,var(--bloom),rgba(212,163,115,0) 72%);
-  filter:blur(56px);
-}
-
-.section{padding-top:clamp(80px,12vh,130px);padding-bottom:clamp(80px,12vh,130px)}
-.section--split{display:grid;gap:clamp(36px,6vw,72px);align-items:center}
-
-.figure--bleed{overflow:hidden;align-items:flex-start}
-
-.fv{
-  
-  min-height:min(calc(100svh - var(--header-h)), calc(var(--dev) * var(--dev-cut-fv) + 200px));
-  display:grid;align-items:center;
-  padding-top:clamp(48px,8svh,96px);
-}
-.fv .badges{margin-top:clamp(26px,4vw,34px)}
-.fv .figure{overflow:hidden;align-items:flex-start;max-height:calc(var(--dev) * var(--dev-cut-fv))}
-
-.badges{
-  --badge-h:48px;                       
-  display:flex;align-items:center;flex-wrap:wrap;
-  gap:calc(var(--badge-h) / 4);         
-}
-.badge{display:inline-block;line-height:0;text-decoration:none;border-radius:8px}
-.badge img{display:block;height:var(--badge-h);width:auto}
-
-.badge:focus-visible{outline:1px solid var(--accent);outline-offset:calc(var(--badge-h) / 4)}
-.badges.is-pending .badge{pointer-events:none}
-.badges__note{
-  width:100%;margin-top:calc(var(--badge-h) / 4);
-  font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--text-dim);
-}
-.badges:not(.is-pending) .badges__note{display:none}
-
-.promises{list-style:none;margin-top:clamp(28px,4vw,46px);max-width:44em}
-.promises li{padding:22px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:46px 1fr}
-.promises li:last-child{border-bottom:0}
-.promises .num{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--text-dim);padding-top:.55em}
-.promises p{font-size:15px;line-height:1.95;color:var(--text-body);word-break:auto-phrase}
-
-.cards-shell{position:relative;width:100%}
-.cards{position:relative;width:100%;aspect-ratio:1196/1058}
-.lift{
-  position:absolute;width:48.328%;   
-  padding:.17%;border-radius:6.23%;  
-  background:linear-gradient(180deg,rgba(212,163,115,.55) 0%,rgba(212,163,115,.14) 42%,rgba(212,163,115,.30) 100%);
-  box-shadow:0 54px 110px rgba(0,0,0,.72),0 17px 37px rgba(0,0,0,.5),0 0 98px rgba(212,163,115,.16);
-}
-.clip{width:100%;overflow:hidden;border-radius:5.57%;background:#0A0A0A}  
-.clip img{width:108.732%;max-width:none;margin-left:-4.366%}              
-.s05a{left:0;top:0}                 .s05a .clip{aspect-ratio:574/651.542} .s05a img{margin-top:-15.32%}
-.s05c{left:51.672%;top:.313%}       .s05c .clip{aspect-ratio:574/619.390} .s05c img{margin-top:-91.76%}
-.s05d{left:0;top:72.548%}           .s05d .clip{aspect-ratio:574/286.527} .s05d img{margin-top:-47.45%}
-.s05f{left:51.672%;top:74.961%}     .s05f .clip{aspect-ratio:574/260.995} .s05f img{margin-top:-92.42%}
-
-.minis{display:flex;flex:0 0 auto}
-.mini{
-  --mw:150px;width:var(--mw);flex:0 0 auto;overflow:hidden;
-  background:#191512;padding:calc(var(--mw)*0.023) calc(var(--mw)*0.023) 0;
-  border-radius:calc(var(--mw)*0.154) calc(var(--mw)*0.154) 0 0;
-  box-shadow:0 24px 52px rgba(0,0,0,.72),0 6px 14px rgba(0,0,0,.5);
-  height:calc(var(--mw)*2.08);
-}
-.mini + .mini{margin-left:calc(var(--mw)*-0.44)}
-.mini:nth-child(2){margin-top:calc(var(--mw)*0.12)}
-.mini:nth-child(3){margin-top:calc(var(--mw)*0.24)}
-.mini:nth-child(4){margin-top:calc(var(--mw)*0.36)}
-.mini.is-light{box-shadow:0 24px 52px rgba(0,0,0,.72),0 6px 14px rgba(0,0,0,.5),inset 0 0 0 1px rgba(212,163,115,.30)}
-.mini__screen{overflow:hidden;border-radius:calc(var(--mw)*0.132) calc(var(--mw)*0.132) 0 0;background:#0A0A0A}
-.mini__screen img{width:100%}
-
-.download{
-  padding-top:clamp(110px,18vh,200px);padding-bottom:clamp(110px,18vh,200px);
-  text-align:center;border-top:1px solid var(--border);
-}
-.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase}
-.download .badges{justify-content:center;margin-top:34px}
-.download__note{margin-top:28px;font-size:13px;color:var(--text-sub);word-break:auto-phrase}
-
-.footer{border-top:1px solid var(--border);padding:40px 0 64px;font-size:12px;color:var(--text-dim)}
-.footer__links{display:flex;gap:20px;flex-wrap:wrap}
-.footer__links a{color:var(--text-sub);text-decoration:none}
-.footer__links a:hover{color:var(--text)}
-.footer__meta{margin-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.footer__meta a{color:var(--text-sub);text-decoration:none;border-bottom:1px solid var(--border-strong)}
-
-@media (min-width:900px){
-  .fv{grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:72px}
-  
-  .fv .figure{align-self:end}
-  .section--split{grid-template-columns:minmax(0,1fr) minmax(0,420px)}
-  :root{--dev:400px}
-  
-  .section--cards{grid-template-columns:minmax(0,1fr) minmax(0,560px)}
-  .mini{--mw:150px}
-  
-  .figure--bleed{max-height:calc(var(--dev) * var(--dev-cut))}
-}
-
-@media (max-width:899px){
-  .section--split{grid-template-columns:1fr;gap:28px}
-
-  .fv{
-    display:flex;flex-direction:column;
-    
-    align-items:stretch;
-    padding-top:clamp(40px,7svh,72px);
-  }
-  .fv .lede{flex:0 0 auto}
-  
-  .fv .badges{
-    margin-top:clamp(24px,4.5vw,32px);
-    margin-bottom:clamp(28px,5svh,48px);
-    justify-content:center;
-  }
-  .fv .figure{margin-top:auto}
-
-  .figure{justify-content:center}
-
-  :root{--dev:min(84vw,360px)}
-  
-  .figure--bleed{max-height:calc(var(--dev) * var(--dev-cut))}
-  .mini{--mw:min(26vw,140px)}
-
-  .section{padding-top:clamp(64px,9vh,96px);padding-bottom:clamp(64px,9vh,96px)}
-}
-
-@media (max-width:640px){
-  :root{--gutter:20px;--header-h:84px}
-  .site-header{padding:12px 20px;gap:10px}
-  .site-header .brand-mark{font-size:20px}
-  .site-nav{gap:14px;font-size:11px;width:100%;justify-content:flex-start}
-  .promises li{display:block;padding:20px 0}
-  .promises .num{display:block;padding-top:0;margin-bottom:8px}
-  .promises p{font-size:14px}
-  .footer__meta{flex-direction:column;gap:10px}
-}
-</style>
+<!-- [T209] 旧 LP（黒地）の CSS は 2026-09-22 に削除。LP のスタイルは body 先頭のスタイルブロックに一本化した。 -->
 </head>
 <body>
+<style>
+/* =========================================================================
+   [T209] LP 全面刷新（生成り版）— Client Agent / 2026-09-22
+   確定プロト 20260922_t209_lp_full_proto.html の PC（1280）/ スマホ（375）2 DOM を
+   1 つのレスポンシブ DOM に統合したもの。設計は 03_design/20260922_t209_lp_full_design.md。
 
-<header class="site-header">
-  <a class="brand" href="./index.html" aria-label="hibi">
-    <span class="brand-mark"><svg class="wm-svg" viewBox="0 48 329.5 152" aria-hidden="true" focusable="false"><path d="M0,48 h26 v152 h-26 Z"/><path d="M0,150 A47,50 0 0 1 94,150 L68,150 A21,25 0 0 0 26,150 Z"/><path d="M68,148 h26 v52 h-26 Z"/><path d="M120,100 h26 v100 h-26 Z"/><circle cx="133" cy="68.5" r="20.5"/><path d="M176,150 A50,50 0 0 1 276,150 A50,50 0 0 1 176,150 Z M202,150 A24,24 0 0 0 250,150 A24,24 0 0 0 202,150 Z M176,48 h26 v152 h-26 Z"/><path d="M296,100 h26 v100 h-26 Z"/><circle cx="309" cy="68.5" r="20.5"/></svg><span class="wm-sr">hibi</span></span>
-    <span class="brand-underline"></span>
-  </a>
-  <nav class="site-nav" aria-label="グローバルナビゲーション">
-    <a href="./privacy.html">プライバシー</a>
-    <a href="./terms.html">利用規約</a>
-    <a href="./faq.html">FAQ</a>
-    <a href="./notices.html">お知らせ</a>
-  </nav>
+   head の旧 LP 用 CSS（黒地・約 7KB）は 2026-09-22 の仕上げで削除した（Kenny 承認）。
+   クラスはすべて lp- 接頭辞（旧ページと混ざらないように）。
+
+   線のルール（§0-1）: 琥珀の線は「見出し直下の 68×4 の罫」1 本だけ。
+   ========================================================================= */
+
+:root{
+  --paper:#FAF6EF; --paper-2:#F6F0E5; --paper-3:#F0E7D8;
+  --ink:#1A1209;        /* 見出し 17.2:1 */
+  --lp-body:#2E2419;    /* 本文   14.1:1 */
+  --lp-sub:#4A3826;     /* 副題   10.3:1 */
+  --lp-dim:#6B584A;     /* 補助    6.3:1 */
+  --lp-accent:#B07A3E;      /* 図形専用（罫・強調語＝大きい文字）3.42:1 */
+  --lp-accent-text:#8E5F2A; /* 小さい琥珀文字（ラベル / 01・02・03 / DOWNLOAD）5.10:1 */
+  --lp-edge:rgba(43,29,12,.10);
+  --lp-screen:#EDE6D9;      /* 画面領域の下地。lazy 画像が来る前に生成りの上へ黒い箱が出ないようにするため、
+                               <img> 自身の background に置く（= 画像が載れば同じ面が完全に覆われ、
+                               読み込み後の絵は 1px も変わらない）。端末の縁 #191512 はデザインなので不変。 */
+  --lp-lift:linear-gradient(180deg,rgba(176,122,62,.55) 0%,rgba(176,122,62,.14) 42%,rgba(176,122,62,.30) 100%);
+
+  --lp-font-sans:'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',system-ui,sans-serif;
+  --lp-font-serif:'Noto Serif JP','Hiragino Mincho ProN','Yu Mincho','BIZ UDMincho',serif;
+  --lp-font-mark:'Outfit','Helvetica Neue',system-ui,sans-serif;
+  --lp-font-mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+
+  /* 版面の既定値 = スマホ（プロト .page.sp 375px 相当。wrap は 560px まで伸ばす） */
+  --lp-gut:24px; --lp-wrapw:560px; --lp-measure:620px; --lp-gap:0px; --lp-pad:40px;
+  --lp-asc:.67;        /* 絵の縮尺（ユニットごとに上書き） */
+  --lp-hero-h:830px;
+}
+
+/* ---- リセットとページの地（確定プロトの reset と同じ） ---- */
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip;background:var(--paper)}
+body{
+  background:var(--paper);color:var(--lp-body);
+  font-family:var(--lp-font-sans);line-height:normal;  /* 確定プロトの body と同じ（旧 CSS の 1.8 を打ち消す） */
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:none}
+a{color:inherit;text-decoration:none}
+
+.lp-wrap{position:relative;width:min(var(--lp-wrapw),calc(100% - var(--lp-gut) * 2));margin:0 auto}
+
+/* =======================================================================
+   タイポ（ストア 8 面と同じ組み）
+   ======================================================================= */
+.lp-label{display:block;font-size:12.5px;font-weight:500;letter-spacing:.2em;
+  color:var(--lp-accent-text);line-height:1;margin-bottom:26px}
+.lp-label-en{font-family:var(--lp-font-mark);font-weight:400;letter-spacing:.34em;font-size:12px}
+.lp-h1,.lp-h2{font-family:var(--lp-font-serif);font-weight:600;color:var(--ink);
+  letter-spacing:.035em;line-height:1.42;font-feature-settings:'palt' 1;word-break:keep-all}
+.lp-k{font-style:normal;color:var(--lp-accent)}   /* ストア 8 面と同じ強調語 */
+.lp-hang{margin-right:-.5em}                      /* 句点のぶら下げ */
+.lp-orn{width:56px;height:3px;background:var(--lp-accent);margin:22px 0 20px}
+.lp-sub{font-family:var(--lp-font-serif);font-weight:500;font-size:16px;letter-spacing:.09em;
+  text-indent:.09em;color:var(--lp-sub)}
+.lp-p{font-size:15px;line-height:1.95;color:var(--lp-body);letter-spacing:.015em}
+.wm-svg{display:block;height:.703125em;width:auto;fill:currentColor;box-sizing:content-box;padding:.166875em 0 .13em}
+.wm-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* 改行の出し分け（既定 = スマホ） */
+.lp-brpc{display:none}
+.lp-brsp{display:inline}
+
+/* =======================================================================
+   素キャプチャの切り出し（520×1130 座標系。--s0 = 倍率）
+   ======================================================================= */
+.lp-shot{position:relative;overflow:hidden;
+  width:calc(var(--w) * var(--s0));height:calc(var(--h) * var(--s0))}
+.lp-shot>img{position:absolute;background:var(--lp-screen);
+  width:calc(520px * var(--s0));height:auto;
+  left:calc(var(--x) * var(--s0) * -1);
+  top:calc(var(--y) * var(--s0) * -1)}
+
+/* 端末（上のステータスバーは切り、四隅は角丸で完結。ヒーローだけ下へ食み出す） */
+.lp-dev{background:#191512;padding:9px 9px 0;
+  box-shadow:0 34px 58px rgba(43,29,12,.26),0 12px 24px rgba(43,29,12,.15),0 2px 6px rgba(43,29,12,.10)}
+.lp-dev>.lp-scr{overflow:hidden;background:#0A0908}
+/* 額（2px 琥珀グラデ + 角丸） */
+.lp-lift{position:absolute;padding:2px;background:var(--lp-lift);
+  box-shadow:0 26px 52px rgba(43,29,12,.30),0 8px 18px rgba(43,29,12,.16),0 0 48px rgba(176,122,62,.14)}
+.lp-lift>.lp-clip{overflow:hidden;background:#0A0A0A}
+
+/* =======================================================================
+   ヘッダー / フッター（生成り版・§0-7）
+   ======================================================================= */
+.lp-header{position:relative;z-index:5;height:52px;background:var(--paper);border-bottom:1px solid var(--lp-edge)}
+.lp-header .lp-wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.lp-brand{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1}
+.lp-brandmark{display:block;font-size:20px;color:#2A1F12;line-height:1}
+.lp-brandline{margin-top:5px;width:32px;height:1px;background:var(--lp-accent);opacity:.8}
+.lp-nav{display:flex;gap:12px;font-size:10.5px;letter-spacing:.05em;color:var(--lp-dim);flex-wrap:wrap}
+.lp-nav a{transition:color .15s}
+.lp-nav a:hover{color:var(--ink)}
+.lp-nav a:focus-visible,.lp-badge:focus-visible,.lp-footer a:focus-visible{outline:1px solid var(--lp-accent);outline-offset:3px}
+.lp-footer{border-top:1px solid var(--lp-edge);padding:40px 0 60px;font-size:12px;color:var(--lp-dim)}
+.lp-footer .lp-flinks{display:flex;gap:20px;flex-wrap:wrap;color:var(--lp-sub)}
+.lp-footer .lp-flinks a:hover{color:var(--ink)}
+.lp-footer .lp-fmeta{margin-top:24px}
+
+/* =======================================================================
+   ヒーロー（= ストア #01）
+   ======================================================================= */
+.lp-hero{position:relative;overflow:hidden;height:var(--lp-hero-h);
+  background:
+    radial-gradient(120% 90% at 46% -12%,rgba(255,252,246,.95) 0%,rgba(255,252,246,0) 55%),
+    radial-gradient(160% 120% at 60% 118%,rgba(176,122,62,.11) 0%,rgba(176,122,62,0) 56%),
+    linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 58%,var(--paper-3) 100%)}
+.lp-hero .lp-wrap{height:100%}
+.lp-hero .lp-lede{position:absolute;left:0;top:52px;width:100%;z-index:3}
+.lp-fvmark{display:block;font-size:32px;color:#2A1F12;line-height:1;margin-left:1.5px;margin-bottom:22px}
+.lp-hero .lp-h1{font-size:min(30px,8vw);white-space:nowrap}
+.lp-hero .lp-lead{margin-top:16px;font-size:13px;line-height:1.9;color:var(--lp-body)}
+.lp-badges{display:flex;gap:10px;margin-top:26px}
+.lp-badges img{height:40px;width:auto}
+.lp-hero .lp-dev{position:absolute;left:50%;transform:translateX(-50%);margin-left:15.5px;
+  bottom:-9px;width:270px;border-radius:40px 40px 0 0}
+.lp-hero .lp-scr{width:252px;height:360px;border-radius:33px 33px 0 0}
+.lp-hero .lp-shot{--x:0px;--y:62px;--w:520px;--h:743px;--s0:.4846}
+
+/* =======================================================================
+   3 つの約束の帯（= ストア #02）
+   ======================================================================= */
+.lp-promise{padding:70px 0;border-top:1px solid var(--lp-edge);border-bottom:1px solid var(--lp-edge);
+  background:
+    radial-gradient(130% 120% at 84% 8%,rgba(176,122,62,.075) 0%,rgba(176,122,62,0) 58%),
+    linear-gradient(180deg,var(--paper-3) 0%,var(--paper-2) 100%)}
+.lp-promise .lp-h2{font-size:min(23px,6.15vw)}
+.lp-promise .lp-cols{display:grid;grid-template-columns:1fr;gap:30px;margin-top:34px;padding:0;list-style:none}
+.lp-promise .lp-n{display:block;font-family:var(--lp-font-mark);font-weight:400;font-size:16px;
+  letter-spacing:.14em;color:var(--lp-accent-text);margin-bottom:12px}
+.lp-promise .lp-cols p{font-size:14px;line-height:1.95}
+
+/* =======================================================================
+   特徴ユニット × 6（= ストア #03〜#08 の LP 版）
+   ======================================================================= */
+.lp-unit{padding:var(--lp-pad) 0}
+.lp-unit .lp-h2{font-size:min(24px,6.4vw);white-space:nowrap}
+.lp-art{position:relative;
+  width:calc(var(--abw) * var(--lp-asc));height:calc(var(--abh) * var(--lp-asc));
+  margin-top:34px;margin-left:calc((100% - var(--abw) * var(--lp-asc)) / 2)}
+.lp-artbox{position:relative;width:var(--abw);height:var(--abh);
+  transform:scale(var(--lp-asc));transform-origin:top left}
+/* スマホでの縮尺（プロト .page.sp の実測値） */
+.lp-unit.lp-u-wide{--lp-asc:.833}   /* U1・U2・U4 = 端末 1 台 */
+.lp-unit.lp-u-theme{--lp-asc:.584}  /* U6 = テーマ 2×2 */
+/* U6 テーマ名 */
+.lp-tname{position:absolute;text-align:center;font-family:var(--lp-font-serif);font-weight:500;
+  font-size:15px;letter-spacing:.14em;text-indent:.14em;color:var(--lp-sub)}
+
+/* =======================================================================
+   検索用の帯（文章だけ）
+   ======================================================================= */
+.lp-essay{padding:70px 0;border-top:1px solid var(--lp-edge);border-bottom:1px solid var(--lp-edge);
+  background:
+    radial-gradient(120% 130% at 12% 0%,rgba(255,253,248,.9) 0%,rgba(255,253,248,0) 55%),
+    linear-gradient(180deg,var(--paper-2) 0%,var(--paper-3) 100%)}
+.lp-essay .lp-h2{font-size:min(22px,5.9vw)}
+.lp-essay .lp-essaybody{width:min(620px,100%)}
+.lp-essay .lp-essaybody p{font-size:15px;line-height:2.0;color:var(--lp-body);letter-spacing:.015em}
+.lp-essay .lp-essaybody p + p{margin-top:30px}
+
+/* =======================================================================
+   入手する / hibi について
+   ======================================================================= */
+.lp-download{padding:70px 0 60px;text-align:center}
+.lp-download .lp-badges{justify-content:center}   /* margin-top はスマホ 26 / PC 34（プロトと同じ） */
+.lp-download .lp-note{margin-top:22px;font-size:12.5px;color:var(--lp-sub)}
+.lp-badge{display:inline-block;line-height:0;border-radius:8px}
+.lp-about{padding:0 0 64px}
+.lp-about .lp-h2{font-size:min(21px,5.6vw)}
+.lp-about .lp-lead{font-size:14px;line-height:2.0;color:var(--lp-body)}
+.lp-about dl{margin-top:26px;display:grid;grid-template-columns:96px 1fr;border-top:1px solid var(--lp-edge)}
+.lp-about dt{padding:10px 0;font-size:11px;letter-spacing:.04em;color:var(--lp-sub);border-bottom:1px solid var(--lp-edge)}
+.lp-about dd{padding:10px 0;font-size:12px;line-height:1.75;color:var(--lp-body);border-bottom:1px solid var(--lp-edge)}
+.lp-about dd .lp-u{font-family:var(--lp-font-mono);font-size:11px;letter-spacing:0;word-break:break-all}
+
+/* =======================================================================
+   PC（2 段組み）— 1024px 以上
+   絵の欄が 560px の半分以下になると画面の中身が読めなくなるため、
+   1023px 以下は 1 段組み（プロトのスマホ版）に倒す。
+   ======================================================================= */
+@media (min-width:1024px){
+  :root{
+    --lp-gut:40px; --lp-wrapw:1120px; --lp-gap:52px; --lp-pad:56px;
+    --lp-asc:.82; --lp-hero-h:660px;
+  }
+  .lp-brpc{display:inline}
+  .lp-brsp{display:none}
+
+  .lp-orn{width:68px;height:4px;margin:30px 0 26px}
+  .lp-sub{font-size:20px}
+  .lp-p{font-size:16.5px;line-height:2.0}
+
+  .lp-header{height:58px}
+  .lp-brandmark{font-size:22px}
+  .lp-nav{gap:18px;font-size:12px}
+
+  .lp-hero .lp-lede{top:140px;width:min(560px,58%)}
+  .lp-fvmark{font-size:44px;margin-bottom:34px}
+  .lp-hero .lp-h1{font-size:min(38px,3.6vw)}
+  .lp-hero .lp-lead{margin-top:22px;font-size:14.5px;line-height:1.95;white-space:nowrap}
+  .lp-badges{gap:14px;margin-top:38px}
+  .lp-badges img{height:46px}
+  .lp-hero .lp-dev{left:auto;right:0;margin-left:0;
+    width:400px;border-radius:59px 59px 0 0;
+    bottom:calc(-36px * var(--lp-asc));
+    transform:scale(var(--lp-asc));transform-origin:bottom right}
+  .lp-hero .lp-scr{width:382px;height:637px;border-radius:50px 50px 0 0}
+  .lp-hero .lp-shot{--h:867px;--s0:.7346}
+
+  .lp-promise{padding:110px 0}
+  .lp-promise .lp-h2{font-size:min(34px,3.3vw)}
+  .lp-promise .lp-cols{grid-template-columns:repeat(3,minmax(0,1fr));gap:50px;margin-top:52px}
+  .lp-promise .lp-cols p{font-size:15px}
+
+  .lp-unit{display:flex;gap:var(--lp-gap);justify-content:space-between;align-items:flex-start}
+  .lp-unit.lp-u-left{flex-direction:row-reverse}
+  .lp-unit .lp-txt{flex:1 1 auto;min-width:0;max-width:var(--lp-measure)}
+  .lp-unit .lp-h2{font-size:min(34px,3.1vw)}
+  .lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:.82}
+  .lp-art{flex:none;margin-top:0;margin-left:0}
+
+  .lp-essay{padding:110px 0}
+  .lp-essay .lp-h2{font-size:min(32px,3.1vw)}
+  .lp-essay .lp-essaybody p{font-size:16.5px;line-height:2.05}
+
+  .lp-download{padding:110px 0 100px}
+  .lp-download .lp-badges{margin-top:34px}
+  .lp-download .lp-note{margin-top:30px;font-size:14px}
+  .lp-about{padding:0 0 110px}
+  .lp-about .lp-h2{font-size:min(28px,2.7vw)}
+  .lp-about .lp-lead{font-size:15.5px}
+  .lp-about dl{margin-top:36px;grid-template-columns:150px 1fr}
+  .lp-about dt{padding:13px 0;font-size:13px;letter-spacing:.09em}
+  .lp-about dd{padding:13px 0;font-size:14.5px}
+  .lp-about dd .lp-u{font-size:13.5px;word-break:normal}
+}
+
+@media (min-width:1200px){
+  :root{--lp-gut:80px; --lp-gap:60px; --lp-pad:64px; --lp-asc:.93; --lp-hero-h:720px}
+  .lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:.93}
+  .lp-hero .lp-h1{font-size:min(42px,3.4vw)}
+  .lp-unit .lp-h2{font-size:min(36px,2.9vw)}
+}
+
+/* 1280px 以上 = 確定プロト（PC 1280 / 版面 1120 = 本文 500 + 間 60 + 絵 560）と同一 */
+@media (min-width:1280px){
+  :root{--lp-gut:80px; --lp-gap:60px; --lp-pad:70px; --lp-asc:1; --lp-hero-h:760px}
+  .lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:1}
+  .lp-hero .lp-h1{font-size:44px}
+  .lp-unit .lp-h2{font-size:38px}
+  .lp-unit .lp-txt{max-width:500px}
+}
+</style>
+
+<header class="lp-header">
+  <div class="lp-wrap">
+    <a class="lp-brand" href="./index.html" aria-label="hibi">
+      <span class="lp-brandmark"><svg class="wm-svg" viewBox="0 48 329.5 152" aria-hidden="true" focusable="false"><path d="M0,48 h26 v152 h-26 Z"/><path d="M0,150 A47,50 0 0 1 94,150 L68,150 A21,25 0 0 0 26,150 Z"/><path d="M68,148 h26 v52 h-26 Z"/><path d="M120,100 h26 v100 h-26 Z"/><circle cx="133" cy="68.5" r="20.5"/><path d="M176,150 A50,50 0 0 1 276,150 A50,50 0 0 1 176,150 Z M202,150 A24,24 0 0 0 250,150 A24,24 0 0 0 202,150 Z M176,48 h26 v152 h-26 Z"/><path d="M296,100 h26 v100 h-26 Z"/><circle cx="309" cy="68.5" r="20.5"/></svg><span class="wm-sr">hibi</span></span>
+      <span class="lp-brandline"></span>
+    </a>
+    <nav class="lp-nav" aria-label="グローバルナビゲーション">
+      <a href="./privacy.html">プライバシー</a>
+      <a href="./terms.html">利用規約</a>
+      <a href="./faq.html">FAQ</a>
+      <a href="./notices.html">お知らせ</a>
+    </nav>
+  </div>
 </header>
 
 <main>
 
-  <section class="fv wrap">
-    <div class="lede">
-      <h1><span class="fv-mark"><svg class="wm-svg" viewBox="0 48 329.5 152" aria-hidden="true" focusable="false"><path d="M0,48 h26 v152 h-26 Z"/><path d="M0,150 A47,50 0 0 1 94,150 L68,150 A21,25 0 0 0 26,150 Z"/><path d="M68,148 h26 v52 h-26 Z"/><path d="M120,100 h26 v100 h-26 Z"/><circle cx="133" cy="68.5" r="20.5"/><path d="M176,150 A50,50 0 0 1 276,150 A50,50 0 0 1 176,150 Z M202,150 A24,24 0 0 0 250,150 A24,24 0 0 0 202,150 Z M176,48 h26 v152 h-26 Z"/><path d="M296,100 h26 v100 h-26 Z"/><circle cx="309" cy="68.5" r="20.5"/></svg><span class="wm-sr">hibi</span></span>読み返す日のための、<wbr>日記<span class="hang">。</span></h1>
-      <div class="orn" aria-hidden="true"></div>
-      <p class="sub">気軽に続けられる、本心の置き場。</p>
-      
-      <p class="lead">hibi は、毎日の出来事や気持ちを、ひとことから残せる<span style="white-space:nowrap">日記アプリです。</span></p>
-      <div class="badges">
-        <a class="badge" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp&amp;mt=8">
-          <img src="./assets/badges/appstore_ja.svg" alt="App Store からダウンロード">
-        </a>
-        <a class="badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">
-          <img src="./assets/badges/googleplay_ja.svg" alt="Google Play で手に入れよう">
-        </a>
+  <!-- ============ ヒーロー（= ストア #01） ============ -->
+  <section class="lp-hero">
+    <div class="lp-wrap">
+      <div class="lp-lede">
+        <h1 class="lp-h1"><span class="lp-fvmark"><svg class="wm-svg" viewBox="0 48 329.5 152" aria-hidden="true" focusable="false"><path d="M0,48 h26 v152 h-26 Z"/><path d="M0,150 A47,50 0 0 1 94,150 L68,150 A21,25 0 0 0 26,150 Z"/><path d="M68,148 h26 v52 h-26 Z"/><path d="M120,100 h26 v100 h-26 Z"/><circle cx="133" cy="68.5" r="20.5"/><path d="M176,150 A50,50 0 0 1 276,150 A50,50 0 0 1 176,150 Z M202,150 A24,24 0 0 0 250,150 A24,24 0 0 0 202,150 Z M176,48 h26 v152 h-26 Z"/><path d="M296,100 h26 v100 h-26 Z"/><circle cx="309" cy="68.5" r="20.5"/></svg><span class="wm-sr">hibi</span></span>読み返す日のための、<br class="lp-brsp">日記<span class="lp-hang">。</span></h1>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-sub">気軽に続けられる、本心の置き場。</p>
+        <p class="lp-lead">hibi は、毎日の出来事や気持ちを、ひとことから残せる日記アプリです。</p>
+        <div class="lp-badges">
+          <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp&amp;mt=8">
+            <img src="./assets/badges/appstore_ja.svg" width="125" height="46" alt="App Store からダウンロード">
+          </a>
+          <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">
+            <img src="./assets/badges/googleplay_ja.svg" width="155" height="46" alt="Google Play で手に入れよう">
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="figure">
-      <div class="device">
-        <div class="device__screen">
-          <img src="./assets/captures/01_cinematic.jpg" fetchpriority="high"
-               alt="hibi の日記一覧画面。写真つきのカードが日付とともに並んでいる。">
+      <div class="lp-dev">
+        <div class="lp-scr">
+          <div class="lp-shot">
+            <img src="./assets/captures/01_cinematic.jpg" width="520" height="1130" fetchpriority="high" decoding="async"
+                 alt="日記一覧の画面。写真つきのカードが日付とともに並んでいる。">
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--split wrap">
-    <div class="lede">
-      
-      <h2>誰にも見せないから、<wbr><em class="k">何でも</em>書ける<span class="hang">。</span></h2>
-      <div class="orn" aria-hidden="true"></div>
-      <p class="sub">日記は、あなたの端末の中だけに。</p>
-      <ol class="promises">
-        <li><span class="num">01</span><p>日記は、あなたの端末の中に保存されます。<br>hibi の運営者がアクセスする手段はありません。</p></li>
-        <li><span class="num">02</span><p>バックアップは、あなたの Google Drive へ。<br>保存先はあなたが管理する場所であり、hibi の運営者は閲覧できません。</p></li>
-        <li><span class="num">03</span><p>広告 ID も、第三者の追跡もありません。</p></li>
+  <!-- ============ 3 つの約束の帯（= ストア #02） ============ -->
+  <section class="lp-promise">
+    <div class="lp-wrap">
+      <h2 class="lp-h2">誰にも見せないから<span class="lp-hang">、</span><br><span class="lp-k">何でも</span>書ける<span class="lp-hang">。</span></h2>
+      <div class="lp-orn" aria-hidden="true"></div>
+      <p class="lp-sub">日記は、あなたの端末の中だけに。</p>
+      <ol class="lp-cols">
+        <li><span class="lp-n">01</span><p>日記は、あなたの端末の中に保存されます。hibi の運営者がアクセスする手段はありません。</p></li>
+        <li><span class="lp-n">02</span><p>バックアップは、あなたの Google Drive へ。保存先はあなたが管理する場所であり、hibi の運営者は閲覧できません。</p></li>
+        <li><span class="lp-n">03</span><p>広告 ID も、第三者の追跡もありません。</p></li>
       </ol>
     </div>
-    <div class="figure figure--bleed">
-      <div class="device">
-        <div class="device__screen">
-          <img src="./assets/captures/02_venting.jpg" loading="lazy" decoding="async"
-               alt="hibi の日記一覧画面。長文の日記カードが表示されている。">
+  </section>
+
+  <!-- ============ 特徴ユニット × 6 ============ -->
+  <div class="lp-wrap">
+
+    <!-- U1 = ストア #03 -->
+    <section class="lp-unit lp-u-right lp-u-wide" style="--abw:560px;--abh:720px">
+      <div class="lp-txt">
+        <span class="lp-label">あの日の今日</span>
+        <h2 class="lp-h2">あの日の言葉が、<span class="lp-k">今日</span>届く<span class="lp-hang">。</span></h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-p">「あの日の今日」を開くと、1 週間前、1 か月前、6 か月前、1 年前と、過去の記録が今日に並びます。書いた翌週から、読み返しが始まります。</p>
+      </div>
+      <div class="lp-art"><div class="lp-artbox">
+        <div class="lp-dev" style="position:absolute;left:100px;top:0;width:360px;border-radius:54px;padding:9px">
+          <div class="lp-scr" style="width:342px;height:702px;border-radius:48px">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:1068px;--s0:0.6577">
+              <img src="./assets/captures/03_otd.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="「あの日の今日」の画面。過去の同じ月日の記録が新しい順に並んでいる。">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </div></div>
+    </section>
 
-  <section class="section section--split wrap">
-    <div class="lede">
-      <h2>あの日の言葉が、<wbr><em class="k">今日</em>届く<span class="hang">。</span></h2>
-      <div class="orn" aria-hidden="true"></div>
-      <p class="sub">過去の同じ月日の記録が、静かに浮かぶ。</p>
-    </div>
-    <div class="figure figure--bleed">
-      <div class="device">
-        <div class="device__screen">
-          <img src="./assets/captures/03_otd.jpg" loading="lazy" decoding="async"
-               alt="hibi の ON THIS DAY 画面。過去の同じ日付に書いた日記が並んでいる。">
+    <!-- U2 = ストア #04 -->
+    <section class="lp-unit lp-u-left lp-u-wide" style="--abw:560px;--abh:720px">
+      <div class="lp-txt">
+        <span class="lp-label">引用</span>
+        <h2 class="lp-h2">あの日の続きを、今日<span class="lp-k">書く</span><span class="lp-hang">。</span></h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-p">過去の記録を引用して、その続きを今日の日記に書けます。あの日の言葉と今日の言葉が、つながって残ります。</p>
+      </div>
+      <div class="lp-art"><div class="lp-artbox">
+        <div class="lp-dev" style="position:absolute;left:100px;top:0;width:360px;border-radius:54px;padding:9px">
+          <div class="lp-scr" style="width:342px;height:702px;border-radius:48px">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:1068px;--s0:0.6577">
+              <img src="./assets/captures/04_quote.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="過去の記録を引用して、その続きを書いた日記カード。">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </div></div>
+    </section>
 
-  <section class="section section--split wrap">
-    <div class="lede">
-      <h2>あの日の続きを、<wbr>今日<em class="k">書く</em><span class="hang">。</span></h2>
-      <div class="orn" aria-hidden="true"></div>
-      <p class="sub">過去の記録を引用して、続きを書く。</p>
-    </div>
-    <div class="figure figure--bleed">
-      <div class="device">
-        <div class="device__screen">
-          <img src="./assets/captures/04_quote.jpg" loading="lazy" decoding="async"
-               alt="hibi の日記一覧画面。過去の日記を引用したカードが表示されている。">
+    <!-- U3 = ストア #05（標本箱 2×2） -->
+    <section class="lp-unit lp-u-right" style="--abw:560px;--abh:498px">
+      <div class="lp-txt">
+        <span class="lp-label">カード</span>
+        <h2 class="lp-h2">ひとことが、<span class="lp-k">絵</span>になる<span class="lp-hang">。</span></h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-p">最大 140 文字のひとこと。書いた記録は、本文の長さや写真の有無に応じて自動で異なるカードに変わり、それぞれの日の気持ちが、それぞれのカードで残ります。</p>
+      </div>
+      <div class="lp-art"><div class="lp-artbox">
+        <div class="lp-lift" style="left:0;top:0;border-radius:18px">
+          <div class="lp-clip" style="border-radius:16px">
+            <div class="lp-shot" style="--x:21px;--y:73px;--w:478px;--h:543px;--s0:0.5628">
+              <img src="./assets/captures/05a_cinematic.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="写真を全面に使った日記カード。"></div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--split section--cards wrap">
-    <div class="lede">
-      <h2>ひとことが、<wbr><em class="k">絵</em>になる<span class="hang">。</span></h2>
-      <div class="orn" aria-hidden="true"></div>
-      <p class="sub">最大 140 文字。<wbr>投稿に合わせて、<wbr>見た目が変わる。</p>
-    </div>
-    <div class="figure">
-      <div class="cards-shell">
-        <div class="cards">
-          <div class="lift s05a"><div class="clip"><img src="./assets/captures/05a_cinematic.jpg" loading="lazy" decoding="async" alt="写真つきの日記カード。"></div></div>
-          <div class="lift s05c"><div class="clip"><img src="./assets/captures/05c_dual.jpg" loading="lazy" decoding="async" alt="写真を 2 枚並べた日記カード。"></div></div>
-          <div class="lift s05d"><div class="clip"><img src="./assets/captures/05d_venting.jpg" loading="lazy" decoding="async" alt="長文だけの日記カード。"></div></div>
-          <div class="lift s05f"><div class="clip"><img src="./assets/captures/05f_rawmoment.jpg" loading="lazy" decoding="async" alt="ひとことだけの日記カード。"></div></div>
+        <div class="lp-lift" style="left:287px;top:2px;border-radius:18px">
+          <div class="lp-clip" style="border-radius:16px">
+            <div class="lp-shot" style="--x:21px;--y:439px;--w:478px;--h:516px;--s0:0.5628">
+              <img src="./assets/captures/05c_dual.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="写真を 2 枚並べた日記カード。"></div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--split wrap">
-    <div class="lede">
-      <h2>日々が、<wbr><em class="k">模様</em>になる<span class="hang">。</span></h2>
-      <div class="orn" aria-hidden="true"></div>
-      <p class="sub">写真で日々をたどる。</p>
-    </div>
-    <div class="figure figure--bleed">
-      <div class="device">
-        <div class="device__screen">
-          <img src="./assets/captures/06_gallery.jpg" loading="lazy" decoding="async"
-               alt="hibi のギャラリービュー。日記に添えた写真がタイル状に並んでいる。">
+        <div class="lp-lift" style="left:0;top:359px;border-radius:18px">
+          <div class="lp-clip" style="border-radius:16px">
+            <div class="lp-shot" style="--x:21px;--y:227px;--w:478px;--h:239px;--s0:0.5628">
+              <img src="./assets/captures/05d_venting.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="長めの本文だけの日記カード。"></div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--split wrap">
-    <div class="lede">
-      <h2>先月のあなたを振り返る<span class="hang">。</span></h2>
-      <div class="orn" aria-hidden="true"></div>
-    </div>
-    <div class="figure figure--bleed">
-      <div class="device">
-        <div class="device__screen">
-          <img src="./assets/captures/07a_cover_july.jpg" loading="lazy" decoding="async"
-               alt="hibi の月次レポート画面。その月の表紙に夕景の写真が使われている。">
+        <div class="lp-lift" style="left:287px;top:371px;border-radius:18px">
+          <div class="lp-clip" style="border-radius:16px">
+            <div class="lp-shot" style="--x:21px;--y:442px;--w:478px;--h:217px;--s0:0.5628">
+              <img src="./assets/captures/05f_rawmoment.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="ひとことだけの日記カード。"></div>
+          </div>
         </div>
+      </div></div>
+    </section>
+
+    <!-- U4 = ストア #06 -->
+    <section class="lp-unit lp-u-left lp-u-wide" style="--abw:560px;--abh:720px">
+      <div class="lp-txt">
+        <span class="lp-label">ギャラリー</span>
+        <h2 class="lp-h2">日々が、<span class="lp-k">模様</span>になる<span class="lp-hang">。</span></h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-p">ホームをギャラリーに切り替えると、日記に添えた写真がタイルで並びます。文字ではなく、写真で日々をたどれます。</p>
+      </div>
+      <div class="lp-art"><div class="lp-artbox">
+        <div class="lp-dev" style="position:absolute;left:100px;top:0;width:360px;border-radius:54px;padding:9px">
+          <div class="lp-scr" style="width:342px;height:702px;border-radius:48px">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:1068px;--s0:0.6577">
+              <img src="./assets/captures/06_gallery.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="ギャラリー表示の画面。日記に添えた写真がタイル状に並んでいる。">
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- U5 = ストア #07（2 冊の重ね） -->
+    <section class="lp-unit lp-u-right" style="--abw:560px;--abh:704px">
+      <div class="lp-txt">
+        <span class="lp-label">マンスリーレポート</span>
+        <h2 class="lp-h2">先月のあなたを振り返る<span class="lp-hang">。</span></h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-p">ひと月が終わると、その月の記録を、月の表紙とハイライトでふり返れます。マンスリーレポートは本棚に並び、いつでも読み返せます。</p>
+      </div>
+      <div class="lp-art"><div class="lp-artbox">
+        <div class="lp-lift" style="left:83px;top:0;border-radius:18px;z-index:1">
+          <div class="lp-clip" style="border-radius:17px">
+            <div class="lp-shot" style="--x:0px;--y:128px;--w:520px;--h:926px;--s0:0.6923">
+              <img src="./assets/captures/07b_cover_june.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="前の月のマンスリーレポートの表紙。"></div>
+          </div>
+        </div>
+        <div class="lp-lift" style="left:115px;top:59px;border-radius:18px;z-index:2;
+             box-shadow:0 26px 52px rgba(43,29,12,.30),0 8px 18px rgba(43,29,12,.16),0 0 48px rgba(176,122,62,.14),0 -5px 14px rgba(43,29,12,.30)">
+          <div class="lp-clip" style="border-radius:17px">
+            <div class="lp-shot" style="--x:0px;--y:128px;--w:520px;--h:926px;--s0:0.6923">
+              <img src="./assets/captures/07a_cover_july.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="マンスリーレポートの表紙。その月の写真が全面に使われている。"></div>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- U6 = ストア #08（テーマ 2×2） -->
+    <section class="lp-unit lp-u-left lp-u-theme" style="--abw:560px;--abh:888px">
+      <div class="lp-txt">
+        <span class="lp-label">テーマ</span>
+        <h2 class="lp-h2">あなたの<span class="lp-k">世界観</span>を、選ぶ<span class="lp-hang">。</span></h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-p">テーマは 4 種類（ミッドナイト / ひだまり /雨上がりの森 / 夏の空）から選べます。選んだテーマで、アプリ全体の色合いが変わります。</p>
+      </div>
+      <div class="lp-art"><div class="lp-artbox">
+        <div class="lp-dev" style="position:absolute;left:0px;top:0px;width:266px;padding:5px 5px 0;border-radius:41px 41px 0 0">
+          <div class="lp-scr" style="width:256px;height:380px;border-radius:36px 36px 0 0">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:772px;--s0:0.4923">
+              <img src="./assets/captures/08_theme_midnight.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="暗い色合いのテーマで表示した画面。"></div></div></div>
+        <div class="lp-dev" style="position:absolute;left:293px;top:0px;width:266px;padding:5px 5px 0;border-radius:41px 41px 0 0">
+          <div class="lp-scr" style="width:256px;height:380px;border-radius:36px 36px 0 0">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:772px;--s0:0.4923">
+              <img src="./assets/captures/08_theme_hidamari.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="明るい生成りの色合いのテーマで表示した画面。"></div></div></div>
+        <div class="lp-dev" style="position:absolute;left:0px;top:466px;width:266px;padding:5px 5px 0;border-radius:41px 41px 0 0">
+          <div class="lp-scr" style="width:256px;height:380px;border-radius:36px 36px 0 0">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:772px;--s0:0.4923">
+              <img src="./assets/captures/08_theme_ameagari.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="緑がかった色合いのテーマで表示した画面。"></div></div></div>
+        <div class="lp-dev" style="position:absolute;left:293px;top:466px;width:266px;padding:5px 5px 0;border-radius:41px 41px 0 0">
+          <div class="lp-scr" style="width:256px;height:380px;border-radius:36px 36px 0 0">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:772px;--s0:0.4923">
+              <img src="./assets/captures/08_theme_natsunosora.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="青空のような色合いのテーマで表示した画面。"></div></div></div>
+        <p class="lp-tname" style="left:0px;top:398px;width:266px">ミッドナイト</p>
+        <p class="lp-tname" style="left:293px;top:398px;width:266px">ひだまり</p>
+        <p class="lp-tname" style="left:0px;top:864px;width:266px">雨上がりの森</p>
+        <p class="lp-tname" style="left:293px;top:864px;width:266px">夏の空</p>
+      </div></div>
+    </section>
+
+  </div>
+
+  <!-- ============ 検索用の帯 ============ -->
+  <section class="lp-essay">
+    <div class="lp-wrap">
+      <h2 class="lp-h2">hibi のこと<span class="lp-hang">。</span></h2>
+      <div class="lp-orn" aria-hidden="true"></div>
+      <div class="lp-essaybody">
+        <p>SNS は、誰かに見られる前提の場所です。<br class="lp-brpc">SNS には書けないことも、気軽に書けて、誰にも見られない。<br class="lp-brpc">そんな日記がなかったので、hibi をつくりました。</p>
+        <p>hibi は、書くことより、読み返すことを大切にしています。<br class="lp-brpc">1 年前の今日、自分は何を書いていたのか。<br class="lp-brpc">読み返すたびに、変わったことも、変わらなかったことも見えてきます。</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--split wrap">
-    <div class="lede">
-      <h2>あなたの<em class="k">世界観</em>を、選ぶ<span class="hang">。</span></h2>
-      <div class="orn" aria-hidden="true"></div>
-    </div>
-    <div class="figure">
-      <div class="minis">
-        <div class="mini"><div class="mini__screen"><img src="./assets/captures/08_theme_midnight.jpg" loading="lazy" decoding="async" alt="midnight テーマの画面。"></div></div>
-        <div class="mini is-light"><div class="mini__screen"><img src="./assets/captures/08_theme_hidamari.jpg" loading="lazy" decoding="async" alt="hidamari テーマの画面。"></div></div>
-        <div class="mini is-light"><div class="mini__screen"><img src="./assets/captures/08_theme_ameagari.jpg" loading="lazy" decoding="async" alt="ameagari テーマの画面。"></div></div>
-        <div class="mini is-light"><div class="mini__screen"><img src="./assets/captures/08_theme_natsunosora.jpg" loading="lazy" decoding="async" alt="natsunosora テーマの画面。"></div></div>
+  <!-- ============ 入手する ============ -->
+  <section class="lp-download">
+    <div class="lp-wrap">
+      <span class="lp-label lp-label-en">DOWNLOAD</span>
+      <div class="lp-badges">
+        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp&amp;mt=8">
+          <img src="./assets/badges/appstore_ja.svg" width="125" height="46" loading="lazy" alt="App Store からダウンロード">
+        </a>
+        <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">
+          <img src="./assets/badges/googleplay_ja.svg" width="155" height="46" loading="lazy" alt="Google Play で手に入れよう">
+        </a>
       </div>
+      <p class="lp-note">現在、すべての機能を無料で利用できます。<br class="lp-brpc">アプリ内課金はありません。</p>
     </div>
   </section>
 
-  <section class="download wrap">
-    <p class="eyebrow">DOWNLOAD</p>
-    <div class="badges">
-      <a class="badge" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp&amp;mt=8">
-        <img src="./assets/badges/appstore_ja.svg" alt="App Store からダウンロード">
-      </a>
-      <a class="badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">
-        <img src="./assets/badges/googleplay_ja.svg" alt="Google Play で手に入れよう">
-      </a>
+  <!-- ============ hibi について ============ -->
+  <section class="lp-about">
+    <div class="lp-wrap">
+      <h2 class="lp-h2">hibi について</h2>
+      <div class="lp-orn" aria-hidden="true"></div>
+      <p class="lp-lead">hibi は、BMTX が提供・運営している日記アプリです。</p>
+      <dl>
+        <dt>提供者</dt><dd>BMTX</dd>
+        <dt>アプリ名</dt><dd>hibi － 読み返す日のための、日記。</dd>
+        <dt>種別</dt><dd>日記アプリ（ライフスタイル）</dd>
+        <dt>対応 OS</dt><dd>iOS / Android</dd>
+        <dt>表示言語</dt><dd>日本語</dd>
+        <dt>料金</dt><dd>現在、すべての機能を無料で利用できます。アプリ内課金はありません。</dd>
+        <dt>App Store</dt><dd><span class="lp-u">apps.apple.com/jp/app/id6799611736</span></dd>
+        <dt>Google Play</dt><dd><span class="lp-u">play.google.com/store/apps/details?id=jp.bmtx.hibi</span></dd>
+        <dt>公式サイト</dt><dd><span class="lp-u">hibi.bmtx.jp</span></dd>
+        <dt>公開日</dt><dd>2026 年 8 月 18 日（その後の更新は「お知らせ」に掲載しています）</dd>
+      </dl>
     </div>
-    <p class="download__note">現在、すべての機能を無料で利用できます。アプリ内課金はありません。</p>
   </section>
 
-  <footer class="footer wrap">
-    <div class="footer__links">
-      <a href="./privacy.html">プライバシーポリシー</a>
-      <a href="./terms.html">利用規約</a>
-      <a href="./faq.html">よくあるご質問</a>
-      <a href="./notices.html">お知らせ</a>
-    </div>
-    <div class="footer__meta">
-      <span>&copy; 2026 BMTX</span>
+  <footer class="lp-footer">
+    <div class="lp-wrap">
+      <div class="lp-flinks">
+        <a href="./privacy.html">プライバシーポリシー</a>
+        <a href="./terms.html">利用規約</a>
+        <a href="./faq.html">よくあるご質問</a>
+        <a href="./notices.html">お知らせ</a>
+      </div>
+      <div class="lp-fmeta">&copy; 2026 BMTX</div>
     </div>
   </footer>
 

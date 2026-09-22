@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0A0A0A">
+<meta name="theme-color" content="#FAF6EF">
 
 <!-- 検索インデックスには載せない（PM §3-4 要件 6 / ストア掲載ページとの共食い回避）。
      SNS のプレビュー生成クローラは robots meta を参照しないため OGP には影響しない。 -->
@@ -53,15 +53,17 @@
      JS が <link> を注入する（下の loadWordmarkFont / §4-5）。
      色は LP（index.html）のトークンと同値。 */
   :root {
-    --bg: #0A0A0A;
-    --surface: #161616;
-    --text: #FFFFFF;
-    --text-body: #D4D4D8;
-    --text-sub: #8A8A92;
-    --text-dim: #5C5C63;
-    --accent: #D4A373;
-    --border: rgba(255,255,255,0.07);
-    --border-strong: rgba(255,255,255,0.12);
+    /* [T209] 生成り版（2026-09-22 / Client Agent）。LP・下層 4 ページと同じ値。
+       小さい琥珀文字は --accent:#8E5F2A（対 --bg 5.10:1 = AA）、図形は #B07A3E（3.42:1）。 */
+    --bg: #FAF6EF;
+    --surface: #F6F0E5;
+    --text: #1A1209;
+    --text-body: #2E2419;
+    --text-sub: #4A3826;
+    --text-dim: #6B584A;
+    --accent: #8E5F2A;
+    --border: rgba(43,29,12,0.10);
+    --border-strong: rgba(43,29,12,0.22);
     --font-sans: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
                  system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     /* ワードマーク用。LP（index.html）の --font-mark と同値。
@@ -99,7 +101,7 @@
        環境によって細すぎたり通常重量に丸められたりするため 200 で組む。 */
     font-weight: 200;
     letter-spacing: 0.02em;
-    color: var(--text);
+    color: #2A1F12;   /* [T209] 生成り地のワードマーク（LP と同じ） */
     line-height: 1;
     margin-bottom: 22px;
   }
@@ -110,6 +112,7 @@
      .703125em = 旧 Outfit Thin の "hibi" インク高さ ÷ font-size（実測 703.125/1000）。
      上下 padding は line-height:1 の旧行箱（1em）の再現値。margin だと相殺で下の要素が動くため padding。 */
   .wm-svg{display:block;height:.703125em;width:auto;fill:currentColor;box-sizing:content-box;padding:.166875em 0 .13em}
+  .mark .wm-svg{margin:0 auto}   /* [T209] 他要素と同じく中央揃え（display:block の SVG は text-align が効かない） */
   /* 文字は DOM に残して視覚的にだけ隠す（読み上げ + [T186] の h1 文言照合を壊さないため） */
   .wm-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   
@@ -124,7 +127,7 @@
      LP FV で見出しの直後に置かれているのと同じ装置・同じ位置なので実値を揃える。 */
   .rule {
     width: 48px; height: 3px;
-    background: var(--accent);
+    background: #B07A3E;   /* [T209] 罫は図形用の琥珀（LP の .lp-orn と同じ） */
     margin: 22px auto 26px;
   }
   .note {
@@ -137,7 +140,9 @@
     display: block;
     padding: 15px 18px;
     background: var(--surface);
-    border: 1px solid var(--border-strong);
+    /* [T209] 生成り地では白の半透明の縁が消えるため、ボタンの輪郭は琥珀の罫色に。
+       対 --bg 3.42:1 = WCAG 1.4.11（非テキスト 3:1）を満たす。 */
+    border: 1px solid #B07A3E;
     border-radius: 12px;
     color: var(--text);
     font-size: 15px;

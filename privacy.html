@@ -19,17 +19,21 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@100&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0A0A0A;
-      --surface: #161616;
-      --surface-deep: #050505;
-      --text: #FFFFFF;
-      --text-body: #D4D4D8;
-      --text-sub: #8A8A92;
-      --text-dim: #5C5C63;
-      --accent: #D4A373;
-      --accent-light: rgba(212,163,115,0.12);
-      --border: rgba(255,255,255,0.07);
-      --border-strong: rgba(255,255,255,0.12);
+      /* [T209] 生成り版（2026-09-22 / Client Agent）。
+         値は 03_design/20260922_t209_lp_full_design.md §1・§0-7。
+         小さい琥珀文字は --accent:#8E5F2A（対 --bg 5.10:1 = WCAG AA）。
+         図形用の #B07A3E（3.42:1）は文字には使わない。 */
+      --bg: #FAF6EF;
+      --surface: #F6F0E5;
+      --surface-deep: #F0E7D8;
+      --text: #1A1209;
+      --text-body: #2E2419;
+      --text-sub: #4A3826;
+      --text-dim: #6B584A;
+      --accent: #8E5F2A;
+      --accent-light: rgba(142,95,42,0.10);
+      --border: rgba(43,29,12,0.10);
+      --border-strong: rgba(43,29,12,0.22);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -71,7 +75,7 @@
       font-family: 'Outfit', sans-serif;
       font-weight: 100;
       font-size: 22px;
-      color: var(--text);
+      color: #2A1F12;   /* [T209] 生成り地のワードマーク（LP と同じ） */
       letter-spacing: 0;
       line-height: 1;
     }
@@ -101,7 +105,7 @@
       margin-top: 5px;
       width: 32px;
       height: 1px;
-      background: var(--accent);
+      background: #B07A3E;   /* [T209] 罫は図形用の琥珀（LP と同じ） */
       opacity: 0.8;
     }
     .site-nav {
@@ -123,7 +127,7 @@
     .site-nav a:hover { color: var(--text); }
     .site-nav a.current {
       color: var(--accent);
-      border-bottom-color: rgba(212, 163, 115, 0.5);
+      border-bottom-color: rgba(142, 95, 42, 0.5);
     }
     .site-nav .home-back {
       color: var(--text-dim);
@@ -251,7 +255,7 @@
     section.article .body a {
       color: var(--accent);
       text-decoration: none;
-      border-bottom: 1px solid rgba(212,163,115,0.3);
+      border-bottom: 1px solid rgba(142,95,42,0.35);
       padding-bottom: 1px;
     }
     section.article .body a:hover { border-bottom-color: var(--accent); }
@@ -330,7 +334,7 @@
     footer .links a {
       color: var(--accent);
       text-decoration: none;
-      border-bottom: 1px solid rgba(212,163,115,0.3);
+      border-bottom: 1px solid rgba(142,95,42,0.35);
       padding-bottom: 1px;
       margin: 0 8px;
     }

@@ -144,7 +144,7 @@
   /* 版面の既定値 = スマホ（プロト .page.sp 375px 相当。wrap は 560px まで伸ばす） */
   --lp-gut:24px; --lp-wrapw:560px; --lp-measure:620px; --lp-gap:0px; --lp-pad:40px;
   --lp-asc:.584;       /* 絵の縮尺（ユニットごとに上書き）。.584 = 327/560 = スマホの版面幅に収める（左右にガター 24px を残す・Kenny 2026-09-22） */
-  --lp-hero-h:830px;
+  --lp-hero-h:890px;   /* [T209] スマホ: 1 件目のカードを最後まで見せるため 830 → 890（Kenny 2026-09-23） */
 }
 
 /* ---- リセットとページの地（確定プロトの reset と同じ） ---- */
@@ -234,8 +234,8 @@ a{color:inherit;text-decoration:none}
 .lp-badges img{height:40px;width:auto}
 .lp-hero .lp-dev{position:absolute;left:50%;transform:translateX(-50%);margin-left:0;   /* [T209] スマホは端末を真ん中に（Kenny 2026-09-23・旧 15.5px の右寄せを撤回） */
   bottom:-9px;width:270px;border-radius:40px 40px 0 0}
-.lp-hero .lp-scr{width:252px;height:360px;border-radius:33px 33px 0 0}
-.lp-hero .lp-shot{--x:0px;--y:62px;--w:520px;--h:743px;--s0:.4846}
+.lp-hero .lp-scr{width:252px;height:420px;border-radius:33px 33px 0 0}   /* 360 → 420 = 867 × .4846 */
+.lp-hero .lp-shot{--x:0px;--y:62px;--w:520px;--h:867px;--s0:.4846}   /* --h は PC と同じ 867（カード下端のタグ行まで） */
 
 /* =======================================================================
    3 つの約束の帯（= ストア #02）

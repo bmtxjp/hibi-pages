@@ -227,6 +227,15 @@
       content: '−';
     }
     details > summary:hover { color: var(--accent); }
+    /* [T260] faq.html#import などアンカーで飛んできたとき、上に貼りつくヘッダーの下に問いが出るようにする。
+       --anchor-offset はページ末尾の小さな JS がヘッダーの高さ + 12 で入れる（JS が動かないときは 96px）。
+       id を持つ問い（いまは #import だけ）にしか効かない。 */
+    details[id] { scroll-margin-top: var(--anchor-offset, 96px); }
+    /* [T260] 長い答えの中の小見出し（Q7 の「CSV のつくり方」など）。上に少し間をあけて、段の切れ目を見せる */
+    .answer p.step { margin-top: 22px; margin-bottom: 6px; }
+    /* [T260] ボタン名・日付の例を途中で折らない（「フ／ァイル」「10／月5日」のような折れを防ぐ）。Q7 の小さい拗音・促音も行頭に来ないように */
+    details .nw { white-space: nowrap; }
+    #import .answer { line-break: strict; }
     details > summary .qnum {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
@@ -332,15 +341,15 @@
       "name": "保存した記録を、外に書き出すことはできますか？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "できます。マイページ →「設定」→「データ」→「エクスポート」から、これまでの記録をテキスト（.txt）または CSV ファイルとして書き出せます。書き出したファイルは、メールやほかのアプリへ共有できます。\nご自身の記録はいつでも手元に取り出せます。特定のアプリに縛られることはありません。"
+        "text": "できます。マイページ → IMPORT & EXPORT →「日記を書き出す」から、これまでの記録をテキスト（.txt）または CSV ファイルとして書き出せます。書き出したファイルは、メールやほかのアプリへ共有できます。\nご自身の記録はいつでも手元に取り出せます。特定のアプリに縛られることはありません。"
       }
     },
     {
       "@type": "Question",
-      "name": "ほかの日記アプリのデータを hibi に取り込めますか？",
+      "name": "ほかのアプリやメモの日記を、hibi に取り込めますか？（CSV の作り方）",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "CSV 形式で書き出せるアプリのデータであれば、取り込めます。マイページ →「設定」→「データ」→「インポート」から CSV ファイルを選び、どの列を「日付」「本文」などに対応させるかを画面で指定して取り込みます。\n最低限「日付」と「本文」さえあれば取り込めます。"
+        "text": "できます。これまで書いてきた日記を CSV ファイルにすれば、捨てずに hibi に引っ越せます。\n取り込める列\n最低限、日付と本文の 2 つの列があれば取り込めます。ほかに次の列があれば、一緒に移せます。\nタグ — 「#旅 #カフェ」のように空白で区切ると、複数のタグになります。\n気分 — 「うれしい」「おだやか」「しんみり」「もやもや」と、一部の英語（good・bad など）が読めます。ほかの言葉のときは、気分なしで取り込まれます。\n場所 — 「鎌倉」のような地名が、そのまま入ります。\n作成日時（書いた時刻） — 「2025/10/5 21:30」のように日付と時刻が入った列を選ぶと、その時刻が付きます。日付と同じ列を選んでもかまいません。無いときは 12:00 になります。\nお気に入り — 「はい」「1」「true」と書いた行が、お気に入りになります。\n写真・動画は、CSV からは取り込まれません。\nCSV のつくり方\n前のアプリに CSV の書き出し（エクスポート）があれば、それを使います。列の名前がちがっても、取り込むときに、どの列を日付・本文などにするかを選べます。\n書き出しのないメモなどは、表計算アプリに貼りつけて作れます。1 行目に「日付」「本文」と見出しを書き、2 行目から 1 行に 1 件ずつ入れます。見出しをこの 2 つにしておくと、取り込むときに列が自動で選ばれます。\n日付,本文\n2025-10-05,金木犀の香りがした。\n2025-10-06,夕方から雨。\n保存は UTF-8 で\n文字コードを UTF-8 にして、CSV で保存します。\nExcel（パソコン） — ファイルの種類を「CSV UTF-8 (コンマ区切り)」にして保存\nGoogle スプレッドシート（パソコン） — 「ファイル」→「ダウンロード」→「カンマ区切り形式（.csv）」\nNumbers（iPhone） — 「詳細」→「書き出し」→「CSV」\n日付の書き方\n「2025-10-05」「2025/10/5」「2025.10.5」「2025年10月5日」のような書き方が読めます。「2025/10/5 21:30」のような時刻つきも読めます。年の入っていない日付（「10月5日」など）は取り込まれません。\nhibi で取り込む\nCSV ファイルを、スマホから開ける場所（iPhone は「ファイル」や iCloud Drive、Android はダウンロードや Google Drive など）に置きます。\nhibi のマイページ → IMPORT & EXPORT →「日記を取り込む」から「CSV ファイルを選ぶ」を押して、そのファイルを選びます。日付と本文の列、3 件の見本を確かめて「インポート」を押すと、取り込まれます。\nいまある日記はそのまま残り、同じ日付・本文の日記は二重には取り込まれません。取り込みはスマホの中で行われ、日記の中身が hibi の運営に届くことはありません。\nうまくいかないとき\n文字が化ける・読み込めない — UTF-8 で保存し直してみてください。\n「取り込めるデータがありませんでした」と出る — 日付の書き方と、日付・本文に選んだ列を見直してみてください。"
       }
     },
     {
@@ -404,7 +413,7 @@
       "name": "機種変更します。記録を新しい端末へ移すには？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "バックアップを設定していれば移せます。\n旧端末で、マイページ →「設定」→「バックアップ」が有効になっていることを確認します（有効なら自動でバックアップ済みです）。\n新端末で hibi をインストールし、旧端末と同じ Google アカウントでログインします。\n「設定」→「バックアップ」→「データを復元」を実行すると、記録が新しい端末に戻ります。\n※ バックアップを設定していない場合は、旧端末で「エクスポート」から CSV ファイルを書き出し、新端末で「インポート」から取り込む方法もあります（Q6・Q7 参照）。ただし写真・動画は CSV ファイルには含まれないため、すべての記録を移すには Google Drive バックアップをおすすめします。"
+        "text": "バックアップを設定していれば移せます。\n旧端末で、マイページ →「設定」→「バックアップ」が有効になっていることを確認します（有効なら自動でバックアップ済みです）。\n新端末で hibi をインストールし、旧端末と同じ Google アカウントでログインします。\n「設定」→「バックアップ」→「データを復元」を実行すると、記録が新しい端末に戻ります。\n※ バックアップを設定していない場合は、旧端末でマイページ → IMPORT & EXPORT →「日記を書き出す」から CSV ファイルを書き出し、新端末で「日記を取り込む」から取り込む方法もあります（Q6・Q7 参照）。ただし写真・動画は CSV ファイルには含まれないため、すべての記録を移すには Google Drive バックアップをおすすめします。"
       }
     },
     {
@@ -516,16 +525,56 @@
       <details>
         <summary><span class="qnum">Q6</span>保存した記録を、外に書き出すことはできますか？</summary>
         <div class="answer">
-          <p>できます。マイページ →「設定」→「データ」→「エクスポート」から、これまでの記録を<strong>テキスト（.txt）</strong>または <strong>CSV</strong> ファイルとして書き出せます。書き出したファイルは、メールやほかのアプリへ共有できます。</p>
+          <p>できます。マイページ → IMPORT &amp; EXPORT →<span class="nw">「日記を書き出す」</span>から、これまでの記録を<strong>テキスト（.txt）</strong>または <strong>CSV</strong> ファイルとして書き出せます。書き出したファイルは、メールやほかのアプリへ<span class="nw">共有できます。</span></p>
           <p>ご自身の記録はいつでも手元に取り出せます。特定のアプリに縛られることはありません。</p>
         </div>
       </details>
 
-      <details>
-        <summary><span class="qnum">Q7</span>ほかの日記アプリのデータを hibi に取り込めますか？</summary>
+      <!-- [T260] アプリの「CSV の作り方」の飛び先（faq.html#import）。id を変えるとアプリのリンクが外れるので変えない
+           （app/components/ImportGuide.js の IMPORT_HOWTO_URL）。文面の根拠 = hibi リポ agents/docs/08_marketing/20261019_t260_faq_import_copy.md -->
+      <details id="import">
+        <summary><span class="qnum">Q7</span>ほかのアプリやメモの日記を、hibi に<span class="nw">取り込めますか？</span>（CSV の作り方）</summary>
         <div class="answer">
-          <p>CSV 形式で書き出せるアプリのデータであれば、取り込めます。マイページ →「設定」→「データ」→「インポート」から CSV ファイルを選び、どの列を「日付」「本文」などに対応させるかを画面で指定して取り込みます。</p>
-          <p>最低限「日付」と「本文」さえあれば取り込めます。</p>
+          <!-- 段落の最後の句は .nw で 1 行にまとめる（どの幅でも最後の行が 4 字以下にならないように・lessons #67） -->
+          <p>できます。これまで書いてきた日記を CSV ファイルにすれば、捨てずに hibi に<span class="nw">引っ越せます。</span></p>
+
+          <p class="step"><strong>取り込める列</strong></p>
+          <p>最低限、<strong>日付と本文</strong>の 2 つの列があれば<span class="nw">取り込めます。</span>ほかに次の列があれば、<span class="nw">一緒に移せます。</span></p>
+          <ul>
+            <li><strong>タグ</strong> —<span class="nw">「#旅 #カフェ」</span>のように空白で区切ると、複数の<span class="nw">タグになります。</span></li>
+            <li><strong>気分</strong> —<span class="nw">「うれしい」</span><span class="nw">「おだやか」</span><span class="nw">「しんみり」</span><span class="nw">「もやもや」</span>と、一部の英語（good・bad など）が読めます。ほかの言葉のときは、気分なしで<span class="nw">取り込まれます。</span></li>
+            <li><strong>場所</strong> —<span class="nw">「鎌倉」</span>のような地名が、<span class="nw">そのまま入ります。</span></li>
+            <li><strong>作成日時</strong>（書いた時刻）—<span class="nw">「2025/10/5 21:30」</span>のように日付と時刻が入った列を選ぶと、その時刻が付きます。日付と同じ列を選んでもかまいません。無いときは <span class="nw">12:00 になります。</span></li>
+            <li><strong>お気に入り</strong> —<span class="nw">「はい」</span><span class="nw">「1」</span><span class="nw">「true」</span>と書いた行が、<span class="nw">お気に入りになります。</span></li>
+          </ul>
+          <p>写真・動画は、CSV からは<span class="nw">取り込まれません。</span></p>
+
+          <p class="step"><strong>CSV のつくり方</strong></p>
+          <p>前のアプリに CSV の書き出し（エクスポート）があれば、それを使います。列の名前がちがっても、取り込むときに、どの列を日付・本文などにするかを<span class="nw">選べます。</span></p>
+          <p>書き出しのないメモなどは、表計算アプリに貼りつけて作れます。1 行目に「日付」「本文」と見出しを書き、2 行目から 1 行に 1 件ずつ入れます。見出しをこの 2 つにしておくと、取り込むときに列が<span class="nw">自動で選ばれます。</span></p>
+          <div class="note mono">日付,本文<br>2025-10-05,金木犀の香りがした。<br>2025-10-06,夕方から雨。</div>
+
+          <p class="step"><strong>保存は UTF-8 で</strong></p>
+          <p>文字コードを <strong>UTF-8</strong> にして、<span class="nw">CSV で保存します。</span></p>
+          <ul>
+            <li><strong>Excel</strong>（パソコン）— ファイルの種類を<span class="nw">「CSV UTF-8 (コンマ区切り)」</span>にして保存</li>
+            <li><strong>Google スプレッドシート</strong>（パソコン）—<span class="nw">「ファイル」</span>→<span class="nw">「ダウンロード」</span>→<span class="nw">「カンマ区切り形式（.csv）」</span></li>
+            <li><strong>Numbers</strong>（iPhone）—<span class="nw">「詳細」</span>→<span class="nw">「書き出し」→「CSV」</span></li>
+          </ul>
+
+          <p class="step"><strong>日付の書き方</strong></p>
+          <p><span class="nw">「2025-10-05」</span><span class="nw">「2025/10/5」</span><span class="nw">「2025.10.5」</span><span class="nw">「2025年10月5日」</span>のような書き方が読めます。<span class="nw">「2025/10/5 21:30」</span>のような時刻つきも読めます。年の入っていない日付（<span class="nw">「10月5日」</span>など）は<span class="nw">取り込まれません。</span></p>
+
+          <p class="step"><strong>hibi で取り込む</strong></p>
+          <p>CSV ファイルを、スマホから開ける場所（iPhone は<span class="nw">「ファイル」</span>や iCloud Drive、Android はダウンロードや Google Drive <span class="nw">など）に置きます。</span></p>
+          <p>hibi の<strong>マイページ → IMPORT &amp; EXPORT →<span class="nw">「日記を取り込む」</span></strong>から<span class="nw">「CSV ファイルを選ぶ」</span>を押して、そのファイルを選びます。日付と本文の列、3 件の見本を確かめて<span class="nw">「インポート」</span>を押すと、<span class="nw">取り込まれます。</span></p>
+          <div class="note">いまある日記はそのまま残り、同じ日付・本文の日記は二重には<span class="nw">取り込まれません。</span><br>取り込みはスマホの中で行われ、日記の中身が hibi の運営に<span class="nw">届くことはありません。</span></div>
+
+          <p class="step"><strong>うまくいかないとき</strong></p>
+          <ul>
+            <li>文字が化ける・読み込めない — UTF-8 で保存し<span class="nw">直してみてください。</span></li>
+            <li>「取り込めるデータがありませんでした」と出る — 日付の書き方と、日付・本文に選んだ列を<span class="nw">見直してみてください。</span></li>
+          </ul>
         </div>
       </details>
     </section>
@@ -612,7 +661,7 @@
             <li><strong>新端末</strong>で hibi をインストールし、<strong>旧端末と同じ Google アカウント</strong>でログインします。</li>
             <li>「設定」→「バックアップ」→「データを復元」を実行すると、記録が新しい端末に戻ります。</li>
           </ol>
-          <div class="note">※ バックアップを設定していない場合は、旧端末で「エクスポート」から CSV ファイルを書き出し、新端末で「インポート」から取り込む方法もあります（Q6・Q7 参照）。ただし写真・動画は CSV ファイルには含まれないため、すべての記録を移すには Google Drive バックアップをおすすめします。</div>
+          <div class="note">※ バックアップを設定していない場合は、旧端末でマイページ → IMPORT &amp; EXPORT →<span class="nw">「日記を書き出す」</span>から CSV ファイルを書き出し、新端末で<span class="nw">「日記を取り込む」</span>から取り込む方法もあります（Q6・Q7 参照）。ただし写真・動画は CSV ファイルには含まれないため、すべての記録を移すには Google Drive バックアップをおすすめします。</div>
         </div>
       </details>
 
@@ -659,5 +708,28 @@
       <p class="end mono">— END_OF_FAQ —</p>
     </footer>
   </main>
+  <script>
+    // [T260] アプリの「CSV の作り方」は faq.html#import を開く。
+    //   アンカーの先が問い（details）なら、その問いを開いた状態にする（問いはふだん閉じている）。
+    //   上に貼りつくヘッダーの下に問いが来るよう、ヘッダーの高さ + 12 を --anchor-offset に入れる（CSS の scroll-margin-top が使う）。
+    //   id の無いほかの問いには何もしない。開いたあとに閉じる・ほかを開くのは今までどおり自由。
+    (function () {
+      var header = document.querySelector('.site-header');
+      function setOffset() {
+        if (header) document.documentElement.style.setProperty('--anchor-offset', (header.offsetHeight + 12) + 'px');
+      }
+      function openFromHash() {
+        var id = location.hash.slice(1);
+        if (!id) return;
+        try { id = decodeURIComponent(id); } catch (e) { return; }
+        var target = document.getElementById(id);
+        if (target && target.tagName === 'DETAILS') target.open = true;
+      }
+      setOffset();
+      openFromHash();
+      window.addEventListener('hashchange', openFromHash);
+      window.addEventListener('resize', setOffset);
+    })();
+  </script>
 </body>
 </html>

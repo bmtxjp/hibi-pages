@@ -7,12 +7,22 @@
   </url>
   <url>
     <loc>https://hibi.bmtx.jp/faq.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hibi.bmtx.jp/en/faq.html</loc>
+    <lastmod>2026-11-04</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hibi.bmtx.jp/notices.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://hibi.bmtx.jp/en/notices.html</loc>
+    <lastmod>2026-11-04</lastmod>
     <priority>0.5</priority>
   </url>
   <url>

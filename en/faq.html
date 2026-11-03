@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hibi FAQ</title>
+  <meta name="description" content="Frequently asked questions about hibi (a journal app): where your data is stored, backup, privacy, moving to a new phone, and more.">
+  <link rel="canonical" href="https://hibi.bmtx.jp/en/faq.html">
+  <link rel="alternate" hreflang="ja" href="https://hibi.bmtx.jp/faq.html">
+  <link rel="alternate" hreflang="en" href="https://hibi.bmtx.jp/en/faq.html">
+  <link rel="alternate" hreflang="x-default" href="https://hibi.bmtx.jp/faq.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hibi">
+  <meta property="og:title" content="hibi FAQ">
+  <meta property="og:url" content="https://hibi.bmtx.jp/en/faq.html">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@100&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* [T209] 生成り版（2026-09-22 / Client Agent）。
+         値は 03_design/20260922_t209_lp_full_design.md §1・§0-7。
+         小さい琥珀文字は --accent:#8E5F2A（対 --bg 5.10:1 = WCAG AA）。
+         図形用の #B07A3E（3.42:1）は文字には使わない。 */
+      --bg: #FAF6EF;
+      --surface: #F6F0E5;
+      --surface-deep: #F0E7D8;
+      --text: #1A1209;
+      --text-body: #2E2419;
+      --text-sub: #4A3826;
+      --text-dim: #6B584A;
+      --accent: #8E5F2A;
+      --accent-light: rgba(142,95,42,0.10);
+      --border: rgba(43,29,12,0.10);
+      --border-strong: rgba(43,29,12,0.22);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg);
+      color: var(--text-body);
+      font-family: 'Noto Sans JP', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      line-height: 1.7;
+    }
+    body {
+      min-height: 100vh;
+      padding: 0;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+
+    /* ===== サイト共通ヘッダー ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .site-header .brand {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .site-header .brand-mark {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 100;
+      font-size: 22px;
+      color: #2A1F12;   /* [T209] 生成り地のワードマーク（LP と同じ） */
+      letter-spacing: 0;
+      line-height: 1;
+    }
+    /* [T149] ワードマーク = A″-F のアウトライン SVG（書体依存を排除）。
+       height を em で持つので、上の font-size 指定がそのまま効く。
+       .703125em = 旧 Outfit Thin の "hibi" のインク高さ ÷ font-size（実測 703.125/1000）。
+       上下 padding は line-height:1 で組んでいた旧行箱（1em）の再現値。 */
+    .site-header .wm-svg {
+      display: block;
+      height: 0.703125em;
+      width: auto;
+      fill: currentColor;
+      box-sizing: content-box;
+      padding: 0.166875em 0 0.13em;
+    }
+    /* 文字は DOM に残して視覚的にだけ隠す（読み上げ・検索エンジン向け） */
+    .wm-sr {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .site-header .brand-underline {
+      margin-top: 5px;
+      width: 32px;
+      height: 1px;
+      background: #B07A3E;   /* [T209] 罫は図形用の琥珀（LP と同じ） */
+      opacity: 0.8;
+    }
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      flex-wrap: wrap;
+    }
+    .site-nav a {
+      color: var(--text-sub);
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-bottom-color 0.15s;
+    }
+    .site-nav a:hover { color: var(--text); }
+    .site-nav a.current {
+      color: var(--accent);
+      border-bottom-color: rgba(142, 95, 42, 0.5);
+    }
+    .site-nav .lang-switch {
+      color: var(--text-dim);
+      margin-left: 8px;
+      padding-left: 12px;
+      border-left: 1px solid var(--border);
+    }
+    .site-nav .lang-switch:hover { color: var(--text-sub); }
+    .site-header + main { padding-top: 24px; }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    header {
+      text-align: center;
+      padding: 16px 0 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+    header h1 {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.3em;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+    header .sub {
+      margin-top: 6px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+    }
+    header .intro {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.75;
+    }
+    .category {
+      margin: 28px 0;
+    }
+    .category h2 {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 0 4px 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    /* 英語のページでは章の名前の印を .label に（値は日本語のページの .ja と同じ） */
+    .category h2 .label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0;
+      color: var(--text);
+      text-transform: none;
+    }
+    details {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    details[open] {
+      background: var(--surface);
+      border-bottom-color: var(--border-strong);
+    }
+    details > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 44px 16px 16px;
+      position: relative;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.55;
+      transition: color 0.15s;
+    }
+    details > summary::-webkit-details-marker { display: none; }
+    details > summary::after {
+      content: '+';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      color: var(--accent);
+      font-weight: 400;
+      transition: transform 0.15s;
+    }
+    details[open] > summary::after {
+      content: '−';
+    }
+    details > summary:hover { color: var(--accent); }
+    /* [T260] faq.html#import などアンカーで飛んできたとき、上に貼りつくヘッダーの下に問いが出るようにする。
+       --anchor-offset はページ末尾の小さな JS がヘッダーの高さ + 12 で入れる（JS が動かないときは 96px）。
+       id を持つ問い（いまは #import だけ）にしか効かない。 */
+    details[id] { scroll-margin-top: var(--anchor-offset, 96px); }
+    /* [T260] 長い答えの中の小見出し（Q7 の「CSV のつくり方」など）。上に少し間をあけて、段の切れ目を見せる */
+    .answer p.step { margin-top: 22px; margin-bottom: 6px; }
+    /* [T260] ボタン名・日付の例を途中で折らない（「フ／ァイル」「10／月5日」のような折れを防ぐ）。Q7 の小さい拗音・促音も行頭に来ないように */
+    details .nw { white-space: nowrap; }
+    #import .answer { line-break: strict; }
+    details > summary .qnum {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-right: 8px;
+      letter-spacing: 0.05em;
+    }
+    .answer {
+      padding: 4px 20px 22px;
+      color: var(--text-body);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+    .answer p { margin: 0 0 12px; }
+    .answer p:last-child { margin-bottom: 0; }
+    .answer strong { color: var(--text); font-weight: 700; }
+    .answer ul, .answer ol {
+      margin: 6px 0 12px;
+      padding-left: 20px;
+    }
+    .answer li { margin-bottom: 8px; line-height: 1.75; }
+    .answer .note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: var(--surface-deep);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    footer .end {
+      margin-top: 18px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--text-dim);
+    }
+    @media (max-width: 640px) {
+      .site-header { padding: 12px 20px; gap: 10px; }
+      .site-header .brand-mark { font-size: 20px; }
+    }
+    /* [T057] 幅 400 以下（Android の 360・iPhone の 375 など）でも、ナビの最後の言語の切り替えが 2 行目に落ちないように。
+       値は notices.html のスマホのナビ（字 11px・間 14px・切り替えの左の余白 0）にそろえた。401 以上は今のまま */
+    @media (max-width: 400px) {
+      .site-nav { gap: 14px; font-size: 11px; }
+      .site-nav .lang-switch { margin-left: 0; padding-left: 8px; }
+    }
+    @media (max-width: 480px) {
+      main { padding: 28px 16px 60px; }
+      details > summary { font-size: 14px; padding: 14px 40px 14px 14px; }
+      .answer { padding: 4px 16px 18px; font-size: 13.5px; }
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What kind of app is hibi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "hibi is a journal app where you can easily keep what happened each day and how you felt, starting with just one line. Each entry holds up to 140 characters, and you can add photos and videos. You can look back on what you’ve written in the Calendar and in your month in review (the Monthly Report).\nWhat matters to us is that you can keep going, without feeling you have to “write it properly.”"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to create an account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. You can start writing right after you install the app, without registering an email address or password.\nSigning in with your Google account is optional, and only for when you want to use backup (saving your records to your own Google Drive). You can write without signing in."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where are my entries stored?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They’re stored on your device. hibi has no server that stores your records.\nOnly if you set up backup are they also stored in your own Google Drive (see Q4 below)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I set up backup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Go to My Page → SETTINGS → “Backup” and sign in with your Google account to turn it on.\nOnce it’s set up, each time you write, edit, or delete an entry, your records are saved automatically to a folder called “hibi-backup” that is created in your own Google Drive. You don’t need to do anything by hand.\nTo choose whether photos and videos are backed up too, turn “Include Photos and Videos” on or off on the same page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can the people behind hibi see my backups?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Your backups are stored in your own Google Drive, and the people behind hibi have no way to access them.\nhibi has no server that collects the text, photos, or videos of your journal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I export the records I’ve saved?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Go to My Page → IMPORT & EXPORT → “Export Entries” to export all your records so far as a text (.txt) or CSV file. You can share the exported file by email or with other apps.\nYou can take your records with you at any time. You’re never tied to one app."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I bring entries from other apps or notes into hibi? (How to make a CSV)",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Put the entries you’ve written so far into a CSV file, and you can move them into hibi, nothing left behind.\nColumns you can import\nAt a minimum, two columns are all you need: date and text. If you also have the following columns, they can come along too.\nTags — Separate them with spaces, like “#travel #cafe”, to make several tags.\nMood — hibi’s moods (“Happy”, “Calm”, “Wistful”, “Unsettled”) can be read, as well as some other English words (such as good and bad). Any other word is imported without a mood.\nLocation — A place name like “Kamakura” goes in as it is.\nCreated (the time you wrote it) — If you choose a column with both a date and a time, like “2025/10/5 21:30”, that time is used. You can also choose the same column as the date. Without one, the time is set to 12:00.\nFavorite — Rows with “yes”, “1”, or “true” become favorites.\nPhotos and videos are not imported from a CSV.\nHow to make a CSV\nIf your old app can export to CSV, use that. Even if the column names are different, you can choose which columns to use for the date, text, and so on when you import.\nFor notes with no export, you can paste them into a spreadsheet app. Write the headers “Date” and “Text” in the first row, then put one entry per row from the second row on. If you use these two headers, the columns are chosen automatically when you import.\nDate,Text\n2025-10-05,I could smell the sweet olive.\n2025-10-06,Rain from the evening.\nSave as UTF-8\nSet the character encoding to UTF-8 and save as CSV.\nExcel (computer) — Save with the file type set to “CSV UTF-8 (Comma delimited)”\nGoogle Sheets (computer) — “File” → “Download” → “Comma Separated Values (.csv)”\nNumbers (iPhone) — “More” → “Export” → “CSV”\nHow to write dates\nDates written like “2025-10-05”, “2025/10/5”, “2025.10.5”, or “2025年10月5日” can be read. Dates with a time, like “2025/10/5 21:30”, can be read too. Dates without a year (such as “October 5”) are not imported.\nImport into hibi\nPut the CSV file somewhere your phone can open (on iPhone, the Files app or iCloud Drive; on Android, Downloads or Google Drive, and so on).\nIn hibi, go to My Page → IMPORT & EXPORT → “Import Entries”, tap “Choose a CSV File”, and select the file. Check the date and text columns and the 3-entry preview, then tap “Import” to bring your entries in.\nYour current entries stay as they are, and entries with the same date and text aren’t imported twice.\nImporting happens on your phone, and the contents of your journal never reach the people behind hibi.\nIf something goes wrong\nThe text is garbled or the file won’t load — Try saving it again as UTF-8.\nYou see “Nothing to import” — Check how the dates are written, and which columns you chose for the date and text."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I write as many entries a day as I like? Is there a character limit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can write as many entries a day as you like. Each entry can be up to 140 characters.\nWe kept entries short on purpose, to take away the pressure of having to “write it properly” and make it easier to keep going."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are “Monthly Report” and “On This Day”?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both are features for looking back on your past records.\nMonthly Report — Shows a month of records gathered into pages: a cover, highlights from your photos and words, your mood trends, the times of day you wrote, and more. It gives you a feel for a month of writing.\nOn This Day — Shows past entries written on today’s date, such as “1 week ago,” “1 month ago,” and “1 year ago,” in one continuous flow. It’s a way to come across your own past words, unexpectedly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What notifications will I get? Can I turn them off?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There are two kinds. You can turn either one on or off in My Page → SETTINGS → “Notifications.”\nOn This Day Notifications — Only on days when you have records from the same date in the past, hibi lets you know about them (9:00 in the morning by default).\nDaily Reminder — If you haven’t written yet that day, hibi gently lets you know in the evening (off by default).\nAll notifications are created on your device. They aren’t sent from any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are photos and videos handled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On the writing screen, you can add up to 4 photos or videos to each entry. Media you add is stored on your device.\nIf you’ve set up backup and turned on “Include Photos and Videos,” they’re also stored in your own Google Drive. These are the only two places they’re stored. hibi has no server that stores photos or videos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Could the contents of my journal leak out?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "hibi has no server that collects the text, photos, or videos of your journal. Your records are stored only on your device (and, if you’ve set up backup, in your own Google Drive).\nTo improve the app, we do record anonymous usage information, such as which screens were opened and which buttons were tapped. This never includes the contents of your journal, your name, your email address, or any other information that identifies you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I lock the app so others can’t see it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Go to My Page → SETTINGS → “Security” to set a 4-digit passcode. If your device supports it, you can also unlock with biometrics, such as your fingerprint or face. You can change your passcode at any time after setting it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I forgot my passcode.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For your security, no one, including the people behind hibi, can look up or remove your passcode. We’re sorry for the trouble, but please delete the app and install it again.\nIf you’ve set up backup, after reinstalling, sign in with the same Google account and use “Restore from Backup” to get your records back."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I’m getting a new phone. How do I move my records to it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can move them if you’ve set up backup.\nOn your old device, check that My Page → SETTINGS → “Backup” is set up (if it is, your records have already been backed up automatically).\nOn your new device, install hibi and sign in with the same Google account as on your old device.\nGo to SETTINGS → “Backup” → “Restore from Backup,” and your records come back on the new device.\n* If you haven’t set up backup, you can also export a CSV file on your old device from My Page → IMPORT & EXPORT → “Export Entries,” and import it on your new device from “Import Entries” (see Q6 and Q7). However, photos and videos aren’t included in CSV files, so to move all your records, we recommend Google Drive backup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Photos and videos don’t show up, or take a long time to load.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Right after a restore, photos and videos are downloaded one by one, so they may take a little while to appear. Please wait a bit, then close and reopen the app.\nIf that doesn’t fix it, please contact us from “Contact Us” on the app’s “Help & Contact” page. Telling us the name of your device and which screen it happened on helps us look into it smoothly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The app isn’t working properly.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fully closing the app and opening it again may fix it. If that doesn’t help, please contact us from “Contact Us” on the app’s “Help & Contact” page.\nWhen you do, telling us which screen you were on and what you were doing when it happened helps us find the cause faster."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I’d like to send a request or report a problem.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Please send it from “Contact Us” on the app’s “Help & Contact” page. You can choose “Report a problem” (不具合の報告), “Request a feature” (機能のご要望), or “Other” (その他) and write your message.\nWe aren’t able to reply to every message individually, but we read every one and use it to help improve hibi.\nThe contact form is currently in Japanese, but you’re welcome to write in English. If we reply, it may take a few days (Japan time)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I delete all my data, like closing an account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. With “Delete All Data” at the bottom of SETTINGS on My Page, you can delete all records, photos, videos, and settings on your device at once. If you’ve connected a Google account, hibi’s access to it is removed at the same time.\nNote that, as a precaution, this does not delete the backup that remains in your own Google Drive (the “hibi-backup” folder). To erase it completely, delete this folder yourself in Google Drive."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="hibi - public documents">
+      <span class="brand-mark"><svg class="wm-svg" viewBox="0 48 329.5 152" aria-hidden="true" focusable="false"><path d="M0,48 h26 v152 h-26 Z"/><path d="M0,150 A47,50 0 0 1 94,150 L68,150 A21,25 0 0 0 26,150 Z"/><path d="M68,148 h26 v52 h-26 Z"/><path d="M120,100 h26 v100 h-26 Z"/><circle cx="133" cy="68.5" r="20.5"/><path d="M176,150 A50,50 0 0 1 276,150 A50,50 0 0 1 176,150 Z M202,150 A24,24 0 0 0 250,150 A24,24 0 0 0 202,150 Z M176,48 h26 v152 h-26 Z"/><path d="M296,100 h26 v100 h-26 Z"/><circle cx="309" cy="68.5" r="20.5"/></svg><span class="wm-sr">hibi</span></span>
+      <span class="brand-underline"></span>
+    </a>
+    <nav class="site-nav" aria-label="Global navigation">
+      <a href="./privacy.html">Privacy</a>
+      <a href="./terms.html">Terms of Use</a>
+      <a class="current" href="./faq.html">FAQ</a>
+      <a href="./notices.html">News</a>
+      <a class="lang-switch" href="../faq.html" hreflang="ja" lang="ja">日本語</a>
+    </nav>
+  </header>
+
+  <main>
+    <header>
+      <h1>FAQ</h1>
+      <div class="sub mono">FREQUENTLY_ASKED</div>
+      <p class="intro">Answers to common questions about hibi.<br>If you can’t find what you need, please contact us from “Contact Us” in the app.</p>
+    </header>
+
+    <section class="category">
+      <h2><span class="mono">A.</span><span class="label">Getting Started</span></h2>
+
+      <details>
+        <summary><span class="qnum">Q1</span>What kind of app is hibi?</summary>
+        <div class="answer">
+          <p>hibi is a journal app where you can easily keep what happened each day and how you felt, starting with just one line. Each entry holds up to 140 characters, and you can add photos and videos. You can look back on what you’ve written in the Calendar and in your month in review (the Monthly Report).</p>
+          <p>What matters to us is that you can keep going, without feeling you have to “write it properly.”</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q2</span>Do I need to create an account?</summary>
+        <div class="answer">
+          <p>No. You can start writing right after you install the app, without registering an email address or password.</p>
+          <p>Signing in with your Google account is optional, and <strong>only for when you want to use backup (saving your records to your own Google Drive)</strong>. You can write without signing in.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="category">
+      <h2><span class="mono">B.</span><span class="label">Data and Backup</span></h2>
+
+      <details>
+        <summary><span class="qnum">Q3</span>Where are my entries stored?</summary>
+        <div class="answer">
+          <p>They’re stored <strong>on your device</strong>. hibi has no server that stores your records.</p>
+          <p>Only if you set up backup are they also stored in <strong>your own Google Drive</strong> (see Q4 below).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q4</span>How do I set up backup?</summary>
+        <div class="answer">
+          <p>Go to My Page → SETTINGS → “Backup” and sign in with your Google account to turn it on.</p>
+          <p>Once it’s set up, each time you write, edit, or delete an entry, your records are saved automatically to a folder called “hibi-backup” that is created in your own Google Drive. You don’t need to do anything by hand.</p>
+          <p>To choose whether photos and videos are backed up too, turn “Include Photos and Videos” on or off on the same page.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q5</span>Can the people behind hibi see my backups?</summary>
+        <div class="answer">
+          <p>No. Your backups are stored in <strong>your own Google Drive</strong>, and the people behind hibi have no way to access them.</p>
+          <p>hibi has no server that collects the text, photos, or videos of your journal.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q6</span>Can I export the records I’ve saved?</summary>
+        <div class="answer">
+          <p>Yes. Go to My Page → IMPORT &amp; EXPORT → “Export Entries” to export all your records so far as a <strong>text (.txt)</strong> or <strong>CSV</strong> file. You can share the exported file by email or with other apps.</p>
+          <p>You can take your records with you at any time. You’re never tied to one app.</p>
+        </div>
+      </details>
+
+      <!-- [T057] 日本語の faq.html#import と同じ id。英語の画面の「How to make a CSV」が次の版でここを開く。id を変えない -->
+      <details id="import">
+        <summary><span class="qnum">Q7</span>Can I bring entries from other apps or notes into hibi? (How to make a CSV)</summary>
+        <div class="answer">
+          <p>Yes. Put the entries you’ve written so far into a CSV file, and you can move them into hibi, nothing left behind.</p>
+
+          <p class="step"><strong>Columns you can import</strong></p>
+          <p>At a minimum, two columns are all you need: <strong>date and text</strong>. If you also have the following columns, they can come along too.</p>
+          <ul>
+            <li><strong>Tags</strong> — Separate them with spaces, like <span class="nw">“#travel #cafe”</span>, to make several tags.</li>
+            <li><strong>Mood</strong> — hibi’s moods (<span class="nw">“Happy”</span>, <span class="nw">“Calm”</span>, <span class="nw">“Wistful”</span>, <span class="nw">“Unsettled”</span>) can be read, as well as some other English words (such as good and bad). Any other word is imported without a mood.</li>
+            <li><strong>Location</strong> — A place name like <span class="nw">“Kamakura”</span> goes in as it is.</li>
+            <li><strong>Created</strong> (the time you wrote it) — If you choose a column with both a date and a time, like <span class="nw">“2025/10/5 21:30”</span>, that time is used. You can also choose the same column as the date. Without one, the time is set to 12:00.</li>
+            <li><strong>Favorite</strong> — Rows with <span class="nw">“yes”</span>, <span class="nw">“1”</span>, or <span class="nw">“true”</span> become favorites.</li>
+          </ul>
+          <p>Photos and videos are not imported from a CSV.</p>
+
+          <p class="step"><strong>How to make a CSV</strong></p>
+          <p>If your old app can export to CSV, use that. Even if the column names are different, you can choose which columns to use for the date, text, and so on when you import.</p>
+          <p>For notes with no export, you can paste them into a spreadsheet app. Write the headers “Date” and “Text” in the first row, then put one entry per row from the second row on. If you use these two headers, the columns are chosen automatically when you import.</p>
+          <div class="note mono">Date,Text<br>2025-10-05,I could smell the sweet olive.<br>2025-10-06,Rain from the evening.</div>
+
+          <p class="step"><strong>Save as UTF-8</strong></p>
+          <p>Set the character encoding to <strong>UTF-8</strong> and save as CSV.</p>
+          <ul>
+            <li><strong>Excel</strong> (computer) — Save with the file type set to <span class="nw">“CSV UTF-8 (Comma delimited)”</span></li>
+            <li><strong>Google Sheets</strong> (computer) — <span class="nw">“File”</span> → <span class="nw">“Download”</span> → <span class="nw">“Comma Separated Values (.csv)”</span></li>
+            <li><strong>Numbers</strong> (iPhone) — <span class="nw">“More”</span> → <span class="nw">“Export” → “CSV”</span></li>
+          </ul>
+
+          <p class="step"><strong>How to write dates</strong></p>
+          <p>Dates written like <span class="nw">“2025-10-05”</span>, <span class="nw">“2025/10/5”</span>, <span class="nw">“2025.10.5”</span>, or <span class="nw">“2025年10月5日”</span> can be read. Dates with a time, like <span class="nw">“2025/10/5 21:30”</span>, can be read too. Dates without a year (such as <span class="nw">“October 5”</span>) are not imported.</p>
+
+          <p class="step"><strong>Import into hibi</strong></p>
+          <p>Put the CSV file somewhere your phone can open (on iPhone, the Files app or iCloud Drive; on Android, Downloads or Google Drive, and so on).</p>
+          <p>In hibi, go to <strong>My Page → IMPORT &amp; EXPORT → “Import Entries”</strong>, tap <span class="nw">“Choose a CSV File”</span>, and select the file. Check the date and text columns and the 3-entry preview, then tap “Import” to bring your entries in.</p>
+          <div class="note">Your current entries stay as they are, and entries with the same date and text aren’t imported twice.<br>Importing happens on your phone, and the contents of your journal never reach the people behind hibi.</div>
+
+          <p class="step"><strong>If something goes wrong</strong></p>
+          <ul>
+            <li>The text is garbled or the file won’t load — Try saving it again as UTF-8.</li>
+            <li>You see “Nothing to import” — Check how the dates are written, and which columns you chose for the date and text.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="category">
+      <h2><span class="mono">C.</span><span class="label">Using the Features</span></h2>
+
+      <details>
+        <summary><span class="qnum">Q8</span>Can I write as many entries a day as I like? Is there a character limit?</summary>
+        <div class="answer">
+          <p>Yes, you can write as many entries a day as you like. Each entry can be up to 140 characters.</p>
+          <p>We kept entries short on purpose, to take away the pressure of having to “write it properly” and make it easier to keep going.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q9</span>What are “Monthly Report” and “On This Day”?</summary>
+        <div class="answer">
+          <p>Both are features for looking back on your past records.</p>
+          <ul>
+            <li><strong>Monthly Report</strong> — Shows a month of records gathered into pages: a cover, highlights from your photos and words, your mood trends, the times of day you wrote, and more. It gives you a feel for a month of writing.</li>
+            <li><strong>On This Day</strong> — Shows past entries written on today’s date, such as “1 week ago,” “1 month ago,” and “1 year ago,” in one continuous flow. It’s a way to come across your own past words, unexpectedly.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q10</span>What notifications will I get? Can I turn them off?</summary>
+        <div class="answer">
+          <p>There are two kinds. You can turn either one on or off in My Page → SETTINGS → “Notifications.”</p>
+          <ul>
+            <li><strong>On This Day Notifications</strong> — Only on days when you have records from the same date in the past, hibi lets you know about them (9:00 in the morning by default).</li>
+            <li><strong>Daily Reminder</strong> — If you haven’t written yet that day, hibi gently lets you know in the evening (off by default).</li>
+          </ul>
+          <p>All notifications are <strong>created on your device</strong>. They aren’t sent from any server.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q11</span>How are photos and videos handled?</summary>
+        <div class="answer">
+          <p>On the writing screen, you can add up to 4 photos or videos to each entry. Media you add is stored on your device.</p>
+          <p>If you’ve set up backup and turned on “Include Photos and Videos,” they’re also stored in your own Google Drive. These are the only two places they’re stored. hibi has no server that stores photos or videos.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="category">
+      <h2><span class="mono">D.</span><span class="label">Privacy</span></h2>
+
+      <details>
+        <summary><span class="qnum">Q12</span>Could the contents of my journal leak out?</summary>
+        <div class="answer">
+          <p>hibi has no server that collects the text, photos, or videos of your journal. Your records are stored only on your device (and, if you’ve set up backup, in your own Google Drive).</p>
+          <p>To improve the app, we do record <strong>anonymous usage information</strong>, such as which screens were opened and which buttons were tapped. This never includes the contents of your journal, your name, your email address, or any other information that identifies you.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q13</span>Can I lock the app so others can’t see it?</summary>
+        <div class="answer">
+          <p>Yes. Go to My Page → SETTINGS → “Security” to set a 4-digit passcode. If your device supports it, you can also unlock with <strong>biometrics</strong>, such as your fingerprint or face. You can change your passcode at any time after setting it.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q14</span>I forgot my passcode.</summary>
+        <div class="answer">
+          <p>For your security, no one, including the people behind hibi, can look up or remove your passcode. We’re sorry for the trouble, but please delete the app and install it again.</p>
+          <p>If you’ve set up backup, after reinstalling, sign in with the same Google account and use “Restore from Backup” to get your records back.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="category">
+      <h2><span class="mono">E.</span><span class="label">Troubleshooting and Moving Data</span></h2>
+
+      <details>
+        <summary><span class="qnum">Q15</span>I’m getting a new phone. How do I move my records to it?</summary>
+        <div class="answer">
+          <p>You can move them if you’ve set up backup.</p>
+          <ol>
+            <li>On your <strong>old device</strong>, check that My Page → SETTINGS → “Backup” is set up (if it is, your records have already been backed up automatically).</li>
+            <li>On your <strong>new device</strong>, install hibi and sign in with <strong>the same Google account as on your old device</strong>.</li>
+            <li>Go to SETTINGS → “Backup” → “Restore from Backup,” and your records come back on the new device.</li>
+          </ol>
+          <div class="note">* If you haven’t set up backup, you can also export a CSV file on your old device from My Page → IMPORT &amp; EXPORT → “Export Entries,” and import it on your new device from “Import Entries” (see Q6 and Q7). However, photos and videos aren’t included in CSV files, so to move all your records, we recommend Google Drive backup.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q16</span>Photos and videos don’t show up, or take a long time to load.</summary>
+        <div class="answer">
+          <p>Right after a restore, photos and videos are downloaded one by one, so they may take a little while to appear. Please wait a bit, then close and reopen the app.</p>
+          <p>If that doesn’t fix it, please contact us from “Contact Us” on the app’s “Help &amp; Contact” page. Telling us the name of your device and which screen it happened on helps us look into it smoothly.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q17</span>The app isn’t working properly.</summary>
+        <div class="answer">
+          <p>Fully closing the app and opening it again may fix it. If that doesn’t help, please contact us from “Contact Us” on the app’s “Help &amp; Contact” page.</p>
+          <p>When you do, telling us <strong>which screen you were on and what you were doing when it happened</strong> helps us find the cause faster.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="category">
+      <h2><span class="mono">F.</span><span class="label">Other</span></h2>
+
+      <details>
+        <summary><span class="qnum">Q18</span>I’d like to send a request or report a problem.</summary>
+        <div class="answer">
+          <p>Please send it from “Contact Us” on the app’s “Help &amp; Contact” page. You can choose “Report a problem” (<span lang="ja">不具合の報告</span>), “Request a feature” (<span lang="ja">機能のご要望</span>), or “Other” (<span lang="ja">その他</span>) and write your message.</p>
+          <p>We aren’t able to reply to every message individually, but we read every one and use it to help improve hibi.</p>
+          <!-- [T057] 英語のページだけにある 1 文（PM 計画 §2-7・日本語の FAQ には無い）。フォームが日英併記になったら前半を外す -->
+          <p>The contact form is currently in Japanese, but you’re welcome to write in English. If we reply, it may take a few days (Japan time).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qnum">Q19</span>Can I delete all my data, like closing an account?</summary>
+        <div class="answer">
+          <p>Yes. With “Delete All Data” at the bottom of SETTINGS on My Page, you can delete all records, photos, videos, and settings on your device at once. If you’ve connected a Google account, hibi’s access to it is removed at the same time.</p>
+          <p>Note that, as a precaution, this does not delete the backup that remains in your own Google Drive (the “hibi-backup” folder). To erase it completely, delete this folder yourself in Google Drive.</p>
+        </div>
+      </details>
+    </section>
+
+    <footer>
+      <p>If this doesn’t answer your question, please contact us from “Contact Us” on the app’s “Help &amp; Contact” page.</p>
+      <p>© 2026 BMTX</p>
+      <p class="end mono">— END_OF_FAQ —</p>
+    </footer>
+  </main>
+  <script>
+    // [T260] アプリの「CSV の作り方」は faq.html#import を開く。
+    //   アンカーの先が問い（details）なら、その問いを開いた状態にする（問いはふだん閉じている）。
+    //   上に貼りつくヘッダーの下に問いが来るよう、ヘッダーの高さ + 12 を --anchor-offset に入れる（CSS の scroll-margin-top が使う）。
+    //   id の無いほかの問いには何もしない。開いたあとに閉じる・ほかを開くのは今までどおり自由。
+    (function () {
+      var header = document.querySelector('.site-header');
+      function setOffset() {
+        if (header) document.documentElement.style.setProperty('--anchor-offset', (header.offsetHeight + 12) + 'px');
+      }
+      function openFromHash() {
+        var id = location.hash.slice(1);
+        if (!id) return;
+        try { id = decodeURIComponent(id); } catch (e) { return; }
+        var target = document.getElementById(id);
+        if (target && target.tagName === 'DETAILS') target.open = true;
+      }
+      setOffset();
+      openFromHash();
+      window.addEventListener('hashchange', openFromHash);
+      window.addEventListener('resize', setOffset);
+    })();
+  </script>
+</body>
+</html>

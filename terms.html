@@ -6,6 +6,9 @@
   <title>hibi 利用規約</title>
   <meta name="description" content="hibi（日記アプリ）の利用規約。本アプリの利用条件・禁止事項・免責・サービス変更等を定めます。">
   <link rel="canonical" href="https://hibi.bmtx.jp/terms.html">
+  <link rel="alternate" hreflang="ja" href="https://hibi.bmtx.jp/terms.html">
+  <link rel="alternate" hreflang="en" href="https://hibi.bmtx.jp/en/terms.html">
+  <link rel="alternate" hreflang="x-default" href="https://hibi.bmtx.jp/terms.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="hibi">
   <meta property="og:title" content="hibi 利用規約">
@@ -129,13 +132,13 @@
       color: var(--accent);
       border-bottom-color: rgba(142, 95, 42, 0.5);
     }
-    .site-nav .home-back {
+    .site-nav .lang-switch {
       color: var(--text-dim);
       margin-left: 8px;
       padding-left: 12px;
       border-left: 1px solid var(--border);
     }
-    .site-nav .home-back:hover { color: var(--text-sub); }
+    .site-nav .lang-switch:hover { color: var(--text-sub); }
     .site-header + main { padding-top: 24px; }
     main {
       max-width: 720px;
@@ -295,6 +298,12 @@
       .site-header { padding: 12px 20px; gap: 10px; }
       .site-header .brand-mark { font-size: 20px; }
     }
+    /* [T057] 幅 400 以下（Android の 360・iPhone の 375 など）でも、ナビの最後の言語の切り替えが 2 行目に落ちないように。
+       値は notices.html のスマホのナビ（字 11px・間 14px・切り替えの左の余白 0）にそろえた。401 以上は今のまま */
+    @media (max-width: 400px) {
+      .site-nav { gap: 14px; font-size: 11px; }
+      .site-nav .lang-switch { margin-left: 0; padding-left: 8px; }
+    }
     @media (max-width: 480px) {
       main { padding: 28px 16px 60px; }
       section.article .body { font-size: 13.5px; }
@@ -314,7 +323,7 @@
       <a class="current" href="./terms.html">利用規約</a>
       <a href="./faq.html">FAQ</a>
       <a href="./notices.html">お知らせ</a>
-      <a class="home-back" href="/">← Home</a>
+      <a class="lang-switch" href="./en/terms.html" hreflang="en" lang="en">English</a>
     </nav>
   </header>
 

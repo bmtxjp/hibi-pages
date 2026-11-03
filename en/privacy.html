@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hibi Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for hibi (a journal app). We have no means of accessing the text, photos, or videos of your journal. Your records are stored only on your device and in your own Google Drive.">
+  <link rel="canonical" href="https://hibi.bmtx.jp/en/privacy.html">
+  <link rel="alternate" hreflang="ja" href="https://hibi.bmtx.jp/privacy.html">
+  <link rel="alternate" hreflang="en" href="https://hibi.bmtx.jp/en/privacy.html">
+  <link rel="alternate" hreflang="x-default" href="https://hibi.bmtx.jp/privacy.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hibi">
+  <meta property="og:title" content="hibi Privacy Policy">
+  <meta property="og:url" content="https://hibi.bmtx.jp/en/privacy.html">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@100&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* [T209] 生成り版（2026-09-22 / Client Agent）。
+         値は 03_design/20260922_t209_lp_full_design.md §1・§0-7。
+         小さい琥珀文字は --accent:#8E5F2A（対 --bg 5.10:1 = WCAG AA）。
+         図形用の #B07A3E（3.42:1）は文字には使わない。 */
+      --bg: #FAF6EF;
+      --surface: #F6F0E5;
+      --surface-deep: #F0E7D8;
+      --text: #1A1209;
+      --text-body: #2E2419;
+      --text-sub: #4A3826;
+      --text-dim: #6B584A;
+      --accent: #8E5F2A;
+      --accent-light: rgba(142,95,42,0.10);
+      --border: rgba(43,29,12,0.10);
+      --border-strong: rgba(43,29,12,0.22);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg);
+      color: var(--text-body);
+      font-family: 'Noto Sans JP', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      line-height: 1.8;
+    }
+    body {
+      min-height: 100vh;
+      padding: 0;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+
+    /* ===== サイト共通ヘッダー ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .site-header .brand {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .site-header .brand-mark {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 100;
+      font-size: 22px;
+      color: #2A1F12;   /* [T209] 生成り地のワードマーク（LP と同じ） */
+      letter-spacing: 0;
+      line-height: 1;
+    }
+    /* [T149] ワードマーク = A″-F のアウトライン SVG（書体依存を排除）。
+       height を em で持つので、上の font-size 指定がそのまま効く。
+       .703125em = 旧 Outfit Thin の "hibi" のインク高さ ÷ font-size（実測 703.125/1000）。
+       上下 padding は line-height:1 で組んでいた旧行箱（1em）の再現値。 */
+    .site-header .wm-svg {
+      display: block;
+      height: 0.703125em;
+      width: auto;
+      fill: currentColor;
+      box-sizing: content-box;
+      padding: 0.166875em 0 0.13em;
+    }
+    /* 文字は DOM に残して視覚的にだけ隠す（読み上げ・検索エンジン向け） */
+    .wm-sr {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .site-header .brand-underline {
+      margin-top: 5px;
+      width: 32px;
+      height: 1px;
+      background: #B07A3E;   /* [T209] 罫は図形用の琥珀（LP と同じ） */
+      opacity: 0.8;
+    }
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      flex-wrap: wrap;
+    }
+    .site-nav a {
+      color: var(--text-sub);
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-bottom-color 0.15s;
+    }
+    .site-nav a:hover { color: var(--text); }
+    .site-nav a.current {
+      color: var(--accent);
+      border-bottom-color: rgba(142, 95, 42, 0.5);
+    }
+    .site-nav .lang-switch {
+      color: var(--text-dim);
+      margin-left: 8px;
+      padding-left: 12px;
+      border-left: 1px solid var(--border);
+    }
+    .site-nav .lang-switch:hover { color: var(--text-sub); }
+    .site-header + main { padding-top: 24px; }
+    /* [T057] 英語版（参考訳）だけの 1 文 = 日本語版が優先する旨（日本語のページには無い） */
+    header .translation-note {
+      margin: 14px auto 0;
+      max-width: 560px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--text-sub);
+    }
+    header .translation-note a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(142,95,42,0.35);
+      padding-bottom: 1px;
+    }
+    header .translation-note a:hover { border-bottom-color: var(--accent); }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    header {
+      text-align: center;
+      padding: 16px 0 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+    header h1 {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.3em;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+    header .sub {
+      margin-top: 6px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+    }
+    header .ja {
+      margin-top: 14px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    header .revised {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-sub);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+    .preface {
+      margin: 0 0 32px;
+      padding: 18px 20px;
+      background: var(--surface);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.85;
+    }
+    .preface p { margin: 0; }
+    section.article {
+      margin: 28px 0;
+    }
+    section.article h2 {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 0 4px 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    section.article h2 .ja {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-transform: none;
+    }
+    section.article .body {
+      padding: 0 4px;
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.9;
+    }
+    section.article .body p { margin: 0 0 14px; }
+    section.article .body p:last-child { margin-bottom: 0; }
+    section.article .body strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+    section.article .body ol,
+    section.article .body ul {
+      margin: 8px 0 14px;
+      padding-left: 22px;
+    }
+    section.article .body li {
+      margin-bottom: 8px;
+      line-height: 1.8;
+    }
+    section.article .body ol.numbered {
+      counter-reset: item;
+      list-style: none;
+      padding-left: 0;
+    }
+    section.article .body ol.numbered > li {
+      counter-increment: item;
+      position: relative;
+      padding-left: 32px;
+      margin-bottom: 12px;
+    }
+    section.article .body ol.numbered > li::before {
+      content: counter(item) ".";
+      position: absolute;
+      left: 6px;
+      top: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    section.article .body a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(142,95,42,0.35);
+      padding-bottom: 1px;
+    }
+    section.article .body a:hover { border-bottom-color: var(--accent); }
+    section.article .body .external-transmission {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+    }
+    section.article .body .external-transmission > .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+    section.article .body .external-transmission > p {
+      font-size: 13.5px;
+    }
+    section.article .body .external-transmission .note {
+      margin-top: 10px;
+      font-size: 12.5px;
+      color: var(--text-sub);
+    }
+    section.article .body .disclosure-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 4px;
+      font-size: 13px;
+    }
+    section.article .body .disclosure-table th,
+    section.article .body .disclosure-table td {
+      border: 1px solid var(--border-strong);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.7;
+    }
+    section.article .body .disclosure-table th {
+      background: var(--surface-deep);
+      color: var(--text);
+      font-weight: 500;
+      width: 32%;
+      white-space: nowrap;
+    }
+    section.article .body .disclosure-table td {
+      color: var(--text-body);
+      word-break: break-word;
+    }
+    @media (max-width: 640px) {
+      .site-header { padding: 12px 20px; gap: 10px; }
+      .site-header .brand-mark { font-size: 20px; }
+    }
+    /* [T057] 幅 400 以下（Android の 360・iPhone の 375 など）でも、ナビの最後の言語の切り替えが 2 行目に落ちないように。
+       値は notices.html のスマホのナビ（字 11px・間 14px・切り替えの左の余白 0）にそろえた。401 以上は今のまま */
+    @media (max-width: 400px) {
+      .site-nav { gap: 14px; font-size: 11px; }
+      .site-nav .lang-switch { margin-left: 0; padding-left: 8px; }
+    }
+    @media (max-width: 480px) {
+      section.article .body .external-transmission { padding: 12px 14px; }
+      section.article .body .disclosure-table { font-size: 12px; }
+      section.article .body .disclosure-table th,
+      section.article .body .disclosure-table td { padding: 6px 8px; }
+      section.article .body .disclosure-table th { white-space: normal; }
+    }
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    footer .links {
+      margin-bottom: 18px;
+      font-size: 12px;
+    }
+    footer .links a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(142,95,42,0.35);
+      padding-bottom: 1px;
+      margin: 0 8px;
+    }
+    footer .links a:hover { border-bottom-color: var(--accent); }
+    footer .end {
+      margin-top: 18px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--text-dim);
+    }
+    @media (max-width: 480px) {
+      main { padding: 28px 16px 60px; }
+      section.article .body { font-size: 13.5px; }
+      header h1 { font-size: 12px; }
+      .preface { padding: 14px 16px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="hibi - public documents">
+      <span class="brand-mark"><svg class="wm-svg" viewBox="0 48 329.5 152" aria-hidden="true" focusable="false"><path d="M0,48 h26 v152 h-26 Z"/><path d="M0,150 A47,50 0 0 1 94,150 L68,150 A21,25 0 0 0 26,150 Z"/><path d="M68,148 h26 v52 h-26 Z"/><path d="M120,100 h26 v100 h-26 Z"/><circle cx="133" cy="68.5" r="20.5"/><path d="M176,150 A50,50 0 0 1 276,150 A50,50 0 0 1 176,150 Z M202,150 A24,24 0 0 0 250,150 A24,24 0 0 0 202,150 Z M176,48 h26 v152 h-26 Z"/><path d="M296,100 h26 v100 h-26 Z"/><circle cx="309" cy="68.5" r="20.5"/></svg><span class="wm-sr">hibi</span></span>
+      <span class="brand-underline"></span>
+    </a>
+    <nav class="site-nav" aria-label="Global navigation">
+      <a class="current" href="./privacy.html">Privacy</a>
+      <a href="./terms.html">Terms of Use</a>
+      <a href="../faq.html" hreflang="ja">FAQ</a>
+      <a href="../notices.html" hreflang="ja">News</a>
+      <a class="lang-switch" href="../privacy.html" hreflang="ja" lang="ja">日本語</a>
+    </nav>
+  </header>
+
+  <main>
+    <header>
+      <div class="ja">Privacy Policy</div>
+      <div class="revised">Last updated: September 7, 2026</div>
+      <p class="translation-note">This is an English translation provided for reference. If there is any difference between this translation and the <a href="../privacy.html" hreflang="ja">Japanese version</a>, the Japanese version prevails.</p>
+    </header>
+
+    <div class="preface">
+      <p>BMTX (“we,” “us,” or “our”) sets out this Privacy Policy (this “Policy”) as follows regarding how we handle your information in the journal app “hibi” (the “App”).</p>
+    </div>
+
+    <section class="article">
+      <h2><span class="mono">1.</span><span class="ja">Introduction</span></h2>
+      <div class="body">
+        <p>What hibi values most is “being able to keep records for yourself, with peace of mind.”</p>
+        <p><strong>The contents of your journal, such as the text, photos, videos, location information, tags, and moods</strong> that you record in the App, are stored only <strong>on your device</strong> and in <strong>your own Google Drive</strong> that you have connected yourself.</p>
+        <p><strong>We have no means of accessing the text, photos, or videos of your journal.</strong> This is because we have no server that stores your records in the first place.</p>
+        <p>What we can know is limited to <strong>anonymous usage statistics (metadata such as which screens were displayed and which buttons were tapped)</strong> that we collect to improve the App. See below for details.</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">2.</span><span class="ja">Information Stored on Your Device (We Do Not View or Collect It)</span></h2>
+      <div class="body">
+        <p>The following information is stored <strong>on your device</strong> and is never sent to our servers. We cannot view or collect its contents.</p>
+        <ul>
+          <li>The text, tags, moods, and recorded date and time of your entries</li>
+          <li>Photos and videos (those you select or take and attach)</li>
+          <li>Location information (obtained and stored only when you use “Place” to add a location while writing an entry. We do not obtain your location continuously or in the background.)</li>
+          <li>If you sign in with Google, the name, email address, and profile picture of your Google account, and the credentials for accessing Google Drive</li>
+          <li>Notification settings (whether “On This Day” and “Daily Reminder” are on or off, and their times)</li>
+          <li>Some records of how you use the App (records of actions such as tapping notifications and writing entries; some of these are sent anonymously as the usage statistics described in Section 3)</li>
+        </ul>
+        <p>This information is deleted from your device when you uninstall the App. If you turn on backup, it is also stored in your own Google Drive (see Section 4).</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">3.</span><span class="ja">Information We Collect to Improve the App (Anonymous Usage Statistics Only)</span></h2>
+      <div class="body">
+        <p>To improve the App, we send the following <strong>anonymous usage statistics</strong> to a <strong>third-party product analytics service</strong> and analyze them.</p>
+        <ul>
+          <li>App launches and screen views</li>
+          <li>The number of times each feature is used (creating and editing entries, running backups, tapping notifications, etc.)</li>
+          <li>Snapshots of your settings (notifications on/off, whether OS notification permission is granted, etc.)</li>
+        </ul>
+        <p><strong>These usage statistics do not include any information that identifies you, such as the text, photos, or videos of your journal, the place names or coordinates of location information, or your name or email address.</strong> What we know is limited to metadata such as “which screen was opened” and “which button was tapped,” and we cannot know what you have written.</p>
+        <p>We do not use this information for advertising purposes, and there is no tracking by third-party advertising companies.</p>
+
+        <div class="external-transmission">
+          <div class="label">Details of the information sent to the analytics service</div>
+          <p>For transparency, we disclose below the information we send for analyzing the usage statistics described above.</p>
+          <table class="disclosure-table">
+            <tbody>
+              <tr>
+                <th>Recipient</th>
+                <td>PostHog Inc.</td>
+              </tr>
+              <tr>
+                <th>Information sent</th>
+                <td>The metadata described in the body of this Section (app launches and screen views, the number of times each feature is used, snapshots of your settings, etc.). <strong>It does not include any information that identifies you, such as the text, photos, or videos of your journal, the place names or coordinates of location information, or your name or email address.</strong></td>
+              </tr>
+              <tr>
+                <th>Purpose of use</th>
+                <td>Improving the App (understanding how each feature is used and analyzing user retention)</td>
+              </tr>
+              <tr>
+                <th>Recipient’s privacy policy</th>
+                <td><a href="https://posthog.com/privacy" rel="noopener noreferrer" target="_blank">https://posthog.com/privacy</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">If the recipient service changes, we will revise this Policy and make it public.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">4.</span><span class="ja">Google Sign-In and Backups Using Google Drive</span></h2>
+      <div class="body">
+        <p>If you use Google sign-in in the App, we store the name, email address, and profile picture of your Google account and the credentials for accessing Google Drive on your device. These are used to save your journal to, and restore it from, your own Google Drive.</p>
+        <p>If you turn on backup, your journal data (a set of the text, tags, moods, location, date and time, and so on) and the attached photos and videos are saved in <strong>the <span class="mono">hibi-backup</span> folder in your own Google Drive</strong>. This is a storage location that you manage, and you can view or delete it yourself at any time. <strong>This does not constitute provision to any third party, including us.</strong></p>
+        <p>The App’s retrieval, storage, and use of information received from Google APIs (including Google Drive) adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener noreferrer" target="_blank">Google API Services User Data Policy</a>, including the Limited Use requirements. Specifically, information received from the <span class="mono">hibi-backup</span> folder in your Google Drive is used only to provide the features you have explicitly allowed (backup and restore), and is not used for advertising, read by humans (except in very limited cases such as security investigations or legal compliance, or with your explicit consent), or transferred to third parties.</p>
+        <p>When you use the authentication and storage features provided by Google, Google’s privacy policy applies.</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">5.</span><span class="ja">Permissions Used by the App</span></h2>
+      <div class="body">
+        <p>To provide its features, the App may ask you for the following OS permissions. Each is requested through an OS dialog when you use the relevant feature, and you can continue to use the App even if you do not allow it (some features will not be available).</p>
+        <ul>
+          <li><strong>Camera</strong>: Used when you take photos or videos and attach them to an entry while writing it.</li>
+          <li><strong>Photo library</strong>: Used when you select existing photos or videos and attach them to an entry while writing it, or when you set a profile picture.</li>
+          <li><strong>Location</strong>: Your device’s location is obtained only when you use “Place” to add a location while writing an entry. We do not obtain your location continuously or in the background. The obtained location is converted through reverse geocoding (converting coordinates into a place name) and stored on your device, linked to that entry. If you turn on backup, it is also stored in your own Google Drive (see Section 4).</li>
+          <li><strong>Notifications</strong>: Used to deliver “On This Day” and “Daily Reminder.” All notifications from the App are local notifications generated on your device, and they are not delivered from our servers. You can change whether notifications are on or off, and their times, at any time in the App’s settings.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">6.</span><span class="ja">Link Previews</span></h2>
+      <div class="body">
+        <p>If a URL is written in the text of an entry, the App may connect to that site when displaying the entry in order to fetch a preview (title and image). Only the URL and general connection information are sent through this connection; the text, photos, and videos of your journal are never sent.</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">7.</span><span class="ja">Provision to Third Parties</span></h2>
+      <div class="body">
+        <p>We do not provide or sell the contents of your journal (text, photos, videos, location information, tags, and moods) to any third party.</p>
+        <p>As described in Section 4, backups to Google Drive are saved <strong>within your own Google account</strong> and do not constitute provision to a third party.</p>
+        <p>We send the anonymous usage statistics described in Section 3 to a <strong>third-party product analytics service</strong>, but they do not include the contents of your journal or any information that identifies you.</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">8.</span><span class="ja">Deleting Data and Your Rights</span></h2>
+      <div class="body">
+        <p>You can do the following with your data.</p>
+        <ul>
+          <li><strong>Deleting individual entries</strong>: You can delete them in the App at any time.</li>
+          <li><strong>Deleting all data</strong>: In the App, go to Settings → “Delete All Data” to delete all entries, photos, videos, settings, and credentials on your device at once. The App’s authorization (access rights) to the connected Google account is also revoked.</li>
+          <li><strong>Disconnecting Google</strong>: In the App, go to Settings → “Backup” → “Sign Out” to delete the credentials on your device and stop access to Google Drive.</li>
+          <li><strong>Deleting backups on Google Drive</strong>: You can erase your backup data by deleting the <span class="mono">hibi-backup</span> folder in your Google Drive (you do this yourself, outside the App).</li>
+          <li><strong>Uninstalling</strong>: Uninstalling the App deletes all data on your device (please delete backups on Google Drive separately using the steps above).</li>
+        </ul>
+        <p>For inquiries about your data or requests for deletion, please contact us using the contact details below.</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">9.</span><span class="ja">Security</span></h2>
+      <div class="body">
+        <p>To prevent unauthorized access by third parties, the App provides an App Lock feature (passcode and biometrics).</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">10.</span><span class="ja">Children’s Privacy</span></h2>
+      <div class="body">
+        <p>The App is intended for use by people aged 13 and over. If you are under 13, please use the App with the consent of your parent or guardian.</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">11.</span><span class="ja">Changes to This Policy</span></h2>
+      <div class="body">
+        <p>We may revise this Policy as necessary. When we make an important change, we will notify you in the App or on this page. The revised Policy takes effect when it is posted on this page.</p>
+      </div>
+    </section>
+
+    <section class="article">
+      <h2><span class="mono">12.</span><span class="ja">Contact</span></h2>
+      <div class="body">
+        <p>For inquiries about this Policy, please contact us at:</p>
+        <ul>
+          <li>Contact: <span class="mono">hibi@bmtx.jp</span></li>
+          <li>Operator: BMTX</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <div class="links">
+        <a href="./terms.html">Terms of Use</a>
+        <a href="../faq.html" hreflang="ja">FAQ</a>
+      </div>
+      <p>© 2026 BMTX</p>
+      <p class="end mono">— END_OF_PRIVACY_POLICY —</p>
+    </footer>
+  </main>
+</body>
+</html>

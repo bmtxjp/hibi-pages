@@ -4,6 +4,8 @@ hibi（日記アプリ）の公開ドキュメント / 静的ファイルホス�
 
 ## 配信内容
 
+- `index.html` — トップページ（LP）
+- `en/index.html` — トップページの英語版（`/en/`。[T057]。写真・ストアのバッジ・OGP 画像は今は日本語のものを使っている）
 - `privacy.html` — プライバシーポリシー
 - `terms.html` — 利用規約
 - `en/privacy.html`・`en/terms.html` — プライバシーポリシー・利用規約の英語版（参考訳・日本語版が優先。[T057]）
@@ -16,6 +18,7 @@ hibi（日記アプリ）の公開ドキュメント / 静的ファイルホス�
 
 GitHub Pages（main / root）+ カスタムドメイン `hibi.bmtx.jp` で公開:
 
+- `https://hibi.bmtx.jp/`・`https://hibi.bmtx.jp/en/`（トップ・英語版）
 - `https://hibi.bmtx.jp/privacy.html`
 - `https://hibi.bmtx.jp/terms.html`
 - `https://hibi.bmtx.jp/en/privacy.html`・`https://hibi.bmtx.jp/en/terms.html`（英語版）

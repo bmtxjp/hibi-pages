@@ -308,22 +308,19 @@
       text-transform: uppercase;
     }
 
+    /* [T057] ナビの置き方を規約・プライバシー・FAQ・トップと同じにする（Kenny 2026-11-04「全部おすすめで」）。
+       前は 640 以下でナビを幅いっぱいにしてロゴの下の段に置いていた。今はロゴの横に並べ、入りきらない幅（360 など）だけ下の段に落ちる。
+       字 11px・間 14px・切り替えの左の余白 0 は 400 以下だけ（他のページと同じ） */
+    @media (max-width: 400px) {
+      .site-nav { gap: 14px; font-size: 11px; }
+      .site-nav .lang-switch { margin-left: 0; padding-left: 8px; }
+    }
     @media (max-width: 640px) {
       .site-header {
         padding: 12px 20px;
         gap: 10px;
       }
       .site-header .brand-mark { font-size: 20px; }
-      .site-nav {
-        gap: 14px;
-        font-size: 11px;
-        width: 100%;
-        justify-content: flex-start;
-      }
-      .site-nav .lang-switch {
-        margin-left: 0;
-        padding-left: 8px;
-      }
       .site-header + main { padding-top: 20px; }
       main { padding: 20px 16px 60px; }
       .notice-card { padding: 16px 20px 16px 24px; }

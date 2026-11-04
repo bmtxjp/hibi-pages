@@ -6,6 +6,9 @@
 <title>hibi — 読み返す日のための、日記。｜日記アプリ</title>
 <meta name="description" content="hibi は、BMTX が提供する日記アプリです。毎日の出来事や気持ちを、何でもひとことから残せます。最大140文字。写真や動画も添えて、投稿に合わせて見た目が変わります。データはすべて端末内に保存され、自分以外に公開されません。残した記録は、1 週間後や 1 年後の同じ日に届き、読み返せます。iOS / Android に対応しています。">
 <link rel="canonical" href="https://hibi.bmtx.jp/">
+<link rel="alternate" hreflang="ja" href="https://hibi.bmtx.jp/">
+<link rel="alternate" hreflang="en" href="https://hibi.bmtx.jp/en/">
+<link rel="alternate" hreflang="x-default" href="https://hibi.bmtx.jp/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="hibi">
@@ -343,7 +346,7 @@ a{color:inherit;text-decoration:none}
   .lp-unit.lp-u-left{flex-direction:row-reverse}
   .lp-unit .lp-txt{flex:1 1 auto;min-width:0;max-width:var(--lp-measure)}
   .lp-unit .lp-h2{font-size:min(34px,3.1vw)}
-  .lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:.82}
+  .lp-unit,.lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:.82}
   .lp-art{flex:none;margin-top:0;margin-left:0}
 
   .lp-essay{padding:110px 0}
@@ -364,7 +367,7 @@ a{color:inherit;text-decoration:none}
 
 @media (min-width:1200px){
   :root{--lp-gut:80px; --lp-gap:60px; --lp-pad:64px; --lp-asc:.93; --lp-hero-h:720px}
-  .lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:.93}
+  .lp-unit,.lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:.93}
   .lp-hero .lp-h1{font-size:min(42px,3.4vw)}
   .lp-unit .lp-h2{font-size:min(36px,2.9vw)}
 }
@@ -372,10 +375,33 @@ a{color:inherit;text-decoration:none}
 /* 1280px 以上 = 確定プロト（PC 1280 / 版面 1120 = 本文 500 + 間 60 + 絵 560）と同一 */
 @media (min-width:1280px){
   :root{--lp-gut:80px; --lp-gap:60px; --lp-pad:70px; --lp-asc:1; --lp-hero-h:760px}
-  .lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:1}
+  .lp-unit,.lp-unit.lp-u-wide,.lp-unit.lp-u-theme{--lp-asc:1}
   .lp-hero .lp-h1{font-size:44px}
   .lp-unit .lp-h2{font-size:38px}
   .lp-unit .lp-txt{max-width:500px}
+}
+
+/* =======================================================================
+   [T057] ヘッダーを規約・FAQ・お知らせのページ（.site-header / .site-nav）と同じ値にそろえる
+   （Kenny 2026-11-04「トップを他ページと揃えて」）。左右の余白・ロゴ・ナビの字と間・色・言語の切り替えの区切りを同じにする。
+   トップ専用の値（中身の幅に合わせた左右の位置・字 10.5px / 間 12px・PC だけ 12px / 18px）は、ここで上書きして使わない
+   ======================================================================= */
+.lp-header{height:auto;padding:14px 32px}
+.lp-header .lp-wrap{width:auto;margin:0;height:auto;gap:16px;flex-wrap:wrap}
+.lp-brandmark{font-size:22px}
+.lp-nav{align-items:center;gap:18px;font-family:'Noto Sans JP',sans-serif;font-size:12px;line-height:1.8;letter-spacing:.05em;color:#4A3826}
+.lp-nav a{padding-bottom:2px;border-bottom:1px solid transparent;transition:color .15s,border-bottom-color .15s}
+.lp-nav a:hover{color:var(--ink)}
+.lp-nav .lang-switch{color:var(--lp-dim);margin-left:8px;padding-left:12px;border-left:1px solid var(--lp-edge)}
+.lp-nav .lang-switch:hover{color:#4A3826}
+@media (max-width:640px){
+  .lp-header{padding:12px 20px}
+  .lp-header .lp-wrap{gap:10px}
+  .lp-brandmark{font-size:20px}
+}
+@media (max-width:400px){
+  .lp-nav{gap:14px;font-size:11px}
+  .lp-nav .lang-switch{margin-left:0;padding-left:8px}
 }
 </style>
 
@@ -390,6 +416,7 @@ a{color:inherit;text-decoration:none}
       <a href="./terms.html">利用規約</a>
       <a href="./faq.html">FAQ</a>
       <a href="./notices.html">お知らせ</a>
+      <a class="lang-switch" href="/en/" hreflang="en" lang="en">English</a>
     </nav>
   </div>
 </header>

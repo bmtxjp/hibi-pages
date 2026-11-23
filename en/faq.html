@@ -326,10 +326,18 @@
     },
     {
       "@type": "Question",
+      "name": "Does hibi cost anything?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All features are currently free to use. There are no in-app purchases and no ads."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Where are my entries stored?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "They’re stored on your device. hibi has no server that stores your records.\nOnly if you set up backup are they also stored in your own Google Drive (see Q4 below)."
+        "text": "They’re stored on your device. hibi has no server that stores your records.\nOnly if you set up backup are they also stored in your own Google Drive (see Q5 below)."
       }
     },
     {
@@ -425,7 +433,7 @@
       "name": "I’m getting a new phone. How do I move my records to it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can move them if you’ve set up backup.\nOn your old device, check that My Page → SETTINGS → “Backup” is set up (if it is, your records have already been backed up automatically).\nOn your new device, install hibi and sign in with the same Google account as on your old device.\nGo to SETTINGS → “Backup” → “Restore from Backup,” and your records come back on the new device.\n* If you haven’t set up backup, you can also export a CSV file on your old device from My Page → IMPORT & EXPORT → “Export Entries,” and import it on your new device from “Import Entries” (see Q6 and Q7). However, photos and videos aren’t included in CSV files, so to move all your records, we recommend Google Drive backup."
+        "text": "You can move them if you’ve set up backup.\nOn your old device, check that My Page → SETTINGS → “Backup” is set up (if it is, your records have already been backed up automatically).\nOn your new device, install hibi and sign in with the same Google account as on your old device.\nGo to SETTINGS → “Backup” → “Restore from Backup,” and your records come back on the new device.\n* If you haven’t set up backup, you can also export a CSV file on your old device from My Page → IMPORT & EXPORT → “Export Entries,” and import it on your new device from “Import Entries” (see Q7 and Q8). However, photos and videos aren’t included in CSV files, so to move all your records, we recommend Google Drive backup."
       }
     },
     {
@@ -504,21 +512,28 @@
           <p>Signing in with your Google account is optional, and <strong>only for when you want to use backup (saving your records to your own Google Drive)</strong>. You can write without signing in.</p>
         </div>
       </details>
+
+      <details id="price">
+        <summary><span class="qnum">Q3</span>Does hibi cost anything?</summary>
+        <div class="answer">
+          <p>All features are currently free to use. There are no in-app purchases and no ads.</p>
+        </div>
+      </details>
     </section>
 
     <section class="category">
       <h2><span class="mono">B.</span><span class="label">Data and Backup</span></h2>
 
-      <details>
-        <summary><span class="qnum">Q3</span>Where are my entries stored?</summary>
+      <details id="storage">
+        <summary><span class="qnum">Q4</span>Where are my entries stored?</summary>
         <div class="answer">
           <p>They’re stored <strong>on your device</strong>. hibi has no server that stores your records.</p>
-          <p>Only if you set up backup are they also stored in <strong>your own Google Drive</strong> (see Q4 below).</p>
+          <p>Only if you set up backup are they also stored in <strong>your own Google Drive</strong> (see Q5 below).</p>
         </div>
       </details>
 
       <details>
-        <summary><span class="qnum">Q4</span>How do I set up backup?</summary>
+        <summary><span class="qnum">Q5</span>How do I set up backup?</summary>
         <div class="answer">
           <p>Go to My Page → SETTINGS → “Backup” and sign in with your Google account to turn it on.</p>
           <p>Once it’s set up, each time you write, edit, or delete an entry, your records are saved automatically to a folder called “hibi-backup” that is created in your own Google Drive. You don’t need to do anything by hand.</p>
@@ -527,7 +542,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q5</span>Can the people behind hibi see my backups?</summary>
+        <summary><span class="qnum">Q6</span>Can the people behind hibi see my backups?</summary>
         <div class="answer">
           <p>No. Your backups are stored in <strong>your own Google Drive</strong>, and the people behind hibi have no way to access them.</p>
           <p>hibi has no server that collects the text, photos, or videos of your journal.</p>
@@ -535,7 +550,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q6</span>Can I export the records I’ve saved?</summary>
+        <summary><span class="qnum">Q7</span>Can I export the records I’ve saved?</summary>
         <div class="answer">
           <p>Yes. Go to My Page → IMPORT &amp; EXPORT → “Export Entries” to export all your records so far as a <strong>text (.txt)</strong> or <strong>CSV</strong> file. You can share the exported file by email or with other apps.</p>
           <p>You can take your records with you at any time. You’re never tied to one app.</p>
@@ -544,7 +559,7 @@
 
       <!-- [T057] 日本語の faq.html#import と同じ id。英語の画面の「How to make a CSV」が次の版でここを開く。id を変えない -->
       <details id="import">
-        <summary><span class="qnum">Q7</span>Can I bring entries from other apps or notes into hibi? (How to make a CSV)</summary>
+        <summary><span class="qnum">Q8</span>Can I bring entries from other apps or notes into hibi? (How to make a CSV)</summary>
         <div class="answer">
           <p>Yes. Put the entries you’ve written so far into a CSV file, and you can move them into hibi, nothing left behind.</p>
 
@@ -593,7 +608,7 @@
       <h2><span class="mono">C.</span><span class="label">Using the Features</span></h2>
 
       <details>
-        <summary><span class="qnum">Q8</span>Can I write as many entries a day as I like? Is there a character limit?</summary>
+        <summary><span class="qnum">Q9</span>Can I write as many entries a day as I like? Is there a character limit?</summary>
         <div class="answer">
           <p>Yes, you can write as many entries a day as you like. Each entry can be up to 140 characters.</p>
           <p>We kept entries short on purpose, to take away the pressure of having to “write it properly” and make it easier to keep going.</p>
@@ -601,7 +616,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q9</span>What are “Monthly Report” and “On This Day”?</summary>
+        <summary><span class="qnum">Q10</span>What are “Monthly Report” and “On This Day”?</summary>
         <div class="answer">
           <p>Both are features for looking back on your past records.</p>
           <ul>
@@ -612,7 +627,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q10</span>What notifications will I get? Can I turn them off?</summary>
+        <summary><span class="qnum">Q11</span>What notifications will I get? Can I turn them off?</summary>
         <div class="answer">
           <p>There are two kinds. You can turn either one on or off in My Page → SETTINGS → “Notifications.”</p>
           <ul>
@@ -624,7 +639,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q11</span>How are photos and videos handled?</summary>
+        <summary><span class="qnum">Q12</span>How are photos and videos handled?</summary>
         <div class="answer">
           <p>On the writing screen, you can add up to 4 photos or videos to each entry. Media you add is stored on your device.</p>
           <p>If you’ve set up backup and turned on “Include Photos and Videos,” they’re also stored in your own Google Drive. These are the only two places they’re stored. hibi has no server that stores photos or videos.</p>
@@ -635,23 +650,23 @@
     <section class="category">
       <h2><span class="mono">D.</span><span class="label">Privacy</span></h2>
 
-      <details>
-        <summary><span class="qnum">Q12</span>Could the contents of my journal leak out?</summary>
+      <details id="privacy">
+        <summary><span class="qnum">Q13</span>Could the contents of my journal leak out?</summary>
         <div class="answer">
           <p>hibi has no server that collects the text, photos, or videos of your journal. Your records are stored only on your device (and, if you’ve set up backup, in your own Google Drive).</p>
           <p>To improve the app, we do record <strong>anonymous usage information</strong>, such as which screens were opened and which buttons were tapped. This never includes the contents of your journal, your name, your email address, or any other information that identifies you.</p>
         </div>
       </details>
 
-      <details>
-        <summary><span class="qnum">Q13</span>Can I lock the app so others can’t see it?</summary>
+      <details id="lock">
+        <summary><span class="qnum">Q14</span>Can I lock the app so others can’t see it?</summary>
         <div class="answer">
           <p>Yes. Go to My Page → SETTINGS → “Security” to set a 4-digit passcode. If your device supports it, you can also unlock with <strong>biometrics</strong>, such as your fingerprint or face. You can change your passcode at any time after setting it.</p>
         </div>
       </details>
 
       <details>
-        <summary><span class="qnum">Q14</span>I forgot my passcode.</summary>
+        <summary><span class="qnum">Q15</span>I forgot my passcode.</summary>
         <div class="answer">
           <p>For your security, no one, including the people behind hibi, can look up or remove your passcode. We’re sorry for the trouble, but please delete the app and install it again.</p>
           <p>If you’ve set up backup, after reinstalling, sign in with the same Google account and use “Restore from Backup” to get your records back.</p>
@@ -662,8 +677,8 @@
     <section class="category">
       <h2><span class="mono">E.</span><span class="label">Troubleshooting and Moving Data</span></h2>
 
-      <details>
-        <summary><span class="qnum">Q15</span>I’m getting a new phone. How do I move my records to it?</summary>
+      <details id="new-phone">
+        <summary><span class="qnum">Q16</span>I’m getting a new phone. How do I move my records to it?</summary>
         <div class="answer">
           <p>You can move them if you’ve set up backup.</p>
           <ol>
@@ -671,12 +686,12 @@
             <li>On your <strong>new device</strong>, install hibi and sign in with <strong>the same Google account as on your old device</strong>.</li>
             <li>Go to SETTINGS → “Backup” → “Restore from Backup,” and your records come back on the new device.</li>
           </ol>
-          <div class="note">* If you haven’t set up backup, you can also export a CSV file on your old device from My Page → IMPORT &amp; EXPORT → “Export Entries,” and import it on your new device from “Import Entries” (see Q6 and Q7). However, photos and videos aren’t included in CSV files, so to move all your records, we recommend Google Drive backup.</div>
+          <div class="note">* If you haven’t set up backup, you can also export a CSV file on your old device from My Page → IMPORT &amp; EXPORT → “Export Entries,” and import it on your new device from “Import Entries” (see Q7 and Q8). However, photos and videos aren’t included in CSV files, so to move all your records, we recommend Google Drive backup.</div>
         </div>
       </details>
 
       <details>
-        <summary><span class="qnum">Q16</span>Photos and videos don’t show up, or take a long time to load.</summary>
+        <summary><span class="qnum">Q17</span>Photos and videos don’t show up, or take a long time to load.</summary>
         <div class="answer">
           <p>Right after a restore, photos and videos are downloaded one by one, so they may take a little while to appear. Please wait a bit, then close and reopen the app.</p>
           <p>If that doesn’t fix it, please contact us from “Contact Us” on the app’s “Help &amp; Contact” page. Telling us the name of your device and which screen it happened on helps us look into it smoothly.</p>
@@ -684,7 +699,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q17</span>The app isn’t working properly.</summary>
+        <summary><span class="qnum">Q18</span>The app isn’t working properly.</summary>
         <div class="answer">
           <p>Fully closing the app and opening it again may fix it. If that doesn’t help, please contact us from “Contact Us” on the app’s “Help &amp; Contact” page.</p>
           <p>When you do, telling us <strong>which screen you were on and what you were doing when it happened</strong> helps us find the cause faster.</p>
@@ -696,7 +711,7 @@
       <h2><span class="mono">F.</span><span class="label">Other</span></h2>
 
       <details>
-        <summary><span class="qnum">Q18</span>I’d like to send a request or report a problem.</summary>
+        <summary><span class="qnum">Q19</span>I’d like to send a request or report a problem.</summary>
         <div class="answer">
           <p>Please send it from “Contact Us” on the app’s “Help &amp; Contact” page. You can choose “Report a problem” (<span lang="ja">不具合の報告</span>), “Request a feature” (<span lang="ja">機能のご要望</span>), or “Other” (<span lang="ja">その他</span>) and write your message.</p>
           <p>We aren’t able to reply to every message individually, but we read every one and use it to help improve hibi.</p>
@@ -706,7 +721,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q19</span>Can I delete all my data, like closing an account?</summary>
+        <summary><span class="qnum">Q20</span>Can I delete all my data, like closing an account?</summary>
         <div class="answer">
           <p>Yes. With “Delete All Data” at the bottom of SETTINGS on My Page, you can delete all records, photos, videos, and settings on your device at once. If you’ve connected a Google account, hibi’s access to it is removed at the same time.</p>
           <p>Note that, as a precaution, this does not delete the backup that remains in your own Google Drive (the “hibi-backup” folder). To erase it completely, delete this folder yourself in Google Drive.</p>

@@ -325,10 +325,18 @@
     },
     {
       "@type": "Question",
+      "name": "料金はかかりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "現在、すべての機能を無料で利用できます。アプリ内課金も、広告もありません。"
+      }
+    },
+    {
+      "@type": "Question",
       "name": "書いた日記はどこに保存されますか？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "お使いの端末の中に保存されます。hibi には、お客様の記録を保管するサーバーが存在しません。\nバックアップを設定した場合のみ、お客様ご自身の Google Drive にも保存されます（次の Q4 参照）。"
+        "text": "お使いの端末の中に保存されます。hibi には、お客様の記録を保管するサーバーが存在しません。\nバックアップを設定した場合のみ、お客様ご自身の Google Drive にも保存されます（次の Q5 参照）。"
       }
     },
     {
@@ -424,7 +432,7 @@
       "name": "機種変更します。記録を新しい端末へ移すには？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "バックアップを設定していれば移せます。\n旧端末で、マイページ → SETTINGS →「バックアップ」が有効になっていることを確認します（有効なら自動でバックアップ済みです）。\n新端末で hibi をインストールし、旧端末と同じ Google アカウントでログインします。\nSETTINGS →「バックアップ」→「バックアップから復元」を実行すると、記録が新しい端末に戻ります。\n※ バックアップを設定していない場合は、旧端末でマイページ → IMPORT & EXPORT →「日記を書き出す」から CSV ファイルを書き出し、新端末で「日記を取り込む」から取り込む方法もあります（Q6・Q7 参照）。ただし写真・動画は CSV ファイルには含まれないため、すべての記録を移すには Google Drive バックアップをおすすめします。"
+        "text": "バックアップを設定していれば移せます。\n旧端末で、マイページ → SETTINGS →「バックアップ」が有効になっていることを確認します（有効なら自動でバックアップ済みです）。\n新端末で hibi をインストールし、旧端末と同じ Google アカウントでログインします。\nSETTINGS →「バックアップ」→「バックアップから復元」を実行すると、記録が新しい端末に戻ります。\n※ バックアップを設定していない場合は、旧端末でマイページ → IMPORT & EXPORT →「日記を書き出す」から CSV ファイルを書き出し、新端末で「日記を取り込む」から取り込む方法もあります（Q7・Q8 参照）。ただし写真・動画は CSV ファイルには含まれないため、すべての記録を移すには Google Drive バックアップをおすすめします。"
       }
     },
     {
@@ -503,21 +511,28 @@
           <p>Google アカウントでのログインは、<strong>バックアップ機能（ご自身の Google Drive に記録を保存する）を使いたいときだけ</strong>任意で行います。ログインしなくても日記は書けます。</p>
         </div>
       </details>
+
+      <details id="price">
+        <summary><span class="qnum">Q3</span>料金はかかりますか？</summary>
+        <div class="answer">
+          <p>現在、すべての機能を無料で利用できます。アプリ内課金も、広告もありません。</p>
+        </div>
+      </details>
     </section>
 
     <section class="category">
       <h2><span class="mono">B.</span><span class="ja">データとバックアップ</span></h2>
 
-      <details>
-        <summary><span class="qnum">Q3</span>書いた日記はどこに保存されますか？</summary>
+      <details id="storage">
+        <summary><span class="qnum">Q4</span>書いた日記はどこに保存されますか？</summary>
         <div class="answer">
           <p>お使いの<strong>端末の中</strong>に保存されます。hibi には、お客様の記録を保管するサーバーが存在しません。</p>
-          <p>バックアップを設定した場合のみ、<strong>お客様ご自身の Google Drive</strong> にも保存されます（次の Q4 参照）。</p>
+          <p>バックアップを設定した場合のみ、<strong>お客様ご自身の Google Drive</strong> にも保存されます（次の Q5 参照）。</p>
         </div>
       </details>
 
       <details>
-        <summary><span class="qnum">Q4</span>バックアップはどうやって設定しますか？</summary>
+        <summary><span class="qnum">Q5</span>バックアップはどうやって設定しますか？</summary>
         <div class="answer">
           <p>マイページ → SETTINGS →「バックアップ」から、Google アカウントでログインすると有効になります。</p>
           <p>設定すると、投稿・編集・削除のたびに、お客様ご自身の Google Drive の中に作られる「hibi-backup」というフォルダへ、記録が自動で保存されます。手動で操作する必要はありません。</p>
@@ -526,7 +541,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q5</span>バックアップした記録を hibi の運営者が見ることはありますか？</summary>
+        <summary><span class="qnum">Q6</span>バックアップした記録を hibi の運営者が見ることはありますか？</summary>
         <div class="answer">
           <p>ありません。バックアップの保存先は <strong>お客様ご自身の Google Drive</strong> であり、hibi の運営者がアクセスする手段はありません。</p>
           <p>hibi には、日記の本文・写真・動画を集めるサーバーが存在しません。</p>
@@ -534,7 +549,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q6</span>保存した記録を、外に書き出すことはできますか？</summary>
+        <summary><span class="qnum">Q7</span>保存した記録を、外に書き出すことはできますか？</summary>
         <div class="answer">
           <p>できます。マイページ → IMPORT &amp; EXPORT →<span class="nw">「日記を書き出す」</span>から、これまでの記録を<strong>テキスト（.txt）</strong>または <strong>CSV</strong> ファイルとして書き出せます。書き出したファイルは、メールやほかのアプリへ<span class="nw">共有できます。</span></p>
           <p>ご自身の記録はいつでも手元に取り出せます。特定のアプリに縛られることはありません。</p>
@@ -544,7 +559,7 @@
       <!-- [T260] アプリの「CSV の作り方」の飛び先（faq.html#import）。id を変えるとアプリのリンクが外れるので変えない
            （app/components/ImportGuide.js の IMPORT_HOWTO_URL）。文面の根拠 = hibi リポ agents/docs/08_marketing/20261019_t260_faq_import_copy.md -->
       <details id="import">
-        <summary><span class="qnum">Q7</span>ほかのアプリやメモの日記を、hibi に<span class="nw">取り込めますか？</span>（CSV の作り方）</summary>
+        <summary><span class="qnum">Q8</span>ほかのアプリやメモの日記を、hibi に<span class="nw">取り込めますか？</span>（CSV の作り方）</summary>
         <div class="answer">
           <!-- 段落の最後の句は .nw で 1 行にまとめる（どの幅でも最後の行が 4 字以下にならないように・lessons #67） -->
           <p>できます。これまで書いてきた日記を CSV ファイルにすれば、捨てずに hibi に<span class="nw">引っ越せます。</span></p>
@@ -594,7 +609,7 @@
       <h2><span class="mono">C.</span><span class="ja">機能の使い方</span></h2>
 
       <details>
-        <summary><span class="qnum">Q8</span>1 日に何件でも書けますか？文字数の上限はありますか？</summary>
+        <summary><span class="qnum">Q9</span>1 日に何件でも書けますか？文字数の上限はありますか？</summary>
         <div class="answer">
           <p>1 日に何件でも書けます。1 件あたりの文字数は最大 140 文字までです。</p>
           <p>短くてよい設計にしているのは、「ちゃんと書かなきゃ」という気負いをなくし、続けやすくするためです。</p>
@@ -602,7 +617,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q9</span>「マンスリーレポート」「ON THIS DAY」とは何ですか？</summary>
+        <summary><span class="qnum">Q10</span>「マンスリーレポート」「ON THIS DAY」とは何ですか？</summary>
         <div class="answer">
           <p>どちらも、過去の記録をふり返るための機能です。</p>
           <ul>
@@ -613,7 +628,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q10</span>通知はどんなものが届きますか？オフにできますか？</summary>
+        <summary><span class="qnum">Q11</span>通知はどんなものが届きますか？オフにできますか？</summary>
         <div class="answer">
           <p>2 種類あります。どちらもマイページ → SETTINGS →「通知」からオン／オフを切り替えられます。</p>
           <ul>
@@ -625,7 +640,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q11</span>写真や動画はどう扱われますか？</summary>
+        <summary><span class="qnum">Q12</span>写真や動画はどう扱われますか？</summary>
         <div class="answer">
           <p>書く画面で、1 件につき最大 4 つまで写真・動画を添えられます。添えたメディアは端末の中に保存されます。</p>
           <p>バックアップを設定し、「写真・動画もバックアップ」をオンにしている場合は、お客様ご自身の Google Drive にも保存されます。保存先はこの 2 か所だけです。hibi には、写真・動画を保管するサーバーが存在しません。</p>
@@ -636,23 +651,23 @@
     <section class="category">
       <h2><span class="mono">D.</span><span class="ja">プライバシー</span></h2>
 
-      <details>
-        <summary><span class="qnum">Q12</span>日記の内容が外部に漏れることはありませんか？</summary>
+      <details id="privacy">
+        <summary><span class="qnum">Q13</span>日記の内容が外部に漏れることはありませんか？</summary>
         <div class="answer">
           <p>hibi には、日記の本文・写真・動画を集めるサーバーが存在しません。記録は端末の中（とバックアップ設定時はお客様ご自身の Google Drive）にのみ保存されます。</p>
           <p>アプリの改善のために、どの画面が開かれたか・どのボタンが押されたかといった<strong>匿名の利用状況</strong>だけは記録していますが、ここに日記の中身・お名前・メールアドレスなど個人を特定する情報は一切含まれません。</p>
         </div>
       </details>
 
-      <details>
-        <summary><span class="qnum">Q13</span>ほかの人に見られないようにロックできますか？</summary>
+      <details id="lock">
+        <summary><span class="qnum">Q14</span>ほかの人に見られないようにロックできますか？</summary>
         <div class="answer">
           <p>できます。マイページ → SETTINGS →「セキュリティ」から、4 桁のパスコードを設定できます。お使いの端末が対応していれば、指紋認証・顔認証などの<strong>生体認証</strong>でのロック解除も使えます。パスコードは設定後いつでも変更できます。</p>
         </div>
       </details>
 
       <details>
-        <summary><span class="qnum">Q14</span>パスコードを忘れてしまいました。</summary>
+        <summary><span class="qnum">Q15</span>パスコードを忘れてしまいました。</summary>
         <div class="answer">
           <p>パスコードは安全のため、運営者を含め誰も確認・解除できません。お手数ですが、アプリを一度削除して入れ直してください。</p>
           <p>バックアップを設定されている場合は、再インストール後に同じ Google アカウントでログインして「バックアップから復元」すると、記録を元に戻せます。</p>
@@ -663,8 +678,8 @@
     <section class="category">
       <h2><span class="mono">E.</span><span class="ja">トラブル・データ移行</span></h2>
 
-      <details>
-        <summary><span class="qnum">Q15</span>機種変更します。記録を新しい端末へ移すには？</summary>
+      <details id="new-phone">
+        <summary><span class="qnum">Q16</span>機種変更します。記録を新しい端末へ移すには？</summary>
         <div class="answer">
           <p>バックアップを設定していれば移せます。</p>
           <ol>
@@ -672,12 +687,12 @@
             <li><strong>新端末</strong>で hibi をインストールし、<strong>旧端末と同じ Google アカウント</strong>でログインします。</li>
             <li>SETTINGS →「バックアップ」→「バックアップから復元」を実行すると、記録が新しい端末に戻ります。</li>
           </ol>
-          <div class="note">※ バックアップを設定していない場合は、旧端末でマイページ → IMPORT &amp; EXPORT →<span class="nw">「日記を書き出す」</span>から CSV ファイルを書き出し、新端末で<span class="nw">「日記を取り込む」</span>から取り込む方法もあります（Q6・Q7 参照）。ただし写真・動画は CSV ファイルには含まれないため、すべての記録を移すには Google Drive バックアップをおすすめします。</div>
+          <div class="note">※ バックアップを設定していない場合は、旧端末でマイページ → IMPORT &amp; EXPORT →<span class="nw">「日記を書き出す」</span>から CSV ファイルを書き出し、新端末で<span class="nw">「日記を取り込む」</span>から取り込む方法もあります（Q7・Q8 参照）。ただし写真・動画は CSV ファイルには含まれないため、すべての記録を移すには Google Drive バックアップをおすすめします。</div>
         </div>
       </details>
 
       <details>
-        <summary><span class="qnum">Q16</span>写真・動画が表示されない／読み込みに時間がかかります。</summary>
+        <summary><span class="qnum">Q17</span>写真・動画が表示されない／読み込みに時間がかかります。</summary>
         <div class="answer">
           <p>復元直後は、写真・動画を順番にダウンロードしているため、表示までに少し時間がかかることがあります。しばらく待ってからアプリを開き直してみてください。</p>
           <p>それでも直らない場合は、アプリの「ヘルプ・お問い合わせ」画面の「お問い合わせ」からご連絡ください。お使いの端末名やどの画面で起きたかを教えていただけると、確認がスムーズです。</p>
@@ -685,7 +700,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q17</span>アプリの調子が悪い／うまく動きません。</summary>
+        <summary><span class="qnum">Q18</span>アプリの調子が悪い／うまく動きません。</summary>
         <div class="answer">
           <p>いったんアプリを完全に閉じて開き直すと直ることがあります。改善しない場合は、アプリの「ヘルプ・お問い合わせ」画面の「お問い合わせ」からご連絡ください。</p>
           <p>その際、<strong>どの画面で・何をしたときに起きたか</strong>を書いていただけると、原因を早く特定できます。</p>
@@ -697,7 +712,7 @@
       <h2><span class="mono">F.</span><span class="ja">その他</span></h2>
 
       <details>
-        <summary><span class="qnum">Q18</span>要望や不具合を伝えたいです。</summary>
+        <summary><span class="qnum">Q19</span>要望や不具合を伝えたいです。</summary>
         <div class="answer">
           <p>アプリの「ヘルプ・お問い合わせ」画面の「お問い合わせ」からお送りください。「不具合の報告」「機能のご要望」「その他」を選んでお書きいただけます。</p>
           <p>いただいたご意見すべてに個別の返信はできかねますが、必ず拝見し、今後の改善の参考にさせていただきます。</p>
@@ -705,7 +720,7 @@
       </details>
 
       <details>
-        <summary><span class="qnum">Q19</span>退会（データの完全削除）はできますか？</summary>
+        <summary><span class="qnum">Q20</span>退会（データの完全削除）はできますか？</summary>
         <div class="answer">
           <p>できます。マイページの SETTINGS のいちばん下にある「すべてのデータを削除」から、端末の中のすべての記録・写真・動画・設定を一括で削除できます。Google アカウントと連携している場合は、hibi のアクセス権も同時に解除されます。</p>
           <p>なお、お客様ご自身の Google Drive に残っているバックアップ（「hibi-backup」フォルダ）は、念のためこの操作では消えません。完全に消したい場合は、Google Drive 上でこのフォルダをご自身で削除してください。</p>

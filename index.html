@@ -403,6 +403,142 @@ a{color:inherit;text-decoration:none}
   .lp-nav{gap:14px;font-size:11px}
   .lp-nav .lang-switch{margin-left:0;padding-left:8px}
 }
+
+/* =======================================================================
+   [T315] 機能と安心の情報を足す（Designer / 2026-11-20）
+   設計書: hibi/agents/docs/03_design/20261120_t315_lp_features_trust.md
+   新しい部品は 4 つだけ。どれも既存の語彙（lp-label / lp-h2 / lp-orn / lp-n / lp-edge の細罫）で組む。
+   線のルール（T209 §0-1）は守る = 琥珀の線は見出し直下の罫だけ。区切りは --lp-edge の細罫（about の表と同じ）。
+   ======================================================================= */
+
+/* ---- ① ヒーローの事実の一行（無料 / 広告なし / iOS・Android） ----
+   バッジの下に、奥付の仕様行のように小さく。区切りは琥珀ではなく細い縦の罫（--lp-edge より一段濃い）。 */
+.lp-facts{display:flex;justify-content:center;align-items:center;margin-top:16px;padding:0;list-style:none;
+  font-size:11.5px;font-weight:500;letter-spacing:.14em;color:var(--lp-sub);line-height:1}
+.lp-facts li{display:flex;align-items:center}
+.lp-facts li + li::before{content:"";display:block;width:1px;height:10px;margin:0 12px 0 calc(12px - .14em);
+  background:rgba(43,29,12,.22)}
+@media (max-width:1023px){ :root{--lp-hero-h:916px} }   /* スマホ: 事実の一行のぶん 890 → 916（端末は下に付いたままなので 1 件目のカードは変わらず最後まで見える） */
+
+/* ---- ② 約束の帯: 3 点 → 4 点 ----
+   スマホ 1 段 / PC は 2 列 × 2 段（§9 で帯が「絵が左・文が右」の 2 段組みになり、文の欄が 500px までになったため。4 列は撤回）。
+   既存の 3 列の作法（番号 → 本文・枠なし）のまま */
+/* 1023px 以下は今の帯と同じく 1 段（版面が 560px までなので、2 列にすると 1 列 260px で孤立行が出る） */
+
+/* ---- ③「できること」（マンスリーレポートとテーマのあいだ） ----
+   見出しの組みはユニットと同じ（札 → 明朝 → 罫 → 1 文）。絵の代わりに「目次」の表 = 細罫の上に
+   札・小見出し・1 文。アイコンは置かない（DESIGN_PHILOSOPHY §3-b「3 列アイコン説明」を避ける）。 */
+.lp-more{padding:calc(var(--lp-pad) + 16px) 0 var(--lp-pad)}
+.lp-more .lp-h2{font-size:min(24px,6.4vw);white-space:nowrap}
+.lp-more-head{max-width:var(--lp-measure)}
+.lp-feats{display:grid;grid-template-columns:1fr;row-gap:0;margin-top:34px;padding:0;list-style:none}
+.lp-feats li{border-top:1px solid var(--lp-edge);padding:22px 0 26px}
+.lp-flabel{display:block;font-size:11.5px;font-weight:500;letter-spacing:.2em;color:var(--lp-accent-text);line-height:1;margin-bottom:14px}
+.lp-fh{font-family:var(--lp-font-serif);font-weight:600;font-size:18px;line-height:1.5;color:var(--ink);
+  letter-spacing:.035em;font-feature-settings:'palt' 1;word-break:keep-all}
+.lp-feats p{margin-top:10px;font-size:14px;line-height:1.9;color:var(--lp-body);letter-spacing:.015em}
+/* 小さなリンク（取り込み方を見る / くわしく）: 本文の色・細い下線・→ は字で書く（アイコンにしない） */
+.lp-tlink{display:inline-block;margin-top:12px;font-size:12.5px;letter-spacing:.06em;color:var(--lp-sub);
+  border-bottom:1px solid rgba(43,29,12,.28);padding-bottom:2px;transition:color .15s,border-color .15s}
+.lp-tlink:hover{color:var(--ink);border-bottom-color:var(--lp-accent)}
+.lp-tlink:focus-visible,.lp-faqall:focus-visible{outline:1px solid var(--lp-accent);outline-offset:3px}
+.lp-tlink .lp-ar{display:inline-block;margin-left:.4em;transition:transform .2s}
+.lp-tlink:hover .lp-ar,.lp-faqall:hover .lp-ar{transform:translateX(3px)}
+.lp-more .lp-badges{margin-top:30px}
+
+/* ---- ④ よくある不安（hibi のこと と DOWNLOAD のあいだ） ----
+   問いは明朝、答えは本文。表は「できること」と同じ細罫。構造化データは付けない（FAQ ページだけ） */
+.lp-faq{padding:70px 0 0}
+.lp-faq .lp-h2{font-size:min(22px,5.9vw)}
+.lp-qa{display:grid;grid-template-columns:1fr;margin-top:34px}
+.lp-qa>div{border-top:1px solid var(--lp-edge);padding:22px 0 26px}
+.lp-qa dt{display:flex;gap:12px;font-family:var(--lp-font-serif);font-weight:600;font-size:16.5px;line-height:1.6;
+  color:var(--ink);letter-spacing:.03em;font-feature-settings:'palt' 1}
+.lp-qa dt .lp-q{flex:none;font-family:var(--lp-font-mark);font-weight:400;font-size:14px;letter-spacing:.1em;
+  color:var(--lp-accent-text);line-height:1.95}
+.lp-qa dd{padding-left:25px}   /* 問いの「Q」の幅ぶん下げて、問いの文字の頭に答えの頭をそろえる */
+.lp-qa dd p{margin-top:10px;font-size:14px;line-height:1.9;color:var(--lp-body);letter-spacing:.015em}
+.lp-faqall{display:inline-flex;align-items:center;margin-top:8px;font-family:var(--lp-font-serif);font-weight:500;
+  font-size:15px;letter-spacing:.06em;color:var(--lp-sub);border-bottom:1px solid rgba(43,29,12,.28);padding-bottom:3px;
+  transition:color .15s,border-color .15s}
+.lp-faqall:hover{color:var(--ink);border-bottom-color:var(--lp-accent)}
+.lp-faqall .lp-ar{display:inline-block;margin-left:.5em;transition:transform .2s}
+.lp-faq-foot{border-top:1px solid var(--lp-edge);padding-top:26px}
+
+/* ---- バッジ（帯の中・「できること」の後）: スマホは中央・PC は左（ヒーローと同じ決まり） ---- */
+.lp-essay .lp-badges{margin-top:40px}
+
+@media (min-width:1024px){
+  .lp-facts{justify-content:flex-start;margin-top:20px;font-size:12.5px}
+  .lp-promise .lp-cols.lp-cols4{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px;row-gap:36px}
+
+  .lp-more{padding:calc(var(--lp-pad) + 30px) 0 calc(var(--lp-pad) + 10px)}
+  .lp-more .lp-h2{font-size:min(34px,3.1vw)}
+  .lp-feats{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:52px;margin-top:52px}
+  .lp-feats li{padding:28px 0 34px}
+  .lp-flabel{font-size:12px;margin-bottom:16px}
+  .lp-fh{font-size:20px}
+  .lp-feats p{font-size:15px;line-height:1.95}
+  .lp-more .lp-badges{margin-top:28px}
+
+  .lp-essay .lp-badges{margin-top:52px}
+
+  .lp-faq{padding:110px 0 0}
+  .lp-faq .lp-h2{font-size:min(32px,3.1vw)}
+  .lp-qa{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:72px;margin-top:52px}
+  .lp-qa>div{padding:28px 0 34px}
+  .lp-qa dt{font-size:19px}
+  .lp-qa dt .lp-q{font-size:15px;line-height:1.95}
+  .lp-qa dd{padding-left:26px}
+  .lp-qa dd p{font-size:15px;line-height:1.95}
+  .lp-faq-foot{padding-top:30px}
+}
+@media (min-width:1200px){ .lp-more .lp-h2{font-size:min(36px,2.9vw)} }
+@media (min-width:1280px){ .lp-more .lp-h2{font-size:38px} }
+@media (prefers-reduced-motion:reduce){ .lp-ar{transition:none!important} }
+
+/* 句の中で折らない（孤立行を出さない） */
+.lp-nw{white-space:nowrap}
+
+/* =======================================================================
+   [T315 §9] 画像を添える（Designer / 2026-11-23）
+   設計書: hibi/agents/docs/03_design/20261120_t315_lp_features_trust.md §9
+   ======================================================================= */
+/* ---- ⑤ 安心の帯 + ロック画面の端末 1 台 ----
+   端末は U1 と同じ部品・同じ数値（lp-art 560×720 / lp-dev 360 / lp-scr 342×702 / lp-shot）。
+   スマホ〜1023px = 文の後に端末（中央・縮尺は U1 と同じ .833 → 640px から原寸）。
+   PC = 絵が左・文が右（lp-u-left と同じ row-reverse）・縦は中央そろえ・文の欄は 500px まで */
+.lp-pr-row{--lp-asc:.833}
+@media (min-width:640px){ .lp-pr-row{--lp-asc:1} }
+@media (min-width:1024px){
+  .lp-pr-row{--lp-asc:.82;display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:var(--lp-gap)}
+  .lp-pr-txt{flex:1 1 auto;min-width:0;max-width:500px}
+  .lp-pr-row .lp-art{flex:none;margin-top:0;margin-left:0}
+  /* 文の欄が 433px まで狭まる 1024〜1096px で、英語の見出しが 3 行（anything. が 1 語だけの行）にならないように、ユニットの見出しと同じ 3.1vw に */
+  .lp-promise .lp-h2{font-size:min(34px,3.1vw)}
+}
+@media (min-width:1200px){ .lp-pr-row{--lp-asc:.93} }
+@media (min-width:1280px){ .lp-pr-row{--lp-asc:1} }
+
+/* ---- ⑥ できることの標本の額（1 段目の 3 項目の頭に 1 枚ずつ） ----
+   額は U3 と同じ（lp-lift = 琥珀のグラデの縁 2px・外の角丸 18・中の角丸 16・同じ影）。端末の枠は付けない。
+   列の幅は画面の幅で変わるので、切り抜きは幅に合わせて伸び縮みする書き方（数値は素材 520×1130 の座標・単位なし）。
+   3 枚とも額の縦横比は同じ（--w:--ph = 520:436 = いちばん背の高い「よく使ったタグ」のカードが上下 20 の余白で入る比）。
+   中身の窓（--y・--h）は 1 枚ずつ違い、額の中で上下の真ん中に置く。窓の外は画面の地と同じ #0A0A0A
+   （窓の上下の端は素材の地 = 輝度 10 の所で切ってあるので、継ぎ目は見えない）= 額の中に、カードが置かれて見える */
+.lp-plate{padding:2px;border-radius:18px;background:var(--lp-lift);margin-bottom:22px;
+  box-shadow:0 26px 52px rgba(43,29,12,.30),0 8px 18px rgba(43,29,12,.16),0 0 48px rgba(176,122,62,.14)}
+.lp-pclip{--ph:436;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;border-radius:16px;background:#0A0A0A;aspect-ratio:var(--w) / var(--ph)}
+.lp-pwin{flex:none;overflow:hidden;aspect-ratio:var(--w) / var(--h)}
+.lp-pwin>img{display:block;max-width:none;height:auto;background:var(--lp-screen);
+  width:calc(100% * 520 / var(--w));
+  margin-left:calc(-100% * var(--x) / var(--w));
+  margin-top:calc(-100% * var(--y) / var(--w))}   /* margin の % は親の「幅」が基準なので、縦のずらしにも使える */
+/* 1 段組み（〜1023px）では額を 366px まで = 端末の絵（U1 の画面 342px）・U3 の標本と同じくらいの縮尺に保つ。
+   640〜1023px で版面いっぱい（560px）に広げると、画面の文字が端末の絵の 1.6 倍になって縮尺がばらつく */
+.lp-feats .lp-plate{max-width:366px}
+@media (min-width:1024px){ .lp-plate{margin-bottom:26px} .lp-feats .lp-plate{max-width:none} }
 </style>
 
 <header class="lp-header">
@@ -432,13 +568,17 @@ a{color:inherit;text-decoration:none}
         <p class="lp-sub">ひとことから、<br class="lp-brsp">自分だけの日記を始める。</p>
         <p class="lp-lead">hibi は、毎日の出来事や気持ちを、気軽に残せる日記アプリです。</p>
         <div class="lp-badges">
-          <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp&amp;mt=8">
+          <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp_hero&amp;mt=8">
             <img src="./assets/badges/appstore_ja.svg" width="125" height="46" alt="App Store からダウンロード">
           </a>
           <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">
             <img src="./assets/badges/googleplay_ja.svg" width="155" height="46" alt="Google Play で手に入れよう">
           </a>
         </div>
+        <!-- [T315] ヒーローの事実の一行。「全機能無料」とは言い切らない（将来の外の AI の有料オプションの話があるため） -->
+        <ul class="lp-facts" aria-label="hibi の概要">
+          <li>無料</li><li>広告なし</li><li>iOS / Android</li>
+        </ul>
       </div>
       <div class="lp-dev">
         <div class="lp-scr">
@@ -453,15 +593,30 @@ a{color:inherit;text-decoration:none}
 
   <!-- ============ 3 つの約束の帯（= ストア #02） ============ -->
   <section class="lp-promise">
-    <div class="lp-wrap">
-      <h2 class="lp-h2">誰にも見せないから<span class="lp-hang">、</span><br><span class="lp-k">何でも</span>書ける<span class="lp-hang">。</span></h2>
-      <div class="lp-orn" aria-hidden="true"></div>
-      <p class="lp-sub">日記は、あなたの端末の中だけに。</p>
-      <ol class="lp-cols">
-        <li><span class="lp-n">01</span><p>日記は、あなたの端末の中に保存されます。hibi の運営者がアクセスする手段はありません。</p></li>
-        <li><span class="lp-n">02</span><p>バックアップは、あなたの Google Drive へ。保存先はあなたが管理する場所であり、hibi の運営者は閲覧できません。</p></li>
-        <li><span class="lp-n">03</span><p>広告 ID も、第三者の追跡もありません。</p></li>
-      </ol>
+    <!-- [T315 §9] 絵が左・文が右の 2 段組み（PC）/ スマホは文の後に端末。端末は U1 と同じ部品・数値 -->
+    <div class="lp-wrap lp-pr-row" style="--abw:560px;--abh:720px">
+      <div class="lp-pr-txt">
+        <h2 class="lp-h2">誰にも見せないから<span class="lp-hang">、</span><br><span class="lp-k">何でも</span>書ける<span class="lp-hang">。</span></h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-sub">日記は、あなたの端末の中だけに。</p>
+        <!-- [T315] 3 点 → 4 点。旧 03（広告 ID・追跡なし）は 01 に統合（どちらも「誰も集めない」）。03 ロック・04 書き出しを新設 -->
+        <ol class="lp-cols lp-cols4">
+          <li><span class="lp-n">01</span><p>日記は、あなたの端末の中に保存されます。hibi の運営者がアクセスする手段はなく、広告 ID も、第三者の追跡も<span class="lp-nw">ありません。</span></p></li>
+          <li><span class="lp-n">02</span><p>バックアップは、あなたの Google Drive へ。保存先はあなたが管理する場所であり、hibi の運営者は<span class="lp-nw">閲覧できません。</span></p></li>
+          <li><span class="lp-n">03</span><p>パスコードと、指紋や顔の認証で、hibi に鍵をかけられます。アプリを離れるたびに鍵がかかり、ほかの人には<span class="lp-nw">開けません。</span></p></li>
+          <li><span class="lp-n">04</span><p>日記はいつでも、テキストや CSV で書き出せます。あなたの記録を、ひとつのアプリに<span class="lp-nw">閉じこめません。</span></p></li>
+        </ol>
+      </div>
+      <div class="lp-art"><div class="lp-artbox">
+        <div class="lp-dev" style="position:absolute;left:100px;top:0;width:360px;border-radius:54px;padding:9px">
+          <div class="lp-scr" style="width:342px;height:702px;border-radius:48px">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:1068px;--s0:0.6577">
+              <img src="./assets/captures/09_lock.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="hibi のロック画面。パスコードの 4 つの点のうち 2 つが埋まっている。">
+            </div>
+          </div>
+        </div>
+      </div></div>
     </div>
   </section>
 
@@ -595,6 +750,45 @@ a{color:inherit;text-decoration:none}
       </div></div>
     </section>
 
+    <!-- [T315] できること（マンスリーレポートの後・テーマの前）。絵の代わりに「目次」の表。末尾にバッジ -->
+    <section class="lp-more" aria-labelledby="lp-more-h">
+      <div class="lp-more-head">
+        <span class="lp-label">できること</span>
+        <h2 class="lp-h2" id="lp-more-h"><span class="lp-k">書く</span>、だけじゃない<span class="lp-hang">。</span></h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-p">書いてきた日々をふり返る道具も、続けるためのしくみも、そろっています。</p>
+      </div>
+      <ul class="lp-feats">
+        <li><div class="lp-plate"><div class="lp-pclip" style="--x:0;--w:520"><div class="lp-pwin" style="--y:264;--h:364">
+            <img src="./assets/captures/10_stats_heatmap.jpg" width="520" height="1130" loading="lazy" decoding="async" alt="統計の画面のヒートマップ。書いた日が光の粒で並んでいる。"></div></div></div>
+          <span class="lp-flabel">統計</span><h3 class="lp-fh">書いた日々を、見渡す</h3>
+          <p>記録の頻度を光の粒で描くヒートマップ、気持ちの傾向、書く時間帯のリズム、よく使ったタグのランキングで<span class="lp-nw">ふり返れます。</span></p></li>
+        <li><div class="lp-plate"><div class="lp-pclip" style="--x:0;--w:520"><div class="lp-pwin" style="--y:129;--h:399">
+            <img src="./assets/captures/12_calendar.jpg" width="520" height="1130" loading="lazy" decoding="async" alt="8 月のカレンダー。書いた日に印があり、「14日連続 更新中」と出ている。"></div></div></div>
+          <span class="lp-flabel">カレンダー</span><h3 class="lp-fh">続けた日も、おやすみの日も</h3>
+          <p>書いた日をカレンダーでたどれて、何日続けて書いているかも<span class="lp-nw">分かります。</span></p></li>
+        <li><div class="lp-plate"><div class="lp-pclip" style="--x:0;--w:520"><div class="lp-pwin" style="--y:478;--h:436">
+            <img src="./assets/captures/11_stats_tags.jpg" width="520" height="1130" loading="lazy" decoding="async" alt="よく使ったタグの順位。仕事・暮らしなどのタグが棒の長さで並んでいる。"></div></div></div>
+          <span class="lp-flabel">タグ・気持ち・場所</span><h3 class="lp-fh">その日の手ざわりも、残す</h3>
+          <p>タグと、4 つの気持ちと、場所を添えて残せて、あとからタグごとに<span class="lp-nw">読み返せます。</span></p></li>
+        <li><span class="lp-flabel">リマインダー</span><h3 class="lp-fh">書いていない夜だけ、そっと</h3>
+          <p>オンにすると夜 20:00 に届く、端末の中だけで作られる<span class="lp-nw">お知らせです。</span></p></li>
+        <li><span class="lp-flabel">ロック</span><h3 class="lp-fh">開けるのは、あなただけ</h3>
+          <p>4 桁のパスコードと、指紋や顔の生体認証で、アプリに鍵を<span class="lp-nw">かけられます。</span></p></li>
+        <li><span class="lp-flabel">取り込み</span><h3 class="lp-fh">これまでの日記も、一緒に</h3>
+          <p>他の日記アプリからのお引っ越しも、CSV で<span class="lp-nw">取り込めます。</span></p>
+          <a class="lp-tlink" href="./faq.html#import">取り込み方を見る<span class="lp-ar" aria-hidden="true">→</span></a></li>
+      </ul>
+      <div class="lp-badges">
+        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp&amp;mt=8">
+          <img src="./assets/badges/appstore_ja.svg" width="125" height="46" loading="lazy" alt="App Store からダウンロード">
+        </a>
+        <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">
+          <img src="./assets/badges/googleplay_ja.svg" width="155" height="46" loading="lazy" alt="Google Play で手に入れよう">
+        </a>
+      </div>
+    </section>
+
     <!-- U6 = ストア #08（テーマ 2×2） -->
     <section class="lp-unit lp-u-left lp-u-theme" style="--abw:560px;--abh:888px">
       <div class="lp-txt">
@@ -642,6 +836,47 @@ a{color:inherit;text-decoration:none}
         <p>SNS は、誰かに見られる前提の場所です。<br class="lp-brpc">SNS には書けないことも、気軽に書けて、誰にも見られない。<br class="lp-brpc">そんな日記がなかったので、hibi をつくりました。</p>
         <p>hibi は、日記を書くことだけでなく、読み返すことも大切にしています。<br class="lp-brpc">1 年前の今日、自分は何を書いていたのか。<br class="lp-brpc">読み返すたびに、変わったことも、変わらなかったことも見えてきます。</p>
       </div>
+      <!-- [T315] FAQ 抜粋の前のバッジ -->
+      <div><div class="lp-badges">
+        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp&amp;mt=8">
+          <img src="./assets/badges/appstore_ja.svg" width="125" height="46" loading="lazy" alt="App Store からダウンロード">
+        </a>
+        <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">
+          <img src="./assets/badges/googleplay_ja.svg" width="155" height="46" loading="lazy" alt="Google Play で手に入れよう">
+        </a>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ [T315] よくある不安（FAQ 抜粋・構造化データは付けない） ============ -->
+  <section class="lp-faq" aria-labelledby="lp-faq-h">
+    <div class="lp-wrap">
+      <span class="lp-label">よくある不安</span>
+      <h2 class="lp-h2" id="lp-faq-h">書く前に、<br class="lp-brsp">知っておきたいこと<span class="lp-hang">。</span></h2>
+      <div class="lp-orn" aria-hidden="true"></div>
+      <dl class="lp-qa">
+        <div>
+          <dt><span class="lp-q" aria-hidden="true">Q</span><span class="lp-qt">書いた日記は、どこに保存されますか？</span></dt>
+          <dd><p>あなたの端末の中です。hibi には、日記を預かるサーバーがありません。バックアップを設定したときだけ、あなたご自身の Google Drive <span class="lp-nw">にも保存されます。</span></p>
+            <a class="lp-tlink" href="./faq.html#storage">くわしく<span class="lp-ar" aria-hidden="true">→</span></a></dd>
+        </div>
+        <div>
+          <dt><span class="lp-q" aria-hidden="true">Q</span><span class="lp-qt">hibi の運営者に、<span class="lp-nw">日記を見られることは</span><span class="lp-nw">ありますか？</span></span></dt>
+          <dd><p>ありません。運営者には、日記の本文・写真・動画を見る手段がありません。アプリの改善のために受け取るのは、どの画面が開かれたかといった匿名の利用状況だけで、日記の中身は<span class="lp-nw">含まれません。</span></p>
+            <a class="lp-tlink" href="./faq.html#privacy">くわしく<span class="lp-ar" aria-hidden="true">→</span></a></dd>
+        </div>
+        <div>
+          <dt><span class="lp-q" aria-hidden="true">Q</span><span class="lp-qt">機種変更しても、日記は<span class="lp-nw">引き継げますか？</span></span></dt>
+          <dd><p>バックアップを設定していれば、新しい端末で同じ Google アカウントにログインして、復元するだけで戻せます。バックアップがなくても、CSV で書き出して取り込めます<span class="lp-nw">（写真・動画はのぞきます）。</span></p>
+            <a class="lp-tlink" href="./faq.html#new-phone">くわしく<span class="lp-ar" aria-hidden="true">→</span></a></dd>
+        </div>
+        <div>
+          <dt><span class="lp-q" aria-hidden="true">Q</span><span class="lp-qt">ほかの人に見られないように、<span class="lp-nw">ロックできますか？</span></span></dt>
+          <dd><p>できます。4 桁のパスコードを設定でき、端末が対応していれば、指紋や顔の認証でも開けます。パスコードは、運営者を含めて誰にも確認・解除<span class="lp-nw">できません。</span></p>
+            <a class="lp-tlink" href="./faq.html#lock">くわしく<span class="lp-ar" aria-hidden="true">→</span></a></dd>
+        </div>
+      </dl>
+      <div class="lp-faq-foot"><a class="lp-faqall" href="./faq.html">よくある質問をもっと見る<span class="lp-ar" aria-hidden="true">→</span></a></div>
     </div>
   </section>
 
@@ -650,7 +885,7 @@ a{color:inherit;text-decoration:none}
     <div class="lp-wrap">
       <span class="lp-label lp-label-en">DOWNLOAD</span>
       <div class="lp-badges">
-        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp&amp;mt=8">
+        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp&amp;mt=8">
           <img src="./assets/badges/appstore_ja.svg" width="125" height="46" loading="lazy" alt="App Store からダウンロード">
         </a>
         <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">
@@ -674,7 +909,7 @@ a{color:inherit;text-decoration:none}
         <dt>対応 OS</dt><dd>iOS / Android</dd>
         <dt>表示言語</dt><dd>日本語 / English</dd>
         <dt>料金</dt><dd>現在、すべての機能を無料で利用できます。アプリ内課金はありません。</dd>
-        <dt>App Store</dt><dd><a class="lp-u" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp&amp;mt=8">https://apps.apple.com/jp/app/id6799611736</a></dd>
+        <dt>App Store</dt><dd><a class="lp-u" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp&amp;mt=8">https://apps.apple.com/jp/app/id6799611736</a></dd>
         <dt>Google Play</dt><dd><a class="lp-u" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp&amp;utm_campaign=web_lp">https://play.google.com/store/apps/details?id=jp.bmtx.hibi</a></dd>
         <dt>公式サイト</dt><dd><a class="lp-u" href="https://hibi.bmtx.jp/">https://hibi.bmtx.jp</a></dd>
         <dt>公開日</dt><dd>2026 年 8 月 18 日（その後の更新は「お知らせ」に掲載しています）</dd>

@@ -461,6 +461,155 @@ a{color:inherit;text-decoration:none}
   .lp-nav{gap:14px;font-size:11px}
   .lp-nav .lang-switch{margin-left:0;padding-left:8px}
 }
+
+/* =======================================================================
+   [T315] 機能と安心の情報を足す（Designer / 2026-11-20）
+   設計書: hibi/agents/docs/03_design/20261120_t315_lp_features_trust.md
+   新しい部品は 4 つだけ。どれも既存の語彙（lp-label / lp-h2 / lp-orn / lp-n / lp-edge の細罫）で組む。
+   線のルール（T209 §0-1）は守る = 琥珀の線は見出し直下の罫だけ。区切りは --lp-edge の細罫（about の表と同じ）。
+   ======================================================================= */
+
+/* ---- ① ヒーローの事実の一行（無料 / 広告なし / iOS・Android） ----
+   バッジの下に、奥付の仕様行のように小さく。区切りは琥珀ではなく細い縦の罫（--lp-edge より一段濃い）。 */
+.lp-facts{display:flex;justify-content:center;align-items:center;margin-top:16px;padding:0;list-style:none;
+  font-size:11.5px;font-weight:500;letter-spacing:.14em;color:var(--lp-sub);line-height:1}
+.lp-facts li{display:flex;align-items:center}
+.lp-facts li + li::before{content:"";display:block;width:1px;height:10px;margin:0 12px 0 calc(12px - .14em);
+  background:rgba(43,29,12,.22)}
+@media (max-width:1023px){ :root{--lp-hero-h:916px} }   /* スマホ: 事実の一行のぶん 890 → 916（端末は下に付いたままなので 1 件目のカードは変わらず最後まで見える） */
+
+/* ---- ② 約束の帯: 3 点 → 4 点 ----
+   スマホ 1 段 / PC は 2 列 × 2 段（§9 で帯が「絵が左・文が右」の 2 段組みになり、文の欄が 500px までになったため。4 列は撤回）。
+   既存の 3 列の作法（番号 → 本文・枠なし）のまま */
+/* 1023px 以下は今の帯と同じく 1 段（版面が 560px までなので、2 列にすると 1 列 260px で孤立行が出る） */
+
+/* ---- ③「できること」（マンスリーレポートとテーマのあいだ） ----
+   見出しの組みはユニットと同じ（札 → 明朝 → 罫 → 1 文）。絵の代わりに「目次」の表 = 細罫の上に
+   札・小見出し・1 文。アイコンは置かない（DESIGN_PHILOSOPHY §3-b「3 列アイコン説明」を避ける）。 */
+.lp-more{padding:calc(var(--lp-pad) + 16px) 0 var(--lp-pad)}
+.lp-more .lp-h2{font-size:min(24px,6.4vw);white-space:nowrap}
+.lp-more-head{max-width:var(--lp-measure)}
+.lp-feats{display:grid;grid-template-columns:1fr;row-gap:0;margin-top:34px;padding:0;list-style:none}
+.lp-feats li{border-top:1px solid var(--lp-edge);padding:22px 0 26px}
+.lp-flabel{display:block;font-size:11.5px;font-weight:500;letter-spacing:.2em;color:var(--lp-accent-text);line-height:1;margin-bottom:14px}
+.lp-fh{font-family:var(--lp-font-serif);font-weight:600;font-size:18px;line-height:1.5;color:var(--ink);
+  letter-spacing:.035em;font-feature-settings:'palt' 1;word-break:keep-all}
+.lp-feats p{margin-top:10px;font-size:14px;line-height:1.9;color:var(--lp-body);letter-spacing:.015em}
+/* 小さなリンク（取り込み方を見る / くわしく）: 本文の色・細い下線・→ は字で書く（アイコンにしない） */
+.lp-tlink{display:inline-block;margin-top:12px;font-size:12.5px;letter-spacing:.06em;color:var(--lp-sub);
+  border-bottom:1px solid rgba(43,29,12,.28);padding-bottom:2px;transition:color .15s,border-color .15s}
+.lp-tlink:hover{color:var(--ink);border-bottom-color:var(--lp-accent)}
+.lp-tlink:focus-visible,.lp-faqall:focus-visible{outline:1px solid var(--lp-accent);outline-offset:3px}
+.lp-tlink .lp-ar{display:inline-block;margin-left:.4em;transition:transform .2s}
+.lp-tlink:hover .lp-ar,.lp-faqall:hover .lp-ar{transform:translateX(3px)}
+.lp-more .lp-badges{margin-top:30px}
+
+/* ---- ④ よくある不安（hibi のこと と DOWNLOAD のあいだ） ----
+   問いは明朝、答えは本文。表は「できること」と同じ細罫。構造化データは付けない（FAQ ページだけ） */
+.lp-faq{padding:70px 0 0}
+.lp-faq .lp-h2{font-size:min(22px,5.9vw)}
+.lp-qa{display:grid;grid-template-columns:1fr;margin-top:34px}
+.lp-qa>div{border-top:1px solid var(--lp-edge);padding:22px 0 26px}
+.lp-qa dt{display:flex;gap:12px;font-family:var(--lp-font-serif);font-weight:600;font-size:16.5px;line-height:1.6;
+  color:var(--ink);letter-spacing:.03em;font-feature-settings:'palt' 1}
+.lp-qa dt .lp-q{flex:none;font-family:var(--lp-font-mark);font-weight:400;font-size:14px;letter-spacing:.1em;
+  color:var(--lp-accent-text);line-height:1.95}
+.lp-qa dd{padding-left:25px}   /* 問いの「Q」の幅ぶん下げて、問いの文字の頭に答えの頭をそろえる */
+.lp-qa dd p{margin-top:10px;font-size:14px;line-height:1.9;color:var(--lp-body);letter-spacing:.015em}
+.lp-faqall{display:inline-flex;align-items:center;margin-top:8px;font-family:var(--lp-font-serif);font-weight:500;
+  font-size:15px;letter-spacing:.06em;color:var(--lp-sub);border-bottom:1px solid rgba(43,29,12,.28);padding-bottom:3px;
+  transition:color .15s,border-color .15s}
+.lp-faqall:hover{color:var(--ink);border-bottom-color:var(--lp-accent)}
+.lp-faqall .lp-ar{display:inline-block;margin-left:.5em;transition:transform .2s}
+.lp-faq-foot{border-top:1px solid var(--lp-edge);padding-top:26px}
+
+/* ---- バッジ（帯の中・「できること」の後）: スマホは中央・PC は左（ヒーローと同じ決まり） ---- */
+.lp-essay .lp-badges{margin-top:40px}
+
+@media (min-width:1024px){
+  .lp-facts{justify-content:flex-start;margin-top:20px;font-size:12.5px}
+  .lp-promise .lp-cols.lp-cols4{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px;row-gap:36px}
+
+  .lp-more{padding:calc(var(--lp-pad) + 30px) 0 calc(var(--lp-pad) + 10px)}
+  .lp-more .lp-h2{font-size:min(34px,3.1vw)}
+  .lp-feats{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:52px;margin-top:52px}
+  .lp-feats li{padding:28px 0 34px}
+  .lp-flabel{font-size:12px;margin-bottom:16px}
+  .lp-fh{font-size:20px}
+  .lp-feats p{font-size:15px;line-height:1.95}
+  .lp-more .lp-badges{margin-top:28px}
+
+  .lp-essay .lp-badges{margin-top:52px}
+
+  .lp-faq{padding:110px 0 0}
+  .lp-faq .lp-h2{font-size:min(32px,3.1vw)}
+  .lp-qa{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:72px;margin-top:52px}
+  .lp-qa>div{padding:28px 0 34px}
+  .lp-qa dt{font-size:19px}
+  .lp-qa dt .lp-q{font-size:15px;line-height:1.95}
+  .lp-qa dd{padding-left:26px}
+  .lp-qa dd p{font-size:15px;line-height:1.95}
+  .lp-faq-foot{padding-top:30px}
+}
+@media (min-width:1200px){ .lp-more .lp-h2{font-size:min(36px,2.9vw)} }
+@media (min-width:1280px){ .lp-more .lp-h2{font-size:38px} }
+@media (prefers-reduced-motion:reduce){ .lp-ar{transition:none!important} }
+
+/* 句の中で折らない（孤立行を出さない） */
+.lp-nw{white-space:nowrap}
+
+/* ---- [T315] 英語だけの手当て（T057 の英語の字組みの決まりに合わせる = 字間 0・行間を詰める・札は Outfit の大文字） ---- */
+.lp-facts{letter-spacing:.04em}
+.lp-facts li + li::before{margin:0 12px}
+.lp-more .lp-h2{white-space:normal;text-wrap:balance}
+.lp-flabel{font-family:var(--lp-font-mark);font-weight:400;font-size:11.5px;letter-spacing:.26em;text-transform:uppercase}
+.lp-fh{font-weight:500;letter-spacing:-.003em;line-height:1.3;text-wrap:balance}
+.lp-feats p,.lp-qa dd p{line-height:1.72;letter-spacing:0;text-wrap:pretty}
+.lp-qa dt{font-weight:500;letter-spacing:0;line-height:1.38;text-wrap:balance}
+.lp-qa dt .lp-q{line-height:1.6}
+.lp-tlink,.lp-faqall{letter-spacing:.01em}
+.lp-faq .lp-h2{text-wrap:balance}
+@media (min-width:1024px){ .lp-qa dt .lp-q{line-height:1.6} }
+
+/* =======================================================================
+   [T315 §9] 画像を添える（Designer / 2026-11-23）
+   設計書: hibi/agents/docs/03_design/20261120_t315_lp_features_trust.md §9
+   ======================================================================= */
+/* ---- ⑤ 安心の帯 + ロック画面の端末 1 台 ----
+   端末は U1 と同じ部品・同じ数値（lp-art 560×720 / lp-dev 360 / lp-scr 342×702 / lp-shot）。
+   スマホ〜1023px = 文の後に端末（中央・縮尺は U1 と同じ .833 → 640px から原寸）。
+   PC = 絵が左・文が右（lp-u-left と同じ row-reverse）・縦は中央そろえ・文の欄は 500px まで */
+.lp-pr-row{--lp-asc:.833}
+@media (min-width:640px){ .lp-pr-row{--lp-asc:1} }
+@media (min-width:1024px){
+  .lp-pr-row{--lp-asc:.82;display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center;gap:var(--lp-gap)}
+  .lp-pr-txt{flex:1 1 auto;min-width:0;max-width:500px}
+  .lp-pr-row .lp-art{flex:none;margin-top:0;margin-left:0}
+  /* 文の欄が 433px まで狭まる 1024〜1096px で、英語の見出しが 3 行（anything. が 1 語だけの行）にならないように、ユニットの見出しと同じ 3.1vw に */
+  .lp-promise .lp-h2{font-size:min(34px,3.1vw)}
+}
+@media (min-width:1200px){ .lp-pr-row{--lp-asc:.93} }
+@media (min-width:1280px){ .lp-pr-row{--lp-asc:1} }
+
+/* ---- ⑥ できることの標本の額（1 段目の 3 項目の頭に 1 枚ずつ） ----
+   額は U3 と同じ（lp-lift = 琥珀のグラデの縁 2px・外の角丸 18・中の角丸 16・同じ影）。端末の枠は付けない。
+   列の幅は画面の幅で変わるので、切り抜きは幅に合わせて伸び縮みする書き方（数値は素材 520×1130 の座標・単位なし）。
+   3 枚とも額の縦横比は同じ（--w:--ph = 520:436 = いちばん背の高い「よく使ったタグ」のカードが上下 20 の余白で入る比）。
+   中身の窓（--y・--h）は 1 枚ずつ違い、額の中で上下の真ん中に置く。窓の外は画面の地と同じ #0A0A0A
+   （窓の上下の端は素材の地 = 輝度 10 の所で切ってあるので、継ぎ目は見えない）= 額の中に、カードが置かれて見える */
+.lp-plate{padding:2px;border-radius:18px;background:var(--lp-lift);margin-bottom:22px;
+  box-shadow:0 26px 52px rgba(43,29,12,.30),0 8px 18px rgba(43,29,12,.16),0 0 48px rgba(176,122,62,.14)}
+.lp-pclip{--ph:436;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;border-radius:16px;background:#0A0A0A;aspect-ratio:var(--w) / var(--ph)}
+.lp-pwin{flex:none;overflow:hidden;aspect-ratio:var(--w) / var(--h)}
+.lp-pwin>img{display:block;max-width:none;height:auto;background:var(--lp-screen);
+  width:calc(100% * 520 / var(--w));
+  margin-left:calc(-100% * var(--x) / var(--w));
+  margin-top:calc(-100% * var(--y) / var(--w))}   /* margin の % は親の「幅」が基準なので、縦のずらしにも使える */
+/* 1 段組み（〜1023px）では額を 366px まで = 端末の絵（U1 の画面 342px）・U3 の標本と同じくらいの縮尺に保つ。
+   640〜1023px で版面いっぱい（560px）に広げると、画面の文字が端末の絵の 1.6 倍になって縮尺がばらつく */
+.lp-feats .lp-plate{max-width:366px}
+@media (min-width:1024px){ .lp-plate{margin-bottom:26px} .lp-feats .lp-plate{max-width:none} }
 </style>
 
 <header class="lp-header">
@@ -490,18 +639,22 @@ a{color:inherit;text-decoration:none}
         <p class="lp-sub">One line, just for you.</p>
         <p class="lp-lead">hibi is a journal app for keeping what happens each day and how you feel, starting with just a&nbsp;few words.</p>
         <div class="lp-badges">
-          <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp_en&amp;mt=8">
+          <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp_en&amp;mt=8">
             <img src="../assets/badges/appstore_en.svg" width="138" height="46" alt="Download on the App Store">
           </a>
           <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp_en&amp;utm_campaign=web_lp">
             <img src="../assets/badges/googleplay_en.svg" width="155" height="46" alt="Get it on Google Play">
           </a>
         </div>
+        <!-- [T315] ヒーローの事実の一行（「All features free」とは言い切らない） -->
+        <ul class="lp-facts" aria-label="At a glance">
+          <li>Free</li><li>No ads</li><li>iOS / Android</li>
+        </ul>
       </div>
       <div class="lp-dev">
         <div class="lp-scr">
           <div class="lp-shot">
-            <img src="../assets/captures/01_cinematic.jpg" width="520" height="1130" fetchpriority="high" decoding="async"
+            <img src="../assets/captures_en/01_cinematic.jpg" width="520" height="1130" fetchpriority="high" decoding="async"
                  alt="The journal list. Cards with photos are lined up by date.">
           </div>
         </div>
@@ -511,15 +664,30 @@ a{color:inherit;text-decoration:none}
 
   <!-- ============ 3 つの約束の帯（= ストア #02） ============ -->
   <section class="lp-promise">
-    <div class="lp-wrap">
-      <h2 class="lp-h2">No one else sees it,<br> so you can write <span class="lp-k">anything</span>.</h2>
-      <div class="lp-orn" aria-hidden="true"></div>
-      <p class="lp-sub">Your journal stays on your device.</p>
-      <ol class="lp-cols">
-        <li><span class="lp-n">01</span><p>Your journal is saved on your device. The people behind hibi have no way to access it.</p></li>
-        <li><span class="lp-n">02</span><p>Backups go to your own Google&nbsp;Drive, a place you control. The people behind hibi can’t see it.</p></li>
-        <li><span class="lp-n">03</span><p>There’s no advertising ID, and no <span class="lp-nw">third-party</span> tracking.</p></li>
-      </ol>
+    <!-- [T315 §9] 絵が左・文が右の 2 段組み（PC）/ スマホは文の後に端末。端末は U1 と同じ部品・数値 -->
+    <div class="lp-wrap lp-pr-row" style="--abw:560px;--abh:720px">
+      <div class="lp-pr-txt">
+        <h2 class="lp-h2">No one else sees it,<br> so you can write <span class="lp-k">anything</span>.</h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-sub">Your journal stays on your device.</p>
+        <!-- [T315] 3 点 → 4 点（旧 03 は 01 に統合・03 ロック / 04 書き出しを新設） -->
+        <ol class="lp-cols lp-cols4">
+          <li><span class="lp-n">01</span><p>Your journal is saved on your device. The people behind hibi have no way to access it, and there’s no advertising ID or <span class="lp-nw">third-party</span> tracking.</p></li>
+          <li><span class="lp-n">02</span><p>Backups go to your own Google&nbsp;Drive, a place you control. The people behind hibi can’t see it.</p></li>
+          <li><span class="lp-n">03</span><p>Lock hibi with a passcode, or with your fingerprint or face. It locks each time you leave the app, so no one else can open&nbsp;it.</p></li>
+          <li><span class="lp-n">04</span><p>Export your journal anytime as a text or CSV file. Your entries are never stuck in one&nbsp;app.</p></li>
+        </ol>
+      </div>
+      <div class="lp-art"><div class="lp-artbox">
+        <div class="lp-dev" style="position:absolute;left:100px;top:0;width:360px;border-radius:54px;padding:9px">
+          <div class="lp-scr" style="width:342px;height:702px;border-radius:48px">
+            <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:1068px;--s0:0.6577">
+              <img src="../assets/captures_en/09_lock.jpg" width="520" height="1130" loading="lazy" decoding="async"
+                   alt="The hibi lock screen, with two of the four passcode dots filled in.">
+            </div>
+          </div>
+        </div>
+      </div></div>
     </div>
   </section>
 
@@ -538,7 +706,7 @@ a{color:inherit;text-decoration:none}
         <div class="lp-dev" style="position:absolute;left:100px;top:0;width:360px;border-radius:54px;padding:9px">
           <div class="lp-scr" style="width:342px;height:702px;border-radius:48px">
             <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:1068px;--s0:0.6577">
-              <img src="../assets/captures/03_otd.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/03_otd.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="The On This Day screen. Past entries from the same date are lined up, newest first.">
             </div>
           </div>
@@ -558,7 +726,7 @@ a{color:inherit;text-decoration:none}
         <div class="lp-dev" style="position:absolute;left:100px;top:0;width:360px;border-radius:54px;padding:9px">
           <div class="lp-scr" style="width:342px;height:702px;border-radius:48px">
             <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:1068px;--s0:0.6577">
-              <img src="../assets/captures/04_quote.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/04_quote.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="An entry card that quotes a past entry and continues it.">
             </div>
           </div>
@@ -567,7 +735,7 @@ a{color:inherit;text-decoration:none}
     </section>
 
     <!-- U3 = ストア #05（標本箱 2×2） -->
-    <section class="lp-unit lp-u-right" style="--abw:560px;--abh:498px">
+    <section class="lp-unit lp-u-right" style="--abw:560px;--abh:522px">
       <div class="lp-txt">
         <span class="lp-label">Cards</span>
         <h2 class="lp-h2"><span class="lp-nw">A few words</span> <span class="lp-nw">become a <span class="lp-k">picture</span>.</span></h2>
@@ -577,29 +745,29 @@ a{color:inherit;text-decoration:none}
       <div class="lp-art"><div class="lp-artbox">
         <div class="lp-lift" style="left:0;top:0;border-radius:18px">
           <div class="lp-clip" style="border-radius:16px">
-            <div class="lp-shot" style="--x:21px;--y:73px;--w:478px;--h:543px;--s0:0.5628">
-              <img src="../assets/captures/05a_cinematic.jpg" width="520" height="1130" loading="lazy" decoding="async"
+            <div class="lp-shot" style="--x:21px;--y:239.5px;--w:478px;--h:602.3px;--s0:0.5628">
+              <img src="../assets/captures_en/05a_cinematic.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="An entry card with a photo filling the frame."></div>
           </div>
         </div>
         <div class="lp-lift" style="left:287px;top:2px;border-radius:18px">
           <div class="lp-clip" style="border-radius:16px">
-            <div class="lp-shot" style="--x:21px;--y:439px;--w:478px;--h:516px;--s0:0.5628">
-              <img src="../assets/captures/05c_dual.jpg" width="520" height="1130" loading="lazy" decoding="async"
+            <div class="lp-shot" style="--x:21px;--y:342.7px;--w:478px;--h:498.3px;--s0:0.5628">
+              <img src="../assets/captures_en/05c_dual.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="An entry card with two photos side by side."></div>
           </div>
         </div>
-        <div class="lp-lift" style="left:0;top:359px;border-radius:18px">
+        <div class="lp-lift" style="left:0;top:392.4px;border-radius:18px">
           <div class="lp-clip" style="border-radius:16px">
-            <div class="lp-shot" style="--x:21px;--y:227px;--w:478px;--h:239px;--s0:0.5628">
-              <img src="../assets/captures/05d_venting.jpg" width="520" height="1130" loading="lazy" decoding="async"
+            <div class="lp-shot" style="--x:21px;--y:561.4px;--w:478px;--h:221.8px;--s0:0.5628">
+              <img src="../assets/captures_en/05d_venting.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="An entry card with a longer text only."></div>
           </div>
         </div>
-        <div class="lp-lift" style="left:287px;top:371px;border-radius:18px">
+        <div class="lp-lift" style="left:287px;top:395px;border-radius:18px">
           <div class="lp-clip" style="border-radius:16px">
-            <div class="lp-shot" style="--x:21px;--y:442px;--w:478px;--h:217px;--s0:0.5628">
-              <img src="../assets/captures/05f_rawmoment.jpg" width="520" height="1130" loading="lazy" decoding="async"
+            <div class="lp-shot" style="--x:21px;--y:271.8px;--w:478px;--h:217.1px;--s0:0.5628">
+              <img src="../assets/captures_en/05f_rawmoment.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="An entry card with just one line."></div>
           </div>
         </div>
@@ -618,7 +786,7 @@ a{color:inherit;text-decoration:none}
         <div class="lp-dev" style="position:absolute;left:100px;top:0;width:360px;border-radius:54px;padding:9px">
           <div class="lp-scr" style="width:342px;height:702px;border-radius:48px">
             <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:1068px;--s0:0.6577">
-              <img src="../assets/captures/06_gallery.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/06_gallery.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="The Gallery view. Photos from entries are lined up as tiles.">
             </div>
           </div>
@@ -638,7 +806,7 @@ a{color:inherit;text-decoration:none}
         <div class="lp-lift" style="left:83px;top:0;border-radius:18px;z-index:1">
           <div class="lp-clip" style="border-radius:17px">
             <div class="lp-shot" style="--x:0px;--y:128px;--w:520px;--h:926px;--s0:0.6923">
-              <img src="../assets/captures/07b_cover_june.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/07b_cover_june.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="The cover of the previous month’s Monthly Report."></div>
           </div>
         </div>
@@ -646,11 +814,50 @@ a{color:inherit;text-decoration:none}
              box-shadow:0 26px 52px rgba(43,29,12,.30),0 8px 18px rgba(43,29,12,.16),0 0 48px rgba(176,122,62,.14),0 -5px 14px rgba(43,29,12,.30)">
           <div class="lp-clip" style="border-radius:17px">
             <div class="lp-shot" style="--x:0px;--y:128px;--w:520px;--h:926px;--s0:0.6923">
-              <img src="../assets/captures/07a_cover_july.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/07a_cover_july.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="A Monthly Report cover, with a photo from that month filling the page."></div>
           </div>
         </div>
       </div></div>
+    </section>
+
+    <!-- [T315] Features（Monthly Report の後・Themes の前） -->
+    <section class="lp-more" aria-labelledby="lp-more-h">
+      <div class="lp-more-head">
+        <span class="lp-label">Features</span>
+        <h2 class="lp-h2" id="lp-more-h">More than <span class="lp-k">writing</span>.</h2>
+        <div class="lp-orn" aria-hidden="true"></div>
+        <p class="lp-p">Tools for looking back on your days, and a few small things that help you keep&nbsp;going.</p>
+      </div>
+      <ul class="lp-feats">
+        <li><div class="lp-plate"><div class="lp-pclip" style="--x:0;--w:520"><div class="lp-pwin" style="--y:242;--h:364">
+            <img src="../assets/captures_en/10_stats_heatmap.jpg" width="520" height="1130" loading="lazy" decoding="async" alt="The heatmap in Insights. The days you wrote appear as dots of light."></div></div></div>
+          <span class="lp-flabel">Insights</span><h3 class="lp-fh">Look back over your days</h3>
+          <p>See a heatmap of the days you wrote, your mood trends, the hours you tend to write, and the tags you use&nbsp;most.</p></li>
+        <li><div class="lp-plate"><div class="lp-pclip" style="--x:0;--w:520"><div class="lp-pwin" style="--y:129;--h:399">
+            <img src="../assets/captures_en/12_calendar.jpg" width="520" height="1130" loading="lazy" decoding="async" alt="The calendar for August. Days with entries are marked, with a 14-day streak."></div></div></div>
+          <span class="lp-flabel">Calendar</span><h3 class="lp-fh">Days you wrote, and days&nbsp;off</h3>
+          <p>Trace the days you wrote on a calendar, and see how many days in a row you’ve kept&nbsp;going.</p></li>
+        <li><div class="lp-plate"><div class="lp-pclip" style="--x:0;--w:520"><div class="lp-pwin" style="--y:478;--h:436">
+            <img src="../assets/captures_en/11_stats_tags.jpg" width="520" height="1130" loading="lazy" decoding="async" alt="Top tags in Insights, ranked by how often each tag was used."></div></div></div>
+          <span class="lp-flabel">Tags · Mood · Place</span><h3 class="lp-fh">Keep the feel of the&nbsp;day</h3>
+          <p>Add tags, one of four moods, and a place to any entry, then read back by&nbsp;tag.</p></li>
+        <li><span class="lp-flabel">Daily Reminder</span><h3 class="lp-fh">Only on nights you haven’t&nbsp;written</h3>
+          <p>Turn it on for a gentle reminder at 8&nbsp;p.m., created on your device and never sent from a&nbsp;server.</p></li>
+        <li><span class="lp-flabel">App Lock</span><h3 class="lp-fh">Only you can open&nbsp;it</h3>
+          <p>Lock the app with a 4-digit passcode, or with your fingerprint or&nbsp;face.</p></li>
+        <li><span class="lp-flabel">Import</span><h3 class="lp-fh">Bring your old journal&nbsp;along</h3>
+          <p>Moving from another journal app? Import your entries from a CSV&nbsp;file.</p>
+          <a class="lp-tlink" href="./faq.html#import">How to import<span class="lp-ar" aria-hidden="true">→</span></a></li>
+      </ul>
+      <div class="lp-badges">
+        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp_en&amp;mt=8">
+          <img src="../assets/badges/appstore_en.svg" width="138" height="46" loading="lazy" alt="Download on the App Store">
+        </a>
+        <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp_en&amp;utm_campaign=web_lp">
+          <img src="../assets/badges/googleplay_en.svg" width="155" height="46" loading="lazy" alt="Get it on Google Play">
+        </a>
+      </div>
     </section>
 
     <!-- U6 = ストア #08（テーマ 2×2） -->
@@ -665,22 +872,22 @@ a{color:inherit;text-decoration:none}
         <div class="lp-dev" style="position:absolute;left:0px;top:0px;width:266px;padding:5px 5px 0;border-radius:41px 41px 0 0">
           <div class="lp-scr" style="width:256px;height:380px;border-radius:36px 36px 0 0">
             <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:772px;--s0:0.4923">
-              <img src="../assets/captures/08_theme_midnight.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/08_theme_midnight.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="The app in a dark theme."></div></div></div>
         <div class="lp-dev" style="position:absolute;left:293px;top:0px;width:266px;padding:5px 5px 0;border-radius:41px 41px 0 0">
           <div class="lp-scr" style="width:256px;height:380px;border-radius:36px 36px 0 0">
             <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:772px;--s0:0.4923">
-              <img src="../assets/captures/08_theme_hidamari.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/08_theme_hidamari.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="The app in a light, warm off-white theme."></div></div></div>
         <div class="lp-dev" style="position:absolute;left:0px;top:466px;width:266px;padding:5px 5px 0;border-radius:41px 41px 0 0">
           <div class="lp-scr" style="width:256px;height:380px;border-radius:36px 36px 0 0">
             <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:772px;--s0:0.4923">
-              <img src="../assets/captures/08_theme_ameagari.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/08_theme_ameagari.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="The app in a greenish theme."></div></div></div>
         <div class="lp-dev" style="position:absolute;left:293px;top:466px;width:266px;padding:5px 5px 0;border-radius:41px 41px 0 0">
           <div class="lp-scr" style="width:256px;height:380px;border-radius:36px 36px 0 0">
             <div class="lp-shot" style="--x:0px;--y:62px;--w:520px;--h:772px;--s0:0.4923">
-              <img src="../assets/captures/08_theme_natsunosora.jpg" width="520" height="1130" loading="lazy" decoding="async"
+              <img src="../assets/captures_en/08_theme_natsunosora.jpg" width="520" height="1130" loading="lazy" decoding="async"
                    alt="The app in a blue-sky theme."></div></div></div>
         <p class="lp-tname" style="left:0px;top:398px;width:266px">Midnight</p>
         <p class="lp-tname" style="left:293px;top:398px;width:266px">Sunlight</p>
@@ -700,6 +907,47 @@ a{color:inherit;text-decoration:none}
         <p>Social media is a place made to be seen by someone.<br class="lp-brpc"> There wasn’t a journal where you could easily write even what you’d never put on social media, and where no one else would see it.<br class="lp-brpc"> So we made hibi.</p>
         <p>hibi cares about looking back on your journal as much as writing it.<br class="lp-brpc"> What were you writing on this day a year ago?<br class="lp-brpc"> Each time you look back, you’ll see what has changed, and what hasn’t.</p>
       </div>
+      <!-- [T315] FAQ 抜粋の前のバッジ -->
+      <div><div class="lp-badges">
+        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp_en&amp;mt=8">
+          <img src="../assets/badges/appstore_en.svg" width="138" height="46" loading="lazy" alt="Download on the App Store">
+        </a>
+        <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp_en&amp;utm_campaign=web_lp">
+          <img src="../assets/badges/googleplay_en.svg" width="155" height="46" loading="lazy" alt="Get it on Google Play">
+        </a>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ [T315] Common questions（FAQ 抜粋・構造化データは付けない） ============ -->
+  <section class="lp-faq" aria-labelledby="lp-faq-h">
+    <div class="lp-wrap">
+      <span class="lp-label">Common questions</span>
+      <h2 class="lp-h2" id="lp-faq-h">Before you start writing.</h2>
+      <div class="lp-orn" aria-hidden="true"></div>
+      <dl class="lp-qa">
+        <div>
+          <dt><span class="lp-q" aria-hidden="true">Q</span><span class="lp-qt">Where is my journal stored?</span></dt>
+          <dd><p>On your device. hibi has no server that holds your entries. Only if you set up backup is it also saved to your own Google&nbsp;Drive.</p>
+            <a class="lp-tlink" href="./faq.html#storage">Read more<span class="lp-ar" aria-hidden="true">→</span></a></dd>
+        </div>
+        <div>
+          <dt><span class="lp-q" aria-hidden="true">Q</span><span class="lp-qt">Can the people behind hibi read my&nbsp;journal?</span></dt>
+          <dd><p>No. We have no way to see the text, photos, or videos in your journal. To improve the app, we receive only anonymous usage data, such as which screens were opened, and it never includes what you&nbsp;write.</p>
+            <a class="lp-tlink" href="./faq.html#privacy">Read more<span class="lp-ar" aria-hidden="true">→</span></a></dd>
+        </div>
+        <div>
+          <dt><span class="lp-q" aria-hidden="true">Q</span><span class="lp-qt">Can I keep my journal when I change&nbsp;phones?</span></dt>
+          <dd><p>Yes. If you’ve set up backup, sign in with the same Google account on your new phone and restore. Without a backup, you can export a CSV file and import it (photos and videos aren’t&nbsp;included).</p>
+            <a class="lp-tlink" href="./faq.html#new-phone">Read more<span class="lp-ar" aria-hidden="true">→</span></a></dd>
+        </div>
+        <div>
+          <dt><span class="lp-q" aria-hidden="true">Q</span><span class="lp-qt">Can I lock the app so others can’t see&nbsp;it?</span></dt>
+          <dd><p>Yes. Set a 4-digit passcode, and if your device supports it, unlock with your fingerprint or face. No one, including us, can look up or reset your&nbsp;passcode.</p>
+            <a class="lp-tlink" href="./faq.html#lock">Read more<span class="lp-ar" aria-hidden="true">→</span></a></dd>
+        </div>
+      </dl>
+      <div class="lp-faq-foot"><a class="lp-faqall" href="./faq.html">See all questions<span class="lp-ar" aria-hidden="true">→</span></a></div>
     </div>
   </section>
 
@@ -708,7 +956,7 @@ a{color:inherit;text-decoration:none}
     <div class="lp-wrap">
       <span class="lp-label lp-label-en">DOWNLOAD</span>
       <div class="lp-badges">
-        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp_en&amp;mt=8">
+        <a class="lp-badge" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp_en&amp;mt=8">
           <img src="../assets/badges/appstore_en.svg" width="138" height="46" loading="lazy" alt="Download on the App Store">
         </a>
         <a class="lp-badge" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp_en&amp;utm_campaign=web_lp">
@@ -732,7 +980,7 @@ a{color:inherit;text-decoration:none}
         <dt>Platforms</dt><dd>iOS / Android</dd>
         <dt>Language</dt><dd><span lang="ja">日本語</span> / English</dd>
         <dt>Price</dt><dd>All features are currently free to use. There are no <span class="lp-nw">in-app</span> purchases.</dd>
-        <dt>App Store</dt><dd><a class="lp-u" href="https://apps.apple.com/jp/app/id6799611736?ct=hibi_lp_en&amp;mt=8">https://apps.apple.com/jp/app/id6799611736</a></dd>
+        <dt>App Store</dt><dd><a class="lp-u" href="https://apps.apple.com/jp/app/id6799611736?pt=129257745&amp;ct=hibi_lp_en&amp;mt=8">https://apps.apple.com/jp/app/id6799611736</a></dd>
         <dt>Google Play</dt><dd><a class="lp-u" href="https://play.google.com/store/apps/details?id=jp.bmtx.hibi&amp;utm_source=hibi_lp_en&amp;utm_campaign=web_lp">https://play.google.com/store/apps/details?id=jp.bmtx.hibi</a></dd>
         <dt>Website</dt><dd><a class="lp-u" href="https://hibi.bmtx.jp/en/">https://hibi.bmtx.jp/en/</a></dd>
         <dt>Released</dt><dd>August 18, 2026 (later updates are posted in News)</dd>
